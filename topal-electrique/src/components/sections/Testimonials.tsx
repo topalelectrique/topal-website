@@ -54,7 +54,7 @@ export default function Testimonials() {
   const dragStartX = useRef(0);
   const dragStartOffset = useRef(0);
   const lastTime = useRef<number | null>(null);
-  const rafRef = useRef<number>(undefined);
+  const rafRef = useRef<number>();
 
   const animate = useCallback((timestamp: number) => {
     if (lastTime.current === null) lastTime.current = timestamp;
