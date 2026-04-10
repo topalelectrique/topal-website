@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.w3.org/2000/xmlns/sitemap/0.9">
+  <url><loc>https://topalelectrique.ca/fr</loc><priority>1.0</priority></url>
+  <url><loc>https://topalelectrique.ca/en</loc><priority>1.0</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/services</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/services</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/a-propos</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/a-propos</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/projets</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/projets</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/faq</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/faq</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/confidentialite</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/confidentialite</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/fr/conditions</loc><priority>0.8</priority></url>
+  <url><loc>https://topalelectrique.ca/en/conditions</loc><priority>0.8</priority></url>
+</urlset>
