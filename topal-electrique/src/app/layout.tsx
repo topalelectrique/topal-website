@@ -1,18 +1,20 @@
 import { Inter, Rajdhani } from 'next/font/google';
 import './globals.css';
-
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 });
-
 const rajdhani = Rajdhani({
   variable: '--font-rajdhani',
   subsets: ['latin'],
   display: 'swap',
   weight: ['400', '500', '600', '700'],
 });
+
+export function generateStaticParams() {
+  return [{ locale: 'fr' }, { locale: 'en' }];
+}
 
 export default function RootLayout({
   children,
