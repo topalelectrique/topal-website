@@ -1,0 +1,304 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "about": "À propos",
+    "projects": "Projets",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "phone": "(514) 999-2030",
+    "cta": "Obtenir une soumission"
+  },
+  "hero": {
+    "headline": "Votre électricien de confiance à Montréal",
+    "subtitle": "Maîtres électriciens certifiés desservant le Grand Montréal. Installation résidentielle, commerciale et service d'urgence 24/7.",
+    "cta": "Demander une soumission",
+    "urgencyBadge": "Urgence 24/7"
+  },
+  "trust": {
+    "projectsCount": "1000+",
+    "projectsLabel": "Projets complétés",
+    "yearsCount": "20+",
+    "yearsLabel": "Années d'expérience",
+    "satisfactionCount": "100%",
+    "satisfactionLabel": "Satisfaction client",
+    "marqueeText": "Électricien certifié à Montréal — Service résidentiel et commercial — Urgence 24/7 — Satisfaction garantie"
+  },
+  "services": {
+    "heading": "Nos services électriques",
+    "subtitle": "Des solutions électriques professionnelles adaptées à chaque besoin résidentiel et commercial dans le Grand Montréal.",
+    "learnMore": "En savoir plus",
+    "items": [
+      {
+        "title": "Installation électrique résidentielle",
+        "description": "Installation électrique sécuritaire et conforme au Code de construction du Québec pour maisons neuves, rénovations et mises à niveau. Prises, luminaires, panneaux et câblage complet par des maîtres électriciens certifiés.",
+        "slug": "installation-electrique-residentielle",
+        "link": "/services#residentiel"
+      },
+      {
+        "title": "Installation électrique commerciale",
+        "description": "Services électriques sur mesure pour commerces, bureaux et bâtiments industriels. Éclairage optimisé, systèmes triphasés et installations haute performance conformes aux normes CSA.",
+        "slug": "installation-electrique-commerciale",
+        "link": "/services#commercial"
+      },
+      {
+        "title": "Service d'urgence 24/7 et dépannage",
+        "description": "Intervention d'urgence rapide disponible nuits, fins de semaine et jours fériés. Pannes électriques, courts-circuits, disjoncteurs défaillants — nos électriciens interviennent partout dans le Grand Montréal.",
+        "slug": "service-urgence-depannage",
+        "link": "/services#urgence"
+      },
+      {
+        "title": "Installation de bornes de recharge EV",
+        "description": "Installation certifiée de bornes de recharge pour véhicules électriques (niveau 2) en résidentiel et commercial. Compatible Tesla, Grizzl-E et toutes marques. Conforme aux normes CSA et admissible aux subventions.",
+        "slug": "installation-bornes-recharge",
+        "link": "/services#bornes"
+      },
+      {
+        "title": "Mise à niveau de panneaux électriques",
+        "description": "Remplacement et mise à niveau de panneaux électriques 100A, 200A, 320A et 400A. Augmentez la capacité de votre installation pour répondre aux besoins modernes en toute sécurité.",
+        "slug": "mise-a-jour-panneaux-electriques",
+        "link": "/services#panneaux"
+      }
+    ]
+  },
+  "about": {
+    "label": "À propos",
+    "heading": "L'électricien de confiance du Grand Montréal",
+    "title": "À propos de Topal Électrique",
+    "subtitle": "Maîtres électriciens certifiés au service du Grand Montréal",
+    "description": "Depuis plus de 20 ans, Topal Électrique accompagne les propriétaires résidentiels et les entreprises du Grand Montréal dans tous leurs projets électriques. De l'installation complète au dépannage d'urgence, notre équipe de maîtres électriciens certifiés s'engage à livrer un travail impeccable, sécuritaire et conforme au Code de construction du Québec.",
+    "mission": "Notre engagement : offrir un service électrique d'excellence qui assure la sécurité et la tranquillité d'esprit de chaque client. Chaque fil posé, chaque connexion vérifiée — votre satisfaction est notre standard.",
+    "values": "Nos valeurs fondamentales — rigueur, intégrité, sécurité et satisfaction client — guident chacune de nos interventions, du premier appel à la livraison finale du projet.",
+    "stats": {
+      "experience": {
+        "value": "15+",
+        "label": "Années d'expérience"
+      },
+      "projects": {
+        "value": "500+",
+        "label": "Projets complétés"
+      }
+    },
+    "cta": "Découvrir notre histoire",
+    "ctaLink": "/a-propos",
+    "whyChoose": {
+      "title": "Pourquoi choisir Topal Électrique?",
+      "reasons": [
+        {
+          "title": "Expertise certifiée",
+          "description": "Maîtres électriciens licenciés par la CMEQ avec plus de 20 ans d'expérience terrain dans le Grand Montréal."
+        },
+        {
+          "title": "Service rapide et fiable",
+          "description": "Intervention rapide avec service d'urgence 24/7. Nous nous déplaçons dans tout le Grand Montréal, Laval et la Rive-Sud."
+        },
+        {
+          "title": "Prix transparents",
+          "description": "Soumissions détaillées et honnêtes, sans frais cachés. Vous savez exactement ce que vous payez avant le début des travaux."
+        },
+        {
+          "title": "Satisfaction garantie",
+          "description": "Un engagement envers la qualité et la satisfaction complète de chaque client. Travaux garantis et conformes aux normes."
+        }
+      ]
+    }
+  },
+  "testimonials": {
+    "heading": "Ce que nos clients disent",
+    "title": "Ce que nos clients disent",
+    "subtitle": "La satisfaction de nos clients est notre plus grande fierté. Voici leurs témoignages.",
+    "items": [
+      {
+        "name": "Michel F.",
+        "location": "Pointe-Claire",
+        "text": "Service impeccable! Topal a diagnostiqué et résolu mon problème rapidement. Très professionnel.",
+        "rating": 5
+      },
+      {
+        "name": "Sophie P.",
+        "location": "Verdun",
+        "text": "Travail soigné et équipe sympathique. Installation de panneau impeccable. Je recommande sans hésiter.",
+        "rating": 5
+      },
+      {
+        "name": "Erik F.",
+        "location": "Hampstead",
+        "text": "Enfin une entreprise fiable et compétente! Travaux complétés dans les délais et budget respecté.",
+        "rating": 5
+      },
+      {
+        "name": "Mathieu D.",
+        "location": "Verdun",
+        "text": "De vrais experts en électricité! Intervention rapide, propre et efficace. Prix honnête.",
+        "rating": 5
+      },
+      {
+        "name": "Aisha L.",
+        "location": "Fabreville, Laval",
+        "text": "Installation faite avec soin et professionnalisme. L'équipe a expliqué chaque étape clairement.",
+        "rating": 5
+      },
+      {
+        "name": "Ilias B.",
+        "location": "Saint-Canut, Mirabel",
+        "text": "Travail rapide et efficace. Équipe souriante et compétente. Excellent rapport qualité-prix.",
+        "rating": 5
+      },
+      {
+        "name": "Nadia K.",
+        "location": "Vaudreuil-Dorion",
+        "text": "Installation de luminaires encastrés impeccable. Excellent savoir-faire et propreté du chantier.",
+        "rating": 5
+      }
+    ]
+  },
+  "faq": {
+    "heading": "Questions fréquentes",
+    "title": "Questions fréquentes",
+    "subtitle": "Trouvez rapidement les réponses à vos questions sur nos services électriques à Montréal.",
+    "viewAll": "Voir toutes les questions",
+    "items": [
+      {
+        "question": "Quels sont vos horaires de service?",
+        "answer": "Nous sommes disponibles du lundi au vendredi de 7h à 18h et le samedi de 8h à 16h. Pour les urgences électriques, notre service est disponible 24h/24, 7j/7, incluant les soirs, les fins de semaine et les jours fériés."
+      },
+      {
+        "question": "Comment obtenir une soumission?",
+        "answer": "Contactez-nous par téléphone au (514) 999-2030 ou via notre formulaire en ligne pour obtenir une soumission détaillée. Nous évaluons chaque projet individuellement pour vous offrir un prix juste et transparent."
+      },
+      {
+        "question": "Quels types de services électriques offrez-vous?",
+        "answer": "Nous offrons une gamme complète de services : installation électrique résidentielle et commerciale, mise à niveau de panneaux, installation de bornes de recharge EV, éclairage intérieur et extérieur, dépannage et urgences 24/7 dans tout le Grand Montréal."
+      },
+      {
+        "question": "Quelle est votre zone de service?",
+        "answer": "Nous desservons toute la région du Grand Montréal, incluant Laval, Longueuil, la Rive-Sud, la Rive-Nord, l'Ouest-de-l'Île et les environs dans un rayon de 50 km."
+      },
+      {
+        "question": "Êtes-vous des électriciens certifiés?",
+        "answer": "Oui, nous sommes des maîtres électriciens licenciés par la Corporation des maîtres électriciens du Québec (CMEQ). Tous nos travaux sont conformes au Code de construction du Québec et aux normes CSA."
+      },
+      {
+        "question": "Offrez-vous une garantie sur vos travaux?",
+        "answer": "Oui. Tous nos travaux sont garantis — main-d'œuvre et matériaux inclus. Si un problème lié à notre installation survient après la fin du chantier, nous revenons sans frais supplémentaires pour le corriger. Votre tranquillité d'esprit est notre priorité."
+      },
+      {
+        "question": "Faut-il un permis pour des travaux électriques?",
+        "answer": "Pour la grande majorité des travaux (mise à niveau de panneau, ajout de circuits, rénovation), un permis municipal est requis. En tant que maîtres électriciens licenciés, nous nous chargeons de toutes les démarches de permis et d'inspection en votre nom."
+      },
+      {
+        "question": "Combien de temps dure une installation typique?",
+        "answer": "La durée varie selon le projet. Le remplacement d'un panneau électrique prend généralement une journée. Une installation résidentielle complète pour une maison neuve peut s'échelonner sur plusieurs jours. Nous vous communiquons un calendrier précis dès la soumission."
+      },
+      {
+        "question": "Comment savoir si mon panneau électrique est désuet?",
+        "answer": "Plusieurs signes indiquent qu'un remplacement s'impose : disjoncteurs qui sautent fréquemment, panneau de marque Zinsco ou Federal Pacific (reconnus défectueux), capacité insuffisante (60A pour une grande maison), brûlures ou odeur de plastique près du panneau. En cas de doute, contactez-nous pour une évaluation."
+      },
+      {
+        "question": "Quelle est la différence entre un service de 100A, 200A, 320A et 400A?",
+        "answer": "L'ampérage détermine la puissance électrique totale disponible. Un service de 100A convient aux petits logements. Le 200A est le standard actuel pour la plupart des maisons — il supporte climatiseurs, bornes EV et cuisinières électriques. Le 320A est une option intermédiaire idéale pour les grandes maisons ou les propriétés avec une demande élevée sans nécessiter un service commercial complet. Le 400A est réservé aux très grandes demeures ou bâtiments commerciaux à forte demande énergétique."
+      },
+      {
+        "question": "Installez-vous des bornes de recharge pour véhicules électriques?",
+        "answer": "Oui, c'est l'un de nos services les plus demandés. Nous installons des bornes de niveau 2 (240V) compatibles avec toutes les marques — Tesla, Grizzl-E, ChargePoint et autres. Nos installations sont admissibles aux programmes de subvention gouvernementaux et incluent la certification RBQ."
+      },
+      {
+        "question": "Que faire en cas de panne électrique à domicile?",
+        "answer": "Vérifiez d'abord si la panne est générale dans votre quartier via Hydro-Québec. Si le problème est localisé chez vous, consultez votre panneau pour tout disjoncteur déclenché. Ne touchez jamais un fil dénudé ou un équipement endommagé. Appelez-nous — notre service d'urgence est disponible 24h/24, 7j/7."
+      }
+    ]
+  },
+  "projects": {
+    "heading": "Nos réalisations",
+    "title": "Nos réalisations",
+    "subtitle": "Découvrez nos projets d'installation électrique résidentielle et commerciale à travers le Grand Montréal.",
+    "filterAll": "Tous",
+    "filterResidential": "Résidentiel",
+    "filterCommercial": "Commercial",
+    "viewAll": "Voir tous les projets"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Demandez une soumission ou posez-nous vos questions. Notre équipe d'électriciens certifiés est prête à vous aider.",
+    "form": {
+      "name": "Nom complet",
+      "email": "Adresse courriel",
+      "phone": "Téléphone",
+      "service": "Service souhaité",
+      "message": "Message",
+      "submit": "Envoyer la demande",
+      "success": "Votre message a été envoyé avec succès! Nous vous contacterons sous peu.",
+      "error": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "phone": "(514) 999-2030",
+    "hours": "Lundi - Vendredi: 7h - 18h",
+    "area": "Grand Montréal",
+    "serviceOptions": [
+      "Installation électrique résidentielle",
+      "Installation électrique commerciale",
+      "Service d'urgence 24/7 et dépannage",
+      "Installation de bornes de recharge EV",
+      "Mise à niveau de panneaux électriques",
+      "Autre"
+    ]
+  },
+  "cta": {
+    "heading": "Prêt à démarrer votre projet électrique?",
+    "title": "Prêt à démarrer votre projet électrique?",
+    "subtitle": "Contactez-nous dès aujourd'hui pour une soumission. Notre équipe de maîtres électriciens certifiés est prête à concrétiser votre projet.",
+    "button": "Obtenir une soumission",
+    "primary": "Obtenir une soumission",
+    "phone": "(514) 999-2030"
+  },
+  "footer": {
+    "description": "Topal Électrique — Maîtres électriciens certifiés à Montréal. Services résidentiels et commerciaux, urgence 24/7 dans le Grand Montréal.",
+    "quickLinks": "Liens rapides",
+    "ourServices": "Nos services",
+    "contactInfo": "Contact",
+    "service1": "Installation électrique",
+    "service2": "Panneau électrique",
+    "service3": "Éclairage intérieur & extérieur",
+    "service4": "Borne de recharge EV",
+    "service5": "Dépannage & urgences",
+    "hours": "Lun - Ven: 7h - 18h",
+    "hoursWeekend": "Sam: 8h - 16h",
+    "serviceArea": "Grand Montréal",
+    "copyright": "Tous droits réservés.",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation"
+  },
+  "meta": {
+    "home": {
+      "title": "Topal Électrique | Électricien certifié à Montréal | Résidentiel & Commercial",
+      "description": "Topal Électrique, maîtres électriciens certifiés à Montréal. Installation résidentielle et commerciale, panneaux électriques, bornes de recharge EV et urgence 24/7. Appelez (514) 999-2030."
+    },
+    "services": {
+      "title": "Services électriques à Montréal | Installation, dépannage, bornes EV | Topal Électrique",
+      "description": "Services électriques professionnels à Montréal : installation résidentielle et commerciale, bornes de recharge EV, panneaux électriques, éclairage et dépannage d'urgence 24/7."
+    },
+    "about": {
+      "title": "À propos | Maîtres électriciens certifiés Montréal | Topal Électrique",
+      "description": "Topal Électrique, maîtres électriciens certifiés CMEQ avec plus de 15 ans d'expérience à Montréal. Installation, rénovation et dépannage électrique résidentiel et commercial."
+    },
+    "projects": {
+      "title": "Nos réalisations | Projets électriques résidentiels et commerciaux | Topal Électrique",
+      "description": "Découvrez plus de 500 projets d'installation électrique réalisés par Topal Électrique à Montréal, Laval et la Rive-Sud. Résidentiel et commercial."
+    },
+    "contact": {
+      "title": "Contactez-nous | Soumission électricien Montréal | Topal Électrique",
+      "description": "Contactez Topal Électrique pour une soumission. Électricien certifié à Montréal disponible pour installation résidentielle, commerciale et urgence 24/7. (514) 999-2030."
+    },
+    "faq": {
+      "title": "FAQ | Questions fréquentes | Électricien Montréal | Topal Électrique",
+      "description": "Réponses à vos questions sur nos services électriques à Montréal. Horaires, certifications, zone de service et urgence 24/7. Maîtres électriciens certifiés."
+    },
+    "privacy": {
+      "title": "Politique de confidentialité | Topal Électrique",
+      "description": "Politique de confidentialité de Topal Électrique. Découvrez comment nous protégeons vos données personnelles."
+    },
+    "terms": {
+      "title": "Conditions d'utilisation | Topal Électrique",
+      "description": "Conditions d'utilisation du site web de Topal Électrique, électricien certifié à Montréal."
+    }
+  }
+}

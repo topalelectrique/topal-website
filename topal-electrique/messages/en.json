@@ -1,0 +1,304 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "phone": "(514) 999-2030",
+    "cta": "Get a Quote"
+  },
+  "hero": {
+    "headline": "Your trusted electrician in Montreal",
+    "subtitle": "Certified master electricians serving Greater Montreal. Residential, commercial installation and 24/7 emergency service.",
+    "cta": "Request a Quote",
+    "urgencyBadge": "24/7 Emergency"
+  },
+  "trust": {
+    "projectsCount": "1000+",
+    "projectsLabel": "Projects completed",
+    "yearsCount": "20+",
+    "yearsLabel": "Years of experience",
+    "satisfactionCount": "100%",
+    "satisfactionLabel": "Client satisfaction",
+    "marqueeText": "Certified Montreal Electrician — Residential & Commercial Service — 24/7 Emergency — Guaranteed Satisfaction"
+  },
+  "services": {
+    "heading": "Our electrical services",
+    "subtitle": "Professional electrical solutions tailored to every residential and commercial need across Greater Montreal.",
+    "learnMore": "Learn more",
+    "items": [
+      {
+        "title": "Residential electrical installation",
+        "description": "Safe, Quebec Building Code-compliant electrical installations for new homes, renovations and upgrades. Outlets, lighting, panels and complete wiring by certified master electricians.",
+        "slug": "residential-electrical-installation",
+        "link": "/services#residential"
+      },
+      {
+        "title": "Commercial electrical installation",
+        "description": "Custom electrical services for retail, offices and industrial buildings. Optimized lighting, three-phase systems and high-performance CSA-compliant installations.",
+        "slug": "commercial-electrical-installation",
+        "link": "/services#commercial"
+      },
+      {
+        "title": "24/7 Emergency service & troubleshooting",
+        "description": "Fast emergency response available nights, weekends and holidays. Power outages, short circuits, faulty breakers — our electricians respond across Greater Montreal.",
+        "slug": "emergency-service-troubleshooting",
+        "link": "/services#emergency"
+      },
+      {
+        "title": "EV charging station installation",
+        "description": "Certified Level 2 EV charging station installation for residential and commercial properties. Compatible with Tesla, Grizzl-E and all brands. CSA-compliant and subsidy-eligible.",
+        "slug": "ev-charging-station-installation",
+        "link": "/services#ev-charging"
+      },
+      {
+        "title": "Electrical panel upgrades",
+        "description": "100A, 200A, 320A and 400A electrical panel replacement and upgrades. Increase your installation's capacity to safely meet modern electrical demands.",
+        "slug": "electrical-panel-upgrades",
+        "link": "/services#panels"
+      }
+    ]
+  },
+  "about": {
+    "label": "About",
+    "heading": "Greater Montreal's trusted electrician",
+    "title": "About Topal Électrique",
+    "subtitle": "Certified master electricians serving Greater Montreal",
+    "description": "For over 20 years, Topal Électrique has been serving homeowners and businesses across Greater Montreal with all their electrical needs. From complete installations to emergency repairs, our team of certified master electricians delivers impeccable, safe work that meets Quebec Building Code standards.",
+    "mission": "Our commitment: delivering electrical service excellence that ensures the safety and peace of mind of every client. Every wire installed, every connection verified — your satisfaction is our standard.",
+    "values": "Our core values — precision, integrity, safety and client satisfaction — guide every job we do, from the first call to final project delivery.",
+    "stats": {
+      "experience": {
+        "value": "15+",
+        "label": "Years of experience"
+      },
+      "projects": {
+        "value": "500+",
+        "label": "Projects completed"
+      }
+    },
+    "cta": "Discover our story",
+    "ctaLink": "/a-propos",
+    "whyChoose": {
+      "title": "Why choose Topal Électrique?",
+      "reasons": [
+        {
+          "title": "Certified expertise",
+          "description": "CMEQ-licensed master electricians with over 20 years of hands-on experience across Greater Montreal."
+        },
+        {
+          "title": "Fast & reliable service",
+          "description": "Prompt response with 24/7 emergency service. We serve all of Greater Montreal, Laval and the South Shore."
+        },
+        {
+          "title": "Transparent pricing",
+          "description": "Detailed, honest quotes with no hidden fees. You know exactly what you're paying before work begins."
+        },
+        {
+          "title": "Guaranteed satisfaction",
+          "description": "A commitment to quality workmanship and complete client satisfaction. Guaranteed, code-compliant work."
+        }
+      ]
+    }
+  },
+  "testimonials": {
+    "heading": "What our clients say",
+    "title": "What our clients say",
+    "subtitle": "Our clients' satisfaction is our greatest pride. Here are their testimonials.",
+    "items": [
+      {
+        "name": "Michel F.",
+        "location": "Pointe-Claire",
+        "text": "Impeccable service! Topal diagnosed and resolved my issue quickly. Very professional.",
+        "rating": 5
+      },
+      {
+        "name": "Sophie P.",
+        "location": "Verdun",
+        "text": "Meticulous work and a friendly team. Flawless panel installation. I recommend without hesitation.",
+        "rating": 5
+      },
+      {
+        "name": "Erik F.",
+        "location": "Hampstead",
+        "text": "Finally a reliable and skilled company! Work completed on schedule and on budget.",
+        "rating": 5
+      },
+      {
+        "name": "Mathieu D.",
+        "location": "Verdun",
+        "text": "True electrical experts! Fast, clean, and efficient work. Honest pricing.",
+        "rating": 5
+      },
+      {
+        "name": "Aisha L.",
+        "location": "Fabreville, Laval",
+        "text": "Installation done with care and professionalism. The team explained every step clearly.",
+        "rating": 5
+      },
+      {
+        "name": "Ilias B.",
+        "location": "Saint-Canut, Mirabel",
+        "text": "Quick and efficient work. Friendly and skilled team. Excellent value for money.",
+        "rating": 5
+      },
+      {
+        "name": "Nadia K.",
+        "location": "Vaudreuil-Dorion",
+        "text": "Flawless recessed lighting installation. Excellent craftsmanship and a clean worksite.",
+        "rating": 5
+      }
+    ]
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "title": "Frequently asked questions",
+    "subtitle": "Find quick answers to your questions about our electrical services in Montreal.",
+    "viewAll": "View all questions",
+    "items": [
+      {
+        "question": "What are your business hours?",
+        "answer": "We are available Monday to Friday from 7 AM to 6 PM and Saturday from 8 AM to 4 PM. For electrical emergencies, our service is available 24/7, including evenings, weekends, and holidays."
+      },
+      {
+        "question": "How do I get a quote?",
+        "answer": "Contact us by phone at (514) 999-2030 or through our online form to get a detailed quote. We evaluate each project individually to offer you a fair, transparent price."
+      },
+      {
+        "question": "What types of electrical services do you offer?",
+        "answer": "We offer a full range of services: residential and commercial electrical installation, panel upgrades, EV charging station installation, indoor and outdoor lighting, troubleshooting and 24/7 emergency service across Greater Montreal."
+      },
+      {
+        "question": "What is your service area?",
+        "answer": "We serve the entire Greater Montreal region, including Laval, Longueuil, the South Shore, the North Shore, the West Island and surrounding areas within a 50 km radius."
+      },
+      {
+        "question": "Are you certified electricians?",
+        "answer": "Yes, we are licensed master electricians certified by the Corporation des maîtres électriciens du Québec (CMEQ). All our work complies with the Quebec Building Code and CSA standards."
+      },
+      {
+        "question": "Do you offer a warranty on your work?",
+        "answer": "Yes. All our work is guaranteed — labour and materials included. If an issue related to our installation arises after the job is complete, we return at no additional charge to fix it. Your peace of mind is our priority."
+      },
+      {
+        "question": "Is a permit required for electrical work?",
+        "answer": "For the vast majority of electrical work (panel upgrades, new circuits, renovations), a municipal permit is required. As licensed master electricians, we handle all permit applications and inspections on your behalf."
+      },
+      {
+        "question": "How long does a typical installation take?",
+        "answer": "Duration varies by project. An electrical panel replacement typically takes one day. A complete residential installation for a new home may span several days. We provide you with a precise schedule at the quoting stage."
+      },
+      {
+        "question": "How do I know if my electrical panel is outdated?",
+        "answer": "Several signs indicate a replacement is needed: frequently tripping breakers, panels by Zinsco or Federal Pacific (known to be defective), insufficient capacity (60A for a large home), scorch marks or a burning smell near the panel. When in doubt, contact us for an assessment."
+      },
+      {
+        "question": "What is the difference between 100A, 200A, 320A and 400A service?",
+        "answer": "The amperage determines the total electrical capacity available to your property. A 100A service suits small units without heavy appliances. 200A is the current standard for most homes — it supports air conditioners, EV chargers and electric ranges. 320A is an intermediate option ideal for large homes or properties with high demand that don't yet require full commercial service. 400A is reserved for very large homes or commercial buildings with the highest energy demands."
+      },
+      {
+        "question": "Do you install EV charging stations?",
+        "answer": "Yes, it is one of our most requested services. We install Level 2 (240V) charging stations compatible with all brands — Tesla, Grizzl-E, ChargePoint and others. Our installations qualify for government subsidy programs and include RBQ certification."
+      },
+      {
+        "question": "What should I do during a home power outage?",
+        "answer": "First, check whether the outage affects your neighbourhood via Hydro-Québec. If the issue is isolated to your home, check your panel for any tripped breakers. Never touch exposed wiring or damaged equipment. Call us — our emergency service is available 24/7."
+      }
+    ]
+  },
+  "projects": {
+    "heading": "Our projects",
+    "title": "Our projects",
+    "subtitle": "Explore our residential and commercial electrical installation projects across Greater Montreal.",
+    "filterAll": "All",
+    "filterResidential": "Residential",
+    "filterCommercial": "Commercial",
+    "viewAll": "View all projects"
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "Request a quote or ask us your questions. Our team of certified electricians is ready to help.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "service": "Service Needed",
+      "message": "Message",
+      "submit": "Send Request",
+      "success": "Your message has been sent successfully! We'll get back to you shortly.",
+      "error": "An error occurred. Please try again."
+    },
+    "phone": "(514) 999-2030",
+    "hours": "Monday - Friday: 7 AM - 6 PM",
+    "area": "Greater Montreal",
+    "serviceOptions": [
+      "Residential Electrical Installation",
+      "Commercial Electrical Installation",
+      "24/7 Emergency Service & Troubleshooting",
+      "EV Charging Station Installation",
+      "Electrical Panel Upgrades",
+      "Other"
+    ]
+  },
+  "cta": {
+    "heading": "Ready to start your electrical project?",
+    "title": "Ready to start your electrical project?",
+    "subtitle": "Contact us today for a quote. Our team of certified master electricians is ready to bring your electrical project to life.",
+    "button": "Get a Quote",
+    "primary": "Get a Quote",
+    "phone": "(514) 999-2030"
+  },
+  "footer": {
+    "description": "Topal Électrique — Certified master electricians in Montreal. Residential and commercial services, 24/7 emergency across Greater Montreal.",
+    "quickLinks": "Quick Links",
+    "ourServices": "Our Services",
+    "contactInfo": "Contact",
+    "service1": "Electrical Installation",
+    "service2": "Electrical Panel",
+    "service3": "Indoor & Outdoor Lighting",
+    "service4": "EV Charging Station",
+    "service5": "Troubleshooting & Emergencies",
+    "hours": "Mon - Fri: 7am - 6pm",
+    "hoursWeekend": "Sat: 8am - 4pm",
+    "serviceArea": "Greater Montreal",
+    "copyright": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "meta": {
+    "home": {
+      "title": "Topal Électrique | Certified Electrician in Montreal | Residential & Commercial",
+      "description": "Topal Électrique, certified master electricians in Montreal. Residential and commercial installation, electrical panels, EV charging stations and 24/7 emergency. Call (514) 999-2030."
+    },
+    "services": {
+      "title": "Electrical Services in Montreal | Installation, Repairs, EV Charging | Topal Électrique",
+      "description": "Professional electrical services in Montreal: residential and commercial installation, EV charging stations, panel upgrades, lighting and 24/7 emergency troubleshooting."
+    },
+    "about": {
+      "title": "About Us | Certified Master Electricians Montreal | Topal Électrique",
+      "description": "Topal Électrique, CMEQ-certified master electricians with over 15 years of experience in Montreal. Residential and commercial electrical installation, renovation and repair."
+    },
+    "projects": {
+      "title": "Our Projects | Residential & Commercial Electrical Work | Topal Électrique",
+      "description": "Browse over 500 electrical installation projects completed by Topal Électrique in Montreal, Laval and the South Shore. Residential and commercial."
+    },
+    "contact": {
+      "title": "Contact Us | Electrician Quote Montreal | Topal Électrique",
+      "description": "Contact Topal Électrique for a quote. Certified electrician in Montreal for residential, commercial and 24/7 emergency service. (514) 999-2030."
+    },
+    "faq": {
+      "title": "FAQ | Frequently Asked Questions | Montreal Electrician | Topal Électrique",
+      "description": "Answers to your questions about our electrical services in Montreal. Hours, certifications, service area and 24/7 emergency. Certified master electricians."
+    },
+    "privacy": {
+      "title": "Privacy Policy | Topal Électrique",
+      "description": "Privacy policy for Topal Électrique. Learn how we protect your personal data."
+    },
+    "terms": {
+      "title": "Terms of Service | Topal Électrique",
+      "description": "Terms of service for the Topal Électrique website, certified electrician in Montreal."
+    }
+  }
+}

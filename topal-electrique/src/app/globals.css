@@ -1,0 +1,252 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────
+   Topal Electrique — Design Tokens (Tailwind v4)
+   ────────────────────────────────────────── */
+
+@theme {
+  /* Dark palette */
+  --color-dark-950: #0a0a0a;
+  --color-dark-900: #111111;
+  --color-dark-800: #1a1a1a;
+  --color-dark-700: #242424;
+  --color-dark-600: #2e2e2e;
+
+  /* Orange accent */
+  --color-orange-600: #E05E00;
+  --color-orange-500: #FF6B00;
+  --color-orange-400: #FF8533;
+  --color-orange-glow: rgba(255, 107, 0, 0.4);
+
+  /* Typography */
+  --font-heading: var(--font-rajdhani), 'Rajdhani', sans-serif;
+  --font-body: var(--font-inter), 'Inter', sans-serif;
+
+  /* Animations */
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+/* ──────────────────────────────────────────
+   Keyframes
+   ────────────────────────────────────────── */
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.4),
+                0 0 40px rgba(255, 107, 0, 0.2),
+                0 0 60px rgba(255, 107, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 107, 0, 0.6),
+                0 0 60px rgba(255, 107, 0, 0.35),
+                0 0 90px rgba(255, 107, 0, 0.15);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes blink-cursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes grain {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  10% {
+    background-position: -5% -10%;
+  }
+  30% {
+    background-position: 3% -15%;
+  }
+  50% {
+    background-position: 12% 9%;
+  }
+  70% {
+    background-position: 9% 4%;
+  }
+  90% {
+    background-position: -1% 7%;
+  }
+}
+
+/* ──────────────────────────────────────────
+   Base Styles
+   ────────────────────────────────────────── */
+
+html, body {
+  background-color: var(--color-dark-950);
+}
+
+/* Eliminate any white gaps between sections */
+main {
+  background-color: var(--color-dark-950);
+}
+
+section {
+  position: relative;
+}
+
+/* Smooth section transitions — fade between hero glow and next section */
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--color-dark-950));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, transparent, var(--color-dark-950));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-fade-both::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, transparent, var(--color-dark-950));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-fade-both::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--color-dark-950));
+  pointer-events: none;
+  z-index: 1;
+}
+
+body {
+  color: #ffffff;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-orange-500);
+  color: #ffffff;
+}
+
+/* ──────────────────────────────────────────
+   Scrollbar
+   ────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-orange-500);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-orange-400);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-orange-500) var(--color-dark-900);
+}
+
+/* ──────────────────────────────────────────
+   Utility Classes
+   ────────────────────────────────────────── */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  animation: grain 8s steps(10) infinite;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--color-orange-400), var(--color-orange-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.glow-orange {
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.4),
+              0 0 40px rgba(255, 107, 0, 0.2),
+              0 0 60px rgba(255, 107, 0, 0.1);
+}
+
+/* ──────────────────────────────────────────
+   Lenis Smooth Scroll
+   ────────────────────────────────────────── */
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
