@@ -60,10 +60,13 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left column: Form */}
           <form
-            action="https://formspree.io/f/placeholder"
+            action="https://api.web3forms.com/submit"
             method="POST"
             className="space-y-6"
           >
+            <input type="hidden" name="access_key" value="ab078f3b-18f0-435a-a5b0-1a6c9d3b1777" />
+            <input type="hidden" name="subject" value="Nouvelle demande de soumission — Topal Électrique" />
+            <input type="hidden" name="from_name" value="Topal Électrique — Site web" />
             {/* Name */}
             <div>
               <label htmlFor="name" className="sr-only">
