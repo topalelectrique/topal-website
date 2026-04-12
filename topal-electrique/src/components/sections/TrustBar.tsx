@@ -99,8 +99,8 @@ export default function TrustBar() {
 
   /* Parse numeric targets from translations */
   const counters: { target: number; suffix: string; label: string }[] = [
-    { target: 500, suffix: '+', label: t('projectsLabel') },
-    { target: 15, suffix: '+', label: t('yearsLabel') },
+    { target: 1000, suffix: '+', label: t('projectsLabel') },
+    { target: 20, suffix: '+', label: t('yearsLabel') },
     { target: 100, suffix: '%', label: t('satisfactionLabel') },
   ];
 
