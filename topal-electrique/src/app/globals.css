@@ -25,7 +25,7 @@
   /* Animations */
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee: marquee 18s linear infinite;
 }
 
 /* ──────────────────────────────────────────
@@ -99,6 +99,7 @@
 
 html, body {
   background-color: var(--color-dark-950);
+  overflow-x: hidden;
 }
 
 /* Eliminate any white gaps between sections */

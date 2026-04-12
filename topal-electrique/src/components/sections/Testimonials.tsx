@@ -112,6 +112,30 @@ export default function Testimonials() {
     isDragging.current = false;
   };
 
+  /* ── Touch handlers ── */
+  const onTouchStart = (e: React.TouchEvent) => {
+    isPaused.current = true;
+    isDragging.current = true;
+    dragStartX.current = e.touches[0].clientX;
+    dragStartOffset.current = offsetRef.current;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current || !trackRef.current) return;
+    const delta = dragStartX.current - e.touches[0].clientX;
+    const halfWidth = trackRef.current.scrollWidth / 2;
+    let next = dragStartOffset.current + delta;
+    next = ((next % halfWidth) + halfWidth) % halfWidth;
+    offsetRef.current = next;
+    trackRef.current.style.transform = `translateX(-${next}px)`;
+  };
+
+  const onTouchEnd = () => {
+    isDragging.current = false;
+    isPaused.current = false;
+    lastTime.current = null;
+  };
+
   return (
     <section className="overflow-hidden py-24 px-6">
       {/* Header */}
@@ -130,6 +154,9 @@ export default function Testimonials() {
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <div
           ref={trackRef}

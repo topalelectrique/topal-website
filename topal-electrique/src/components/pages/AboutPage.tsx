@@ -676,10 +676,23 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 uppercase tracking-wider mb-8"
+            className="flex items-center justify-center gap-4 mb-8"
           >
-            <Zap className="h-3 w-3" />
-            {locale === 'fr' ? '20 ans d\'expérience · 1 000+ projets · Certifié CMEQ' : '20 years · 1,000+ projects · CMEQ Certified'}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
+            />
+            <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
+              {locale === 'fr' ? '20 ans · 1 000+ projets · Certifié CMEQ' : '20 years · 1,000+ projects · CMEQ Certified'}
+            </span>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px w-16 bg-gradient-to-r from-orange-500/50 to-transparent origin-left"
+            />
           </motion.div>
           <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             {heroWords.map((word, i) => (

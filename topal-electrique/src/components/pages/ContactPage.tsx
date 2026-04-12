@@ -1,12 +1,13 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Phone, Mail, Clock, MapPin, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PHONE, PHONE_LINK, EMAIL } from '@/lib/constants';
 
 export default function ContactPage() {
   const t = useTranslations('contact');
+  const locale = useLocale();
 
   const serviceOptions: string[] = Array.from({ length: 6 }, (_, i) =>
     t(`serviceOptions.${i}`),
@@ -33,6 +34,28 @@ export default function ContactPage() {
           />
         ))}
         <div className="relative z-10 text-center max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center gap-4 mb-8"
+          >
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
+            />
+            <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
+              {locale === 'fr' ? 'Parlons de votre projet' : "Let's talk about your project"}
+            </span>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px w-16 bg-gradient-to-r from-orange-500/50 to-transparent origin-left"
+            />
+          </motion.div>
           <h1 className="font-heading text-4xl md:text-6xl font-bold mb-6">
             {t('title')}
           </h1>

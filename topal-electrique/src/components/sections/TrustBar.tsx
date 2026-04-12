@@ -60,7 +60,7 @@ function Marquee() {
     <div className="mt-12 overflow-hidden border-t border-white/5 pt-8">
       <div
         className="flex whitespace-nowrap text-sm uppercase tracking-widest text-gray-500"
-        style={{ animation: 'marquee 30s linear infinite' }}
+        style={{ animation: 'marquee 18s linear infinite' }}
       >
         {/* Duplicate text for seamless loop */}
         <span className="shrink-0">{MARQUEE_TEXT}</span>

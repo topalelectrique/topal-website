@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { ChevronDown } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
@@ -45,6 +45,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
 export default function FAQPage() {
   const t = useTranslations('faq');
   const cta = useTranslations('cta');
+  const locale = useLocale();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const items = Array.from({ length: 12 }, (_, i) => ({
@@ -93,11 +94,44 @@ export default function FAQPage() {
           />
         ))}
         <div className="relative z-10 text-center max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center gap-4 mb-8"
+          >
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
+            />
+            <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
+              {locale === 'fr' ? 'Questions & Réponses' : 'Questions & Answers'}
+            </span>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px w-16 bg-gradient-to-r from-orange-500/50 to-transparent origin-left"
+            />
+          </motion.div>
           <h1 className="font-heading text-4xl md:text-6xl font-bold mb-6">
             {t('heading')}
           </h1>
           <p className="text-xl text-gray-400">{t('subtitle')}</p>
         </div>
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-600"
+        >
+          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+            <ChevronDown className="h-5 w-5" />
+          </motion.div>
+        </motion.div>
         <div
           className="pointer-events-none absolute bottom-0 inset-x-0 h-40"
           style={{ background: 'linear-gradient(to bottom, transparent, var(--color-dark-950))' }}
