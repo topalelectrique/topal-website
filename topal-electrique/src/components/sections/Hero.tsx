@@ -97,7 +97,7 @@ export default function Hero() {
   );
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center pt-20">
+    <section className="relative flex min-h-screen items-center justify-center pt-20 pb-20">
       {/* Background gradient with orange glow */}
       <div
         aria-hidden

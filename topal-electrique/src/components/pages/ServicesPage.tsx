@@ -105,7 +105,7 @@ function ServiceSection({
   const callLabel = locale === 'fr' ? 'Appelez-nous' : 'Call Us Now';
 
   return (
-    <section id={anchor} className="relative py-24 md:py-32 px-4 md:px-6">
+    <section id={anchor} className="relative py-16 md:py-20 px-4 md:px-6">
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{ background: `radial-gradient(ellipse 60% 50% at ${reversed ? '80%' : '20%'} 50%, rgba(255,107,0,0.06) 0%, transparent 70%)` }}
@@ -307,7 +307,7 @@ function ServiceAreaMap({ locale }: { locale: string }) {
     : 'We serve within an 80 km radius of Montreal — from Saint-Sauveur in the north to Richelieu in the south.';
 
   return (
-    <section className="py-24 px-4 md:px-6">
+    <section className="py-16 px-4 md:px-6">
       <div ref={ref} className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -649,7 +649,7 @@ export default function ServicesPage() {
       <ServiceAreaMap locale={locale} />
 
       {/* Bottom CTA */}
-      <section className="py-24 px-4 md:px-6 relative overflow-hidden">
+      <section className="py-20 px-4 md:px-6 relative overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0"
           style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,107,0,0.07) 0%, transparent 65%)' }}

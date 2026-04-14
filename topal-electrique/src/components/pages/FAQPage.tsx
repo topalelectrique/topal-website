@@ -139,7 +139,7 @@ export default function FAQPage() {
       </section>
 
       {/* Full FAQ accordion */}
-      <section className="py-24 px-6">
+      <section className="py-16 px-6">
         <div className="mx-auto max-w-3xl">
           <div>
             {items.map((item, i) => (
@@ -156,7 +156,7 @@ export default function FAQPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-24 px-6 text-center">
+      <section className="py-20 px-6 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
             {cta('heading')}

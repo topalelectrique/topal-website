@@ -355,7 +355,7 @@ function ValuesManifesto({ isFr }: { isFr: boolean }) {
   const sectionLabel = isFr ? 'Nos valeurs' : 'Our values';
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32">
+    <section ref={sectionRef} className="relative py-16 md:py-20">
       {/* Subtle background glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -548,7 +548,7 @@ function ProcessSection({ isFr }: { isFr: boolean }) {
   const sectionLabel = isFr ? 'Notre processus' : 'Our process';
 
   return (
-    <section className="relative py-24 md:py-32 px-4 overflow-hidden">
+    <section className="relative py-16 md:py-20 px-4 overflow-hidden">
       <div
         className="pointer-events-none absolute inset-0"
         style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,107,0,0.04) 0%, transparent 70%)' }}
@@ -559,7 +559,7 @@ function ProcessSection({ isFr }: { isFr: boolean }) {
           initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-10 md:mb-12"
         >
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-500 block mb-3">{sectionLabel}</span>
           <h2 className="font-heading text-3xl md:text-5xl font-bold mb-4">{sectionTitle}</h2>
@@ -728,7 +728,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Mission statement ── */}
-      <section className="relative py-24 md:py-32 px-4">
+      <section className="relative py-16 md:py-20 px-4">
         <ParallaxGlow side="left" />
         {/* Top fade — blends with hero above */}
         <div
@@ -785,7 +785,7 @@ export default function AboutPage() {
       <ValuesManifesto isFr={isFr} />
 
       {/* ── Why Choose ── */}
-      <section className="relative py-20 md:py-28 px-4 overflow-hidden">
+      <section className="relative py-16 md:py-20 px-4 overflow-hidden">
         <ParallaxGlow side="right" />
         <div className="max-w-6xl mx-auto relative z-10">
           <WhyChooseHeader label={t('label')} title={t('whyChoose.title')} />
@@ -806,7 +806,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="relative py-28 px-4 overflow-hidden">
+      <section className="relative py-20 px-4 overflow-hidden">
         <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,107,0,0.07) 0%, transparent 65%)' }} />
         <motion.div
           ref={ctaRef}

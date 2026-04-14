@@ -46,7 +46,7 @@ export default function AboutPreview() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 px-6">
+    <section ref={sectionRef} className="py-16 px-6">
       <div className="mx-auto max-w-7xl">
         <div
           className={`

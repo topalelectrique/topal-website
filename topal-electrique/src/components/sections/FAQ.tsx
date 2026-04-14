@@ -58,7 +58,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-24 px-6">
+    <section className="py-16 px-6">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-16 text-center">

@@ -79,7 +79,7 @@ export default function ContactPage() {
       </section>
 
       {/* Two-column layout: form + contact info */}
-      <section className="py-24 px-6">
+      <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left column: Form */}
           <form
