@@ -99,7 +99,7 @@
 
 html, body {
   background-color: var(--color-dark-950);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Eliminate any white gaps between sections */
