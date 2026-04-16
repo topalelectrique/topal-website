@@ -52,19 +52,15 @@ function Counter({ target, suffix, label, started, duration = 2000 }: CounterPro
 }
 
 /* ─── Marquee ticker ─── */
-const MARQUEE_TEXT =
-  'Électricien certifié \u00A0\u2022\u00A0 Montréal & Grand Montréal \u00A0\u2022\u00A0 Service 24/7 \u00A0\u2022\u00A0 Résidentiel & Commercial \u00A0\u2022\u00A0 Bornes de recharge EV \u00A0\u2022\u00A0 Panneaux électriques \u00A0\u2022\u00A0 ';
-
-function Marquee() {
+function Marquee({ text }: { text: string }) {
   return (
     <div className="mt-12 overflow-hidden border-t border-white/5 pt-8">
       <div
         className="flex whitespace-nowrap text-sm uppercase tracking-widest text-gray-500"
         style={{ animation: 'marquee 18s linear infinite' }}
       >
-        {/* Duplicate text for seamless loop */}
-        <span className="shrink-0">{MARQUEE_TEXT}</span>
-        <span className="shrink-0">{MARQUEE_TEXT}</span>
+        <span className="shrink-0">{text} &nbsp;•&nbsp; </span>
+        <span className="shrink-0">{text} &nbsp;•&nbsp; </span>
       </div>
     </div>
   );
@@ -121,7 +117,7 @@ export default function TrustBar() {
         </div>
 
         {/* Marquee ticker */}
-        <Marquee />
+        <Marquee text={t('marqueeText')} />
       </div>
     </section>
   );

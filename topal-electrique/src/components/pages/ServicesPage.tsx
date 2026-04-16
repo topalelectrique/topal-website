@@ -90,19 +90,18 @@ interface ServiceSectionProps {
   features: string[];
   image: { src: string; alt: string };
   ctaLabel: string;
+  callLabel: string;
   isUrgence?: boolean;
   locale: string;
 }
 
 function ServiceSection({
-  index, anchor, icon: Icon, title, description, features, image, ctaLabel, isUrgence, locale,
+  index, anchor, icon: Icon, title, description, features, image, ctaLabel, callLabel, isUrgence, locale,
 }: ServiceSectionProps) {
   const reversed = index % 2 !== 0;
   const contentRef = useRef(null);
   const inView = useInView(contentRef, { once: true, margin: '-80px' });
   const num = String(index + 1).padStart(2, '0');
-
-  const callLabel = locale === 'fr' ? 'Appelez-nous' : 'Call Us Now';
 
   return (
     <section id={anchor} className="relative py-16 md:py-20 px-4 md:px-6">
@@ -415,7 +414,7 @@ function StatsStrip({ locale }: { locale: string }) {
 /* ─────────────────────────────────────
    Hero
 ───────────────────────────────────── */
-function Hero({ heading, subtitle, locale }: { heading: string; subtitle: string; locale: string }) {
+function Hero({ heading, subtitle, heroLabel }: { heading: string; subtitle: string; heroLabel: string }) {
   const words = heading.split(' ');
   return (
     <section className="relative flex items-center justify-center pt-24 pb-6 md:pt-32 md:pb-0 px-4 min-h-[60vh]">
@@ -452,7 +451,7 @@ function Hero({ heading, subtitle, locale }: { heading: string; subtitle: string
             className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
           />
           <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
-            {locale === 'fr' ? 'Certifié RBQ · Grand Montréal' : 'RBQ Certified · Greater Montreal'}
+            {heroLabel}
           </span>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -584,7 +583,8 @@ export default function ServicesPage() {
   const cta = useTranslations('cta');
   const locale = useLocale();
 
-  const ctaLabel = locale === 'fr' ? 'Demander une soumission' : 'Request a Quote';
+  const ctaLabel = cta('primary');
+  const callLabel = t('callNow');
   const features = locale === 'fr' ? FEATURES_FR : FEATURES_EN;
 
   const services = Array.from({ length: 5 }, (_, i) => ({
@@ -618,7 +618,7 @@ export default function ServicesPage() {
         }}
       />
 
-      <Hero heading={t('heading')} subtitle={t('subtitle')} locale={locale} />
+      <Hero heading={t('heading')} subtitle={t('subtitle')} heroLabel={t('heroLabel')} />
       <StatsStrip locale={locale} />
       <ServiceNav locale={locale} />
 
@@ -637,6 +637,7 @@ export default function ServicesPage() {
           features={service.features}
           image={service.image}
           ctaLabel={ctaLabel}
+          callLabel={callLabel}
           isUrgence={i === 2}
           locale={locale}
         />

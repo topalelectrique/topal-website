@@ -114,7 +114,7 @@ export default function AboutPreview() {
 
             {/* CTA link */}
             <Link
-              href={t('ctaLink')}
+              href="/a-propos"
               className="inline-flex items-center font-medium text-orange-500 transition-colors hover:text-orange-400"
             >
               {t('cta')}

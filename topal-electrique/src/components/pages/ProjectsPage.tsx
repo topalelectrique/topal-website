@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
@@ -19,7 +19,7 @@ const projects = [
   { image: '/images/projects/kitchen-renovation.jpg', title: 'Rénovation cuisine — éclairage', category: 'residential' as const, type: 'Résidentiel', alt: 'Installation éclairage cuisine Montréal' },
 ];
 
-function ProjectCard({ project }: { project: typeof projects[0] }) {
+function ProjectCard({ project, typeLabel }: { project: typeof projects[0]; typeLabel: string }) {
   return (
     <div className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-xl">
       <Image
@@ -32,7 +32,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-all duration-300" />
       <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
         <span className="mb-2 inline-block rounded-full bg-orange-500/20 backdrop-blur-sm px-3 py-1 text-xs font-medium text-orange-400 border border-orange-500/20">
-          {project.type}
+          {typeLabel}
         </span>
         <h3 className="text-lg font-semibold text-white">{project.title}</h3>
       </div>
@@ -43,7 +43,6 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 export default function ProjectsPage() {
   const t = useTranslations('projects');
   const cta = useTranslations('cta');
-  const locale = useLocale();
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
 
   const filters: { key: ProjectCategory; label: string }[] = [
@@ -91,7 +90,7 @@ export default function ProjectsPage() {
               className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
             />
             <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
-              {locale === 'fr' ? 'Nos réalisations · Résidentiel & Commercial' : 'Our Work · Residential & Commercial'}
+              {t('heroLabel')}
             </span>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -146,7 +145,11 @@ export default function ProjectsPage() {
           {/* Project grid */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project, i) => (
-              <ProjectCard key={`${project.title}-${i}`} project={project} />
+              <ProjectCard
+                key={`${project.title}-${i}`}
+                project={project}
+                typeLabel={project.category === 'residential' ? t('filterResidential') : t('filterCommercial')}
+              />
             ))}
           </div>
         </div>

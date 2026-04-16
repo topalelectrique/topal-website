@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { ChevronDown } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
@@ -45,7 +45,6 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
 export default function FAQPage() {
   const t = useTranslations('faq');
   const cta = useTranslations('cta');
-  const locale = useLocale();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const items = Array.from({ length: 12 }, (_, i) => ({
@@ -107,7 +106,7 @@ export default function FAQPage() {
               className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
             />
             <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
-              {locale === 'fr' ? 'Questions & Réponses' : 'Questions & Answers'}
+              {t('heroLabel')}
             </span>
             <motion.div
               initial={{ scaleX: 0 }}

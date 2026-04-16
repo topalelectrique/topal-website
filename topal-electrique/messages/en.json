@@ -28,6 +28,8 @@
     "heading": "Our electrical services",
     "subtitle": "Professional electrical solutions tailored to every residential and commercial need across Greater Montreal.",
     "learnMore": "Learn more",
+    "heroLabel": "RBQ Certified · Greater Montreal",
+    "callNow": "Call Us Now",
     "items": [
       {
         "title": "Residential electrical installation",
@@ -157,6 +159,7 @@
     "title": "Frequently asked questions",
     "subtitle": "Find quick answers to your questions about our electrical services in Montreal.",
     "viewAll": "View all questions",
+    "heroLabel": "Questions & Answers",
     "items": [
       {
         "question": "What are your business hours?",
@@ -215,7 +218,8 @@
     "filterAll": "All",
     "filterResidential": "Residential",
     "filterCommercial": "Commercial",
-    "viewAll": "View all projects"
+    "viewAll": "View all projects",
+    "heroLabel": "Our Work · Residential & Commercial"
   },
   "contact": {
     "title": "Contact us",
@@ -228,11 +232,15 @@
       "message": "Message",
       "submit": "Send Request",
       "success": "Your message has been sent successfully! We'll get back to you shortly.",
-      "error": "An error occurred. Please try again."
+      "error": "An error occurred. Please try again.",
+      "subject": "New quote request — Topal Électrique"
     },
     "phone": "(514) 999-2030",
     "hours": "Monday - Friday: 7 AM - 6 PM",
     "area": "Greater Montreal",
+    "heroLabel": "Let's talk about your project",
+    "hoursLabel": "Hours",
+    "areaLabel": "Service area",
     "serviceOptions": [
       "Residential Electrical Installation",
       "Commercial Electrical Installation",

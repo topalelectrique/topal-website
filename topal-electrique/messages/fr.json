@@ -28,6 +28,8 @@
     "heading": "Nos services électriques",
     "subtitle": "Des solutions électriques professionnelles adaptées à chaque besoin résidentiel et commercial dans le Grand Montréal.",
     "learnMore": "En savoir plus",
+    "heroLabel": "Certifié RBQ · Grand Montréal",
+    "callNow": "Appelez-nous",
     "items": [
       {
         "title": "Installation électrique résidentielle",
@@ -157,6 +159,7 @@
     "title": "Questions fréquentes",
     "subtitle": "Trouvez rapidement les réponses à vos questions sur nos services électriques à Montréal.",
     "viewAll": "Voir toutes les questions",
+    "heroLabel": "Questions & Réponses",
     "items": [
       {
         "question": "Quels sont vos horaires de service?",
@@ -215,7 +218,8 @@
     "filterAll": "Tous",
     "filterResidential": "Résidentiel",
     "filterCommercial": "Commercial",
-    "viewAll": "Voir tous les projets"
+    "viewAll": "Voir tous les projets",
+    "heroLabel": "Nos réalisations · Résidentiel & Commercial"
   },
   "contact": {
     "title": "Contactez-nous",
@@ -228,11 +232,15 @@
       "message": "Message",
       "submit": "Envoyer la demande",
       "success": "Votre message a été envoyé avec succès! Nous vous contacterons sous peu.",
-      "error": "Une erreur est survenue. Veuillez réessayer."
+      "error": "Une erreur est survenue. Veuillez réessayer.",
+      "subject": "Nouvelle demande de soumission — Topal Électrique"
     },
     "phone": "(514) 999-2030",
     "hours": "Lundi - Vendredi: 7h - 18h",
     "area": "Grand Montréal",
+    "heroLabel": "Parlons de votre projet",
+    "hoursLabel": "Horaires",
+    "areaLabel": "Zone de service",
     "serviceOptions": [
       "Installation électrique résidentielle",
       "Installation électrique commerciale",

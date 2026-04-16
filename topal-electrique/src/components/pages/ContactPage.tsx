@@ -1,13 +1,12 @@
 'use client';
 
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Phone, Mail, Clock, MapPin, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PHONE, PHONE_LINK, EMAIL } from '@/lib/constants';
 
 export default function ContactPage() {
   const t = useTranslations('contact');
-  const locale = useLocale();
 
   const serviceOptions: string[] = Array.from({ length: 6 }, (_, i) =>
     t(`serviceOptions.${i}`),
@@ -47,7 +46,7 @@ export default function ContactPage() {
               className="h-px w-16 bg-gradient-to-l from-orange-500/50 to-transparent origin-right"
             />
             <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-orange-400">
-              {locale === 'fr' ? 'Parlons de votre projet' : "Let's talk about your project"}
+              {t('heroLabel')}
             </span>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -88,7 +87,7 @@ export default function ContactPage() {
             className="space-y-6"
           >
             <input type="hidden" name="access_key" value="ab078f3b-18f0-435a-a5b0-1a6c9d3b1777" />
-            <input type="hidden" name="subject" value="Nouvelle demande de soumission — Topal Électrique" />
+            <input type="hidden" name="subject" value={t('form.subject')} />
             <input type="hidden" name="from_name" value="Topal Électrique — Site web" />
             {/* Name */}
             <div>
@@ -230,7 +229,7 @@ export default function ContactPage() {
                   <Clock className="h-6 w-6 text-orange-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400 mb-1">Horaires</p>
+                  <p className="text-sm text-gray-400 mb-1">{t('hoursLabel')}</p>
                   <p className="text-lg font-semibold text-white">
                     {t('hours')}
                   </p>
@@ -245,7 +244,7 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6 text-orange-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400 mb-1">Zone de service</p>
+                  <p className="text-sm text-gray-400 mb-1">{t('areaLabel')}</p>
                   <p className="text-lg font-semibold text-white">
                     {t('area')}
                   </p>

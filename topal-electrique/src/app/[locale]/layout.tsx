@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import Navbar from '@/components/Navbar';
@@ -14,38 +14,10 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta.home' });
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: t('title'),
-    description: t('description'),
     metadataBase: new URL('https://topalelectrique.ca'),
-    alternates: {
-      canonical: `https://topalelectrique.ca/${locale}`,
-      languages: {
-        'fr-CA': 'https://topalelectrique.ca/fr',
-        'en-CA': 'https://topalelectrique.ca/en',
-      },
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: 'https://topalelectrique.ca',
-      siteName: 'Topal Électrique',
-      locale: locale === 'fr' ? 'fr_CA' : 'en_CA',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-    },
-    robots: {
-      index: true,
-      follow: true,
-    },
+    robots: { index: true, follow: true },
   };
 }
 
