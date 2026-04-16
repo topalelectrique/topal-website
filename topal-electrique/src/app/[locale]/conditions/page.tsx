@@ -21,9 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       siteName: 'Topal Électrique',
       locale: locale === 'fr' ? 'fr_CA' : 'en_CA',
       type: 'website' as const,
+      images: [{ url: 'https://topalelectrique.ca/og-image.png', width: 1200, height: 630, alt: 'Topal Électrique — Électricien certifié à Montréal' }],
     },
     twitter: {
       card: 'summary_large_image' as const,
+      images: ['https://topalelectrique.ca/og-image.png'],
       title: t('title'),
       description: t('description'),
     },
