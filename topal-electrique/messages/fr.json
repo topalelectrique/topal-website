@@ -308,5 +308,24 @@
       "title": "Conditions d'utilisation | Topal Électrique",
       "description": "Conditions d'utilisation du site web de Topal Électrique, électricien certifié à Montréal."
     }
+  },
+  "blog": {
+    "heroLabel": "Conseils & Actualités",
+    "heading": "Le blogue électrique",
+    "subtitle": "Conseils pratiques, réglementations et tendances en électricité résidentielle et commerciale au Québec.",
+    "filterAll": "Tous",
+    "filterResidential": "Résidentiel",
+    "filterCommercial": "Commercial",
+    "filterRegulations": "Réglementation",
+    "filterAdvice": "Conseils",
+    "filterTrends": "Tendances",
+    "readMore": "Lire l'article",
+    "readTime": "min de lecture",
+    "publishedOn": "Publié le",
+    "backToBlog": "Retour au blogue",
+    "noArticles": "Aucun article pour l'instant. Revenez bientôt!",
+    "relatedTitle": "Articles connexes",
+    "metaTitle": "Blogue électricité Montréal | Conseils & Actualités | Topal Électrique",
+    "metaDescription": "Conseils pratiques, réglementations et tendances en électricité résidentielle et commerciale à Montréal. Par les maîtres électriciens de Topal Électrique."
   }
 }

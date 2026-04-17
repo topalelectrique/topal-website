@@ -25,5 +25,13 @@ export const routing = defineRouting({
       fr: '/conditions',
       en: '/terms',
     },
+    '/conseils': {
+      fr: '/conseils',
+      en: '/blog',
+    },
+    '/conseils/[slug]': {
+      fr: '/conseils/[slug]',
+      en: '/blog/[slug]',
+    },
   },
 });

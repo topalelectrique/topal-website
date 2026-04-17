@@ -308,5 +308,24 @@
       "title": "Terms of Service | Topal Électrique",
       "description": "Terms of service for the Topal Électrique website, certified electrician in Montreal."
     }
+  },
+  "blog": {
+    "heroLabel": "Tips & Updates",
+    "heading": "The electrical blog",
+    "subtitle": "Practical tips, regulations and trends in residential and commercial electricity in Quebec.",
+    "filterAll": "All",
+    "filterResidential": "Residential",
+    "filterCommercial": "Commercial",
+    "filterRegulations": "Regulations",
+    "filterAdvice": "Advice",
+    "filterTrends": "Trends",
+    "readMore": "Read article",
+    "readTime": "min read",
+    "publishedOn": "Published on",
+    "backToBlog": "Back to blog",
+    "noArticles": "No articles yet. Check back soon!",
+    "relatedTitle": "Related articles",
+    "metaTitle": "Montreal Electrician Blog | Tips & Updates | Topal Électrique",
+    "metaDescription": "Practical tips, regulations and trends in residential and commercial electricity in Montreal. By the master electricians of Topal Électrique."
   }
 }
