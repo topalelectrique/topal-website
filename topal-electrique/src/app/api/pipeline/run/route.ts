@@ -5,6 +5,7 @@ import { generateArticle, type ArticleType } from '@/lib/pipeline/generator';
 import { fetchImage } from '@/lib/pipeline/imager';
 import { findInternalLinks } from '@/lib/pipeline/linker';
 import { publishArticle, markKeywordUsed, logPipelineRun } from '@/lib/pipeline/publisher';
+import { postToFacebook } from '@/lib/pipeline/facebook';
 
 export const maxDuration = 60;
 
@@ -81,7 +82,12 @@ export async function POST(req: NextRequest) {
     // 6. Mark keyword as used
     if (keywordId) await markKeywordUsed(keywordId);
 
-    // 7. Log success
+    // 7. Cross-post to Facebook (async, non-blocking)
+    postToFacebook(frArticle.slug, frArticle.title, frArticle.excerpt, frId, image.url).catch((err) => {
+      console.error('Facebook post failed:', err.message);
+    });
+
+    // 8. Log success
     await logPipelineRun(articleType, 'success', frId);
 
     return NextResponse.json({
