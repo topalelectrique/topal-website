@@ -20,7 +20,7 @@ function ArticleCard({ article }: { article: Article }) {
 
   return (
     <Link
-      href={`/conseils/${article.slug}` as '/conseils/[slug]'}
+      href={{ pathname: '/conseils/[slug]', params: { slug: article.slug } }}
       className="group flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-dark-800 transition-all duration-300 hover:border-orange-500/30 hover:-translate-y-1"
     >
       {/* Image */}
