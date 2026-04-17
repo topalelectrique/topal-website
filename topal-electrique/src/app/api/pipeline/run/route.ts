@@ -1,0 +1,100 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase';
+import { scrapeNews } from '@/lib/pipeline/scraper';
+import { generateArticle, type ArticleType } from '@/lib/pipeline/generator';
+import { fetchImage } from '@/lib/pipeline/imager';
+import { findInternalLinks } from '@/lib/pipeline/linker';
+import { publishArticle, markKeywordUsed, logPipelineRun } from '@/lib/pipeline/publisher';
+
+export const maxDuration = 60;
+
+function getTypeFromDay(): ArticleType {
+  const day = new Date().getDay(); // 0=Sun, 1=Mon, 3=Wed, 5=Fri
+  if (day === 1) return 'evergreen';
+  if (day === 3) return 'news';
+  if (day === 5) return 'topal';
+  return 'evergreen';
+}
+
+export async function POST(req: NextRequest) {
+  // Auth check
+  const secret = req.headers.get('x-pipeline-secret');
+  if (secret !== process.env.PIPELINE_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const body = await req.json().catch(() => ({}));
+  const articleType: ArticleType = body.type ?? getTypeFromDay();
+
+  let keyword: string = '';
+  let keywordId: number | undefined;
+  let newsContext: { title: string; summary: string; url: string } | undefined;
+
+  try {
+    // 1. Determine content source
+    if (articleType === 'news') {
+      const story = await scrapeNews();
+      if (story) {
+        keyword = story.title;
+        newsContext = story;
+      } else {
+        // Fallback to evergreen if no news found
+        const { data: kw } = await supabase
+          .from('keywords')
+          .select('id, keyword')
+          .is('used_at', null)
+          .order('priority', { ascending: false })
+          .limit(1)
+          .single();
+        if (!kw) throw new Error('No keywords available');
+        keyword = kw.keyword;
+        keywordId = kw.id;
+      }
+    } else {
+      const { data: kw } = await supabase
+        .from('keywords')
+        .select('id, keyword')
+        .is('used_at', null)
+        .order('priority', { ascending: false })
+        .limit(1)
+        .single();
+      if (!kw) throw new Error('No keywords available');
+      keyword = kw.keyword;
+      keywordId = kw.id;
+    }
+
+    // 2. Find internal links (FR)
+    const frLinks = await findInternalLinks('residential', 'fr');
+
+    // 3. Generate FR + EN articles in parallel
+    const [frArticle, enArticle] = await Promise.all([
+      generateArticle(keyword, articleType, 'fr', frLinks, newsContext),
+      generateArticle(keyword, articleType, 'en', [], newsContext),
+    ]);
+
+    // 4. Fetch image
+    const image = await fetchImage(keyword, frArticle.category);
+
+    // 5. Publish both to Supabase + revalidate
+    const { frId } = await publishArticle(frArticle, enArticle, image, articleType, newsContext?.url);
+
+    // 6. Mark keyword as used
+    if (keywordId) await markKeywordUsed(keywordId);
+
+    // 7. Log success
+    await logPipelineRun(articleType, 'success', frId);
+
+    return NextResponse.json({
+      success: true,
+      type: articleType,
+      keyword,
+      frSlug: frArticle.slug,
+      enSlug: enArticle.slug,
+    });
+
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    await logPipelineRun(articleType, 'error', undefined, message).catch(() => {});
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
