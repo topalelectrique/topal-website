@@ -36,11 +36,11 @@ export default function Footer() {
   const nav = useTranslations('nav');
 
   const navItems = [
-    { href: '/', label: nav('home') },
-    { href: '/services', label: nav('services') },
-    { href: '/a-propos', label: nav('about') },
-    { href: '/projets', label: nav('projects') },
-    { href: '/contact', label: nav('contact') },
+    { href: '/' as const, label: nav('home') },
+    { href: '/services' as const, label: nav('services') },
+    { href: '/a-propos' as const, label: nav('about') },
+    { href: '/projets' as const, label: nav('projects') },
+    { href: '/contact' as const, label: nav('contact') },
   ];
 
   const services = [

@@ -113,13 +113,13 @@ function ServiceCard({
           {t(descriptionKey)}
         </p>
 
-        <Link
+        <a
           href={t(linkKey)}
           className="inline-flex items-center text-sm font-medium text-orange-500 transition-colors hover:text-orange-400"
         >
           {t('learnMore')}
           <span className="ml-1">&rarr;</span>
-        </Link>
+        </a>
       </div>
     </div>
   );

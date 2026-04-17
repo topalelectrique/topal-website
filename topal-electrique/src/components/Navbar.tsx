@@ -19,11 +19,11 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems = [
-    { href: '/', label: t('home') },
-    { href: '/services', label: t('services') },
-    { href: '/a-propos', label: t('about') },
-    { href: '/projets', label: t('projects') },
-    { href: '/contact', label: t('contact') },
+    { href: '/' as const, label: t('home') },
+    { href: '/services' as const, label: t('services') },
+    { href: '/a-propos' as const, label: t('about') },
+    { href: '/projets' as const, label: t('projects') },
+    { href: '/contact' as const, label: t('contact') },
   ];
 
   useEffect(() => {
@@ -43,7 +43,9 @@ export default function Navbar() {
 
   const switchLocale = () => {
     const newLocale = locale === 'fr' ? 'en' : 'fr';
-    router.replace(pathname, { locale: newLocale });
+    // For dynamic routes (e.g. blog articles), go to blog list instead
+    const safePath = (pathname as string).includes('[') ? '/conseils' : pathname;
+    router.replace(safePath as '/', { locale: newLocale });
   };
 
   const isActive = (href: string) => {
