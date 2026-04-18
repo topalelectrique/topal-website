@@ -4,6 +4,17 @@ import type { GeneratedArticle, ArticleType } from './generator';
 import type { ImageResult } from './imager';
 import { v4 as uuidv4 } from 'uuid';
 
+async function uniqueSlug(baseSlug: string): Promise<string> {
+  const { data } = await supabase
+    .from('articles')
+    .select('slug')
+    .eq('slug', baseSlug)
+    .maybeSingle();
+  if (!data) return baseSlug;
+  const suffix = Date.now().toString(36).slice(-4);
+  return `${baseSlug}-${suffix}`;
+}
+
 export async function publishArticle(
   frArticle: GeneratedArticle,
   enArticle: GeneratedArticle,
@@ -13,6 +24,9 @@ export async function publishArticle(
 ): Promise<{ frId: number; enId: number }> {
   const pairId = uuidv4();
   const publishedAt = new Date().toISOString();
+
+  frArticle.slug = await uniqueSlug(frArticle.slug);
+  enArticle.slug = await uniqueSlug(enArticle.slug);
 
   // Insert French article
   const { data: frData, error: frError } = await supabase
