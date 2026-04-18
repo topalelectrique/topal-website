@@ -64,23 +64,23 @@ export async function POST(req: NextRequest) {
       keywordId = kw.id;
     }
 
-    // 2. Find internal links (FR)
+    // 2. Claim keyword immediately so no retry picks it again
+    if (keywordId) await markKeywordUsed(keywordId);
+
+    // 3. Find internal links (FR)
     const frLinks = await findInternalLinks('residential', 'fr');
 
-    // 3. Generate FR + EN articles in parallel
+    // 4. Generate FR + EN articles in parallel
     const [frArticle, enArticle] = await Promise.all([
       generateArticle(keyword, articleType, 'fr', frLinks, newsContext),
       generateArticle(keyword, articleType, 'en', [], newsContext),
     ]);
 
-    // 4. Fetch image
+    // 5. Fetch image
     const image = await fetchImage(keyword, frArticle.category);
 
-    // 5. Publish both to Supabase + revalidate
+    // 6. Publish both to Supabase + revalidate
     const { frId } = await publishArticle(frArticle, enArticle, image, articleType, newsContext?.url);
-
-    // 6. Mark keyword as used
-    if (keywordId) await markKeywordUsed(keywordId);
 
     // 7. Cross-post to Facebook (async, non-blocking)
     postToFacebook(frArticle.slug, frArticle.title, frArticle.excerpt, frId, image.url).catch((err) => {
