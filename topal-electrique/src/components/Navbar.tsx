@@ -23,6 +23,7 @@ export default function Navbar() {
     { href: '/services' as const, label: t('services') },
     { href: '/a-propos' as const, label: t('about') },
     { href: '/projets' as const, label: t('projects') },
+    { href: '/conseils' as const, label: t('blog') },
     { href: '/contact' as const, label: t('contact') },
   ];
 

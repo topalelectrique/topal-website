@@ -27,6 +27,10 @@ export async function publishArticle(
 
   frArticle.slug = await uniqueSlug(frArticle.slug);
   enArticle.slug = await uniqueSlug(enArticle.slug);
+  if (enArticle.slug === frArticle.slug) {
+    const suffix = Date.now().toString(36).slice(-4);
+    enArticle.slug = `${enArticle.slug}-${suffix}`;
+  }
 
   // Insert French article
   const { data: frData, error: frError } = await supabase
