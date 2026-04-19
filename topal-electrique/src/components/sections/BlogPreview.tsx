@@ -65,7 +65,7 @@ function FeaturedCard({ article, locale, index }: { article: Article; locale: st
             }}
           />
           {article.image_url && (
-            <div className="relative aspect-[16/9] overflow-hidden">
+            <div className="relative h-36 overflow-hidden">
               <Image
                 src={article.image_url}
                 alt={article.image_alt ?? article.title}
