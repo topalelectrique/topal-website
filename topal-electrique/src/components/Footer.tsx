@@ -183,26 +183,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Service area map — display only, non-interactive ── */}
-      <div className="border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-xl border border-white/10 relative">
-            <iframe
-              title="Zone de service Topal Électrique — Grand Montréal, Rive-Nord, Rive-Sud"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d363000!2d-73.65!3d45.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sca!4v1700000000003"
-              width="100%"
-              height="250"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full"
-              style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)', display: 'block', pointerEvents: 'none' }}
-            />
-            {/* Overlay blocks all click-through to Google Maps */}
-            <div className="absolute inset-0 z-10" aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/5">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
