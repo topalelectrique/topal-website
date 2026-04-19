@@ -59,10 +59,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Hero />
       <TrustBar />
       <ServicesPreview />
+      <BlogPreview articles={(articles as Article[]) ?? []} locale={locale} />
       <AboutPreview />
       <ProjectsPreview />
       <Testimonials />
-      <BlogPreview articles={(articles as Article[]) ?? []} />
       <FAQ />
       <CTASection />
     </>
