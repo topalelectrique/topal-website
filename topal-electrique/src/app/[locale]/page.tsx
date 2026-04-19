@@ -57,9 +57,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <JsonLd />
       <Hero />
+      <BlogPreview articles={(articles as Article[]) ?? []} locale={locale} />
       <TrustBar />
       <ServicesPreview />
-      <BlogPreview articles={(articles as Article[]) ?? []} locale={locale} />
       <AboutPreview />
       <ProjectsPreview />
       <Testimonials />

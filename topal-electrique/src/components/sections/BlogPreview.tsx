@@ -146,7 +146,7 @@ function SmallCard({ article, locale, index }: { article: Article; locale: strin
             }}
           />
           {article.image_url && (
-            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
               <Image
                 src={article.image_url}
                 alt={article.image_alt ?? article.title}
@@ -238,7 +238,7 @@ export default function BlogPreview({ articles, locale }: Props) {
           <div className="lg:col-span-3">
             <FeaturedCard article={featured} locale={locale} index={0} />
           </div>
-          <div className="flex flex-col gap-4 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-2 lg:flex lg:flex-col">
             {rest.slice(0, 2).map((article, i) => (
               <SmallCard key={article.id} article={article} locale={locale} index={i} />
             ))}
