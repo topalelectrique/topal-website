@@ -1,6 +1,6 @@
-import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import BlogArticle from '@/components/pages/BlogArticle';
+import { ArticleProvider } from '@/context/article-context';
 import { supabase } from '@/lib/supabase';
 import type { Article } from '@/lib/supabase';
 
@@ -92,5 +92,22 @@ export default async function ArticlePage({
 
   if (!article) notFound();
 
-  return <BlogArticle article={article as Article} locale={locale} />;
+  let pairedSlug: string | null = null;
+  if (article.pair_id) {
+    const { data: paired } = await supabase
+      .from('articles')
+      .select('slug')
+      .eq('pair_id', article.pair_id)
+      .neq('locale', locale)
+      .single();
+    pairedSlug = paired?.slug ?? null;
+  }
+
+  const pairedLocale = locale === 'fr' ? 'en' : 'fr';
+
+  return (
+    <ArticleProvider pairedSlug={pairedSlug} pairedLocale={pairedLocale as 'fr' | 'en'}>
+      <BlogArticle article={article as Article} locale={locale} />
+    </ArticleProvider>
+  );
 }

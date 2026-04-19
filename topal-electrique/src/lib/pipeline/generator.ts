@@ -54,9 +54,11 @@ export async function generateArticle(
     ? `\n\nContexte de l'actualité à traiter:\nTitre: ${newsContext.title}\nRésumé: ${newsContext.summary}\nSource: ${newsContext.url}`
     : '';
 
+  const currentDate = new Date().toLocaleDateString('fr-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+
   const userPrompt =
     locale === 'fr'
-      ? `Rédige un article SEO complet en français québécois sur le sujet suivant: "${keyword}"${newsContext_}${linkContext}
+      ? `Nous sommes le ${currentDate}. Rédige un article SEO complet en français québécois sur le sujet suivant: "${keyword}"${newsContext_}${linkContext}
 
 Retourne UNIQUEMENT un objet JSON valide avec cette structure exacte (pas de markdown, pas de texte avant ou après):
 {
@@ -69,7 +71,7 @@ Retourne UNIQUEMENT un objet JSON valide avec cette structure exacte (pas de mar
   "category": "residential|commercial|regulations|advice|trends",
   "reading_time": 5
 }`
-      : `Write a complete SEO article in Canadian English on the topic: "${keyword}"${newsContext_}${linkContext}
+      : `Today is ${new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}. Write a complete SEO article in Canadian English on the topic: "${keyword}"${newsContext_}${linkContext}
 
 Return ONLY a valid JSON object with this exact structure (no markdown, no text before or after):
 {

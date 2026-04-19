@@ -8,6 +8,7 @@ import { Phone, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { PHONE, PHONE_LINK } from '@/lib/constants';
+import { useArticleContext } from '@/context/article-context';
 
 export default function Navbar() {
   const t = useTranslations('nav');
@@ -42,11 +43,16 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
+  const { pairedSlug, pairedLocale } = useArticleContext();
+
   const switchLocale = () => {
     const newLocale = locale === 'fr' ? 'en' : 'fr';
-    // For dynamic routes (e.g. blog articles), go to blog list instead
-    const safePath = (pathname as string).includes('[') ? '/conseils' : pathname;
-    router.replace(safePath as '/', { locale: newLocale });
+    if (pairedSlug && pairedLocale === newLocale) {
+      const pairedPath = newLocale === 'en' ? `/blog/${pairedSlug}` : `/conseils/${pairedSlug}`;
+      router.push(pairedPath as '/', { locale: newLocale });
+    } else {
+      router.replace(pathname as '/', { locale: newLocale });
+    }
   };
 
   const isActive = (href: string) => {
