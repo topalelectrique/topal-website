@@ -71,7 +71,7 @@ Retourne UNIQUEMENT un objet JSON valide avec cette structure exacte (pas de mar
   "category": "residential|commercial|regulations|advice|trends",
   "reading_time": 5
 }`
-      : `Today is ${new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}. Write a complete SEO article in Canadian English on the topic: "${keyword}"${newsContext_}${linkContext}
+      : `Today is ${new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}. Write a complete SEO article in Canadian English on the topic: "${keyword}". Write entirely in English regardless of the topic keyword language.${newsContext_}${linkContext}
 
 Return ONLY a valid JSON object with this exact structure (no markdown, no text before or after):
 {

@@ -52,6 +52,8 @@ export default function Navbar() {
         { pathname: '/conseils/[slug]', params: { slug: pairedSlug } },
         { locale: newLocale }
       );
+    } else if (pathname.startsWith('/conseils/') || pathname.startsWith('/blog/')) {
+      router.push('/conseils' as '/', { locale: newLocale });
     } else {
       router.replace(pathname as '/', { locale: newLocale });
     }
