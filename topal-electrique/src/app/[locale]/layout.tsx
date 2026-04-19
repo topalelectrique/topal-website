@@ -19,6 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL('https://topalelectrique.ca'),
     robots: { index: true, follow: true },
+    icons: {
+      apple: '/images/logo.png',
+    },
   };
 }
 

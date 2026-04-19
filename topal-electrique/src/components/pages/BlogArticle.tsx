@@ -4,8 +4,53 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Clock, Calendar } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Facebook, Twitter, Link2 } from 'lucide-react';
+import { useState } from 'react';
 import type { Article } from '@/lib/supabase';
+
+function ShareButtons({ title, locale, slug }: { title: string; locale: string; slug: string }) {
+  const [copied, setCopied] = useState(false);
+  const base = 'https://topalelectrique.ca';
+  const path = locale === 'fr' ? `/fr/conseils/${slug}` : `/en/blog/${slug}`;
+  const url = `${base}${path}`;
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-gray-500 mr-1">{locale === 'fr' ? 'Partager' : 'Share'}</span>
+      <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-blue-400"
+        aria-label="Partager sur Facebook"
+      >
+        <Facebook className="h-3.5 w-3.5" />
+      </a>
+      <a
+        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all hover:border-sky-500/40 hover:bg-sky-500/10 hover:text-sky-400"
+        aria-label="Partager sur X"
+      >
+        <Twitter className="h-3.5 w-3.5" />
+      </a>
+      <button
+        onClick={copyLink}
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all hover:border-orange-500/40 hover:bg-orange-500/10 hover:text-orange-400"
+        aria-label="Copier le lien"
+      >
+        {copied ? <span className="text-[0.55rem] font-bold text-orange-400">✓</span> : <Link2 className="h-3.5 w-3.5" />}
+      </button>
+    </div>
+  );
+}
 
 type Props = {
   article: Article;
@@ -100,7 +145,7 @@ export default function BlogArticle({ article, locale }: Props) {
               {article.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-10 pb-8 border-b border-white/10">
+            <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-500 mb-10 pb-8 border-b border-white/10">
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4" />
                 {date}
@@ -115,6 +160,7 @@ export default function BlogArticle({ article, locale }: Props) {
                 Topal Électrique
               </span>
             </div>
+            <ShareButtons title={article.title} locale={locale} slug={article.slug} />
           </motion.div>
 
           {/* Article content */}

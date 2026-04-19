@@ -21,9 +21,9 @@ interface TestimonialItem {
   text: string;
 }
 
-function TestimonialCard({ item }: { item: TestimonialItem }) {
+function TestimonialCard({ item, ...props }: { item: TestimonialItem; 'aria-hidden'?: boolean }) {
   return (
-    <div className="min-w-[320px] max-w-[380px] shrink-0 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-colors hover:border-orange-500/30">
+    <div className="min-w-[320px] max-w-[380px] shrink-0 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-colors hover:border-orange-500/30" {...props}>
       <StarRating />
       <p className="mb-6 text-sm italic leading-relaxed text-gray-300">
         &ldquo;{item.text}&rdquo;
@@ -162,8 +162,11 @@ export default function Testimonials() {
           ref={trackRef}
           className="flex gap-6 will-change-transform"
         >
-          {[...items, ...items].map((item, i) => (
+          {items.map((item, i) => (
             <TestimonialCard key={i} item={item} />
+          ))}
+          {items.map((item, i) => (
+            <TestimonialCard key={`dup-${i}`} item={item} aria-hidden />
           ))}
         </div>
       </div>

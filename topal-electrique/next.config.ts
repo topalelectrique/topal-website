@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 
 const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
