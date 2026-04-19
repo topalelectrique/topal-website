@@ -1,4 +1,12 @@
 {
+  "blogPreview": {
+    "label": "Conseils & Actualités",
+    "heading": "Nos derniers articles",
+    "subtitle": "Conseils d'experts, guides pratiques et actualités de l'industrie électrique au Québec.",
+    "viewAll": "Voir tous les articles",
+    "read": "Lire",
+    "min": "min"
+  },
   "nav": {
     "home": "Accueil",
     "services": "Services",

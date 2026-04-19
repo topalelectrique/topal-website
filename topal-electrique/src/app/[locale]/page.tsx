@@ -7,7 +7,10 @@ import ProjectsPreview from '@/components/sections/ProjectsPreview';
 import Testimonials from '@/components/sections/Testimonials';
 import FAQ from '@/components/sections/FAQ';
 import CTASection from '@/components/sections/CTASection';
+import BlogPreview from '@/components/sections/BlogPreview';
 import JsonLd from '@/components/JsonLd';
+import { supabase } from '@/lib/supabase';
+import type { Article } from '@/lib/supabase';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -40,7 +43,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+
+  const { data: articles } = await supabase
+    .from('articles')
+    .select('id, slug, title, excerpt, category, image_url, image_alt, published_at, reading_time')
+    .eq('locale', locale)
+    .order('published_at', { ascending: false })
+    .limit(3);
+
   return (
     <>
       <JsonLd />
@@ -50,6 +62,7 @@ export default function HomePage() {
       <AboutPreview />
       <ProjectsPreview />
       <Testimonials />
+      <BlogPreview articles={(articles as Article[]) ?? []} />
       <FAQ />
       <CTASection />
     </>

@@ -1,4 +1,12 @@
 {
+  "blogPreview": {
+    "label": "Tips & News",
+    "heading": "Latest articles",
+    "subtitle": "Expert advice, practical guides and industry news for Quebec homeowners and contractors.",
+    "viewAll": "View all articles",
+    "read": "Read",
+    "min": "min"
+  },
   "nav": {
     "home": "Home",
     "services": "Services",
