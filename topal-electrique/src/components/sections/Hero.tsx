@@ -125,6 +125,8 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         {/* Typewriter headline */}
         <h1 className="mx-auto max-w-4xl font-heading text-5xl font-bold leading-tight md:text-7xl">
+          <span className="sr-only">{headline}</span>
+          <span aria-hidden="true">
           {headline.slice(0, displayedCount)}
           <span
             className="ml-0.5 inline-block h-[1.1em] w-[3px] translate-y-[0.1em] border-r-2 border-orange-500 align-middle"
@@ -132,6 +134,7 @@ export default function Hero() {
               animation: 'blink-cursor 0.75s step-end infinite',
             }}
           />
+          </span>
         </h1>
 
         {/* Subtitle — fades in after typing completes */}
