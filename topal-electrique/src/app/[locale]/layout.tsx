@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Inter, Rajdhani } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -9,6 +10,20 @@ import LoadingScreen from '@/components/LoadingScreen';
 import LenisProvider from '@/components/LenisProvider';
 import SetLocale from '@/components/SetLocale';
 import { ArticleProvider } from '@/context/article-context';
+import '../globals.css';
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const rajdhani = Rajdhani({
+  variable: '--font-rajdhani',
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
 
 type Props = {
   children: React.ReactNode;
@@ -35,17 +50,24 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages} locale={locale}>
-      <ArticleProvider>
-      <SetLocale />
-      <LenisProvider>
-        <LoadingScreen />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <div className="grain-overlay" aria-hidden="true" />
-      </LenisProvider>
-      </ArticleProvider>
-    </NextIntlClientProvider>
+    <html lang={locale} className={`${inter.variable} ${rajdhani.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className="font-body antialiased bg-dark-950">
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <ArticleProvider>
+            <SetLocale />
+            <LenisProvider>
+              <LoadingScreen />
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+              <div className="grain-overlay" aria-hidden="true" />
+            </LenisProvider>
+          </ArticleProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }
