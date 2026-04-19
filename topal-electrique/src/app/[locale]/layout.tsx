@@ -35,7 +35,9 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL('https://topalelectrique.ca'),
     robots: { index: true, follow: true },
     icons: {
+      icon: '/images/logo.png',
       apple: '/images/logo.png',
+      shortcut: '/images/logo.png',
     },
   };
 }
@@ -52,7 +54,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={`${inter.variable} ${rajdhani.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/logo.png" type="image/png" />
       </head>
       <body className="font-body antialiased bg-dark-950">
         <NextIntlClientProvider messages={messages} locale={locale}>
