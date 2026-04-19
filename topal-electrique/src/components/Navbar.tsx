@@ -48,8 +48,10 @@ export default function Navbar() {
   const switchLocale = () => {
     const newLocale = locale === 'fr' ? 'en' : 'fr';
     if (pairedSlug && pairedLocale === newLocale) {
-      const pairedPath = newLocale === 'en' ? `/blog/${pairedSlug}` : `/conseils/${pairedSlug}`;
-      router.push(pairedPath as '/', { locale: newLocale });
+      router.push(
+        { pathname: '/conseils/[slug]', params: { slug: pairedSlug } },
+        { locale: newLocale }
+      );
     } else {
       router.replace(pathname as '/', { locale: newLocale });
     }
