@@ -183,6 +183,25 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* ── Certifications ── */}
+      <div className="border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            <Image
+              src="/images/CMEQ_LOGO_signature_Hori_noir_rgb.png"
+              alt="Membre CMEQ — Corporation des maîtres électriciens du Québec"
+              width={140}
+              height={48}
+              className="h-10 w-auto opacity-60 brightness-200 filter"
+            />
+            <div className="flex items-center gap-2 text-xs text-white/40">
+              <span className="font-semibold uppercase tracking-widest text-white/50">RBQ</span>
+              <span className="font-mono">8317-3658-34</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/5">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
