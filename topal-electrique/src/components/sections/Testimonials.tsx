@@ -165,9 +165,11 @@ export default function Testimonials() {
           {items.map((item, i) => (
             <TestimonialCard key={i} item={item} />
           ))}
-          {items.map((item, i) => (
-            <TestimonialCard key={`dup-${i}`} item={item} aria-hidden />
-          ))}
+          <div aria-hidden="true" role="presentation" className="contents">
+            {items.map((item, i) => (
+              <TestimonialCard key={`dup-${i}`} item={item} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
