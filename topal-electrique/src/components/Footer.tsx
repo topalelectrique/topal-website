@@ -188,11 +188,11 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
             <Image
-              src="/images/CMEQ_LOGO_signature_Hori_noir_rgb.png"
+              src="/images/CMEQ_LOGO_signature_Hori_blanc_rgb.png"
               alt="Membre CMEQ — Corporation des maîtres électriciens du Québec"
               width={140}
               height={48}
-              className="h-10 w-auto opacity-60 brightness-200 filter"
+              className="h-10 w-auto opacity-60"
             />
             <div className="flex items-center gap-2 text-xs text-white/40">
               <span className="font-semibold uppercase tracking-widest text-white/50">RBQ</span>
