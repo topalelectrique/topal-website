@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import LoadingScreen from '@/components/LoadingScreen';
 import LenisProvider from '@/components/LenisProvider';
 import SetLocale from '@/components/SetLocale';
+import { ArticleProvider } from '@/context/article-context';
 
 type Props = {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
+      <ArticleProvider>
       <SetLocale />
       <LenisProvider>
         <LoadingScreen />
@@ -40,6 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <Footer />
         <div className="grain-overlay" aria-hidden="true" />
       </LenisProvider>
+      </ArticleProvider>
     </NextIntlClientProvider>
   );
 }

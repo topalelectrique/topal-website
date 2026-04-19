@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import BlogArticle from '@/components/pages/BlogArticle';
-import { ArticleProvider } from '@/context/article-context';
+import ArticleContextSetter from '@/components/ArticleContextSetter';
 import { supabase } from '@/lib/supabase';
 import type { Article } from '@/lib/supabase';
 
@@ -106,8 +106,9 @@ export default async function ArticlePage({
   const pairedLocale = locale === 'fr' ? 'en' : 'fr';
 
   return (
-    <ArticleProvider pairedSlug={pairedSlug} pairedLocale={pairedLocale as 'fr' | 'en'}>
+    <>
+      <ArticleContextSetter pairedSlug={pairedSlug} pairedLocale={pairedLocale as 'fr' | 'en'} />
       <BlogArticle article={article as Article} locale={locale} />
-    </ArticleProvider>
+    </>
   );
 }
