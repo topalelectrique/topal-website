@@ -1,4 +1,11 @@
 {
+  "categories": {
+    "residential": "Résidentiel",
+    "commercial": "Commercial",
+    "regulations": "Réglementation",
+    "advice": "Conseils",
+    "trends": "Tendances"
+  },
   "blogPreview": {
     "label": "Conseils & Actualités",
     "heading": "Nos derniers articles",

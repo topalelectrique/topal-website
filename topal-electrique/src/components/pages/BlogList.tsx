@@ -12,6 +12,7 @@ type Category = 'all' | 'residential' | 'commercial' | 'regulations' | 'advice' 
 
 function ArticleCard({ article }: { article: Article }) {
   const t = useTranslations('blog');
+  const cat = useTranslations('categories');
   const date = new Date(article.published_at).toLocaleDateString('fr-CA', {
     year: 'numeric',
     month: 'long',
@@ -42,7 +43,7 @@ function ArticleCard({ article }: { article: Article }) {
         {article.category && (
           <div className="absolute top-3 left-3">
             <span className="rounded-full bg-orange-500/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
-              {article.category}
+              {cat(article.category as 'residential' | 'commercial' | 'regulations' | 'advice' | 'trends')}
             </span>
           </div>
         )}

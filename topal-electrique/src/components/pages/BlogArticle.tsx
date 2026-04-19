@@ -60,6 +60,7 @@ type Props = {
 export default function BlogArticle({ article, locale }: Props) {
   const t = useTranslations('blog');
   const cta = useTranslations('cta');
+  const cat = useTranslations('categories');
 
   const date = new Date(article.published_at).toLocaleDateString(
     locale === 'fr' ? 'fr-CA' : 'en-CA',
@@ -137,7 +138,7 @@ export default function BlogArticle({ article, locale }: Props) {
           >
             {article.category && (
               <span className="mb-4 inline-block rounded-full bg-orange-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-orange-400 border border-orange-500/20">
-                {article.category}
+                {cat(article.category as 'residential' | 'commercial' | 'regulations' | 'advice' | 'trends')}
               </span>
             )}
 

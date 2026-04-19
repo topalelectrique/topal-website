@@ -35,6 +35,7 @@ function useTilt() {
 
 function FeaturedCard({ article, locale, index }: { article: Article; locale: string; index: number }) {
   const t = useTranslations('blogPreview');
+  const cat = useTranslations('categories');
   const { ref, glow, onMouseMove, onMouseLeave } = useTilt();
   const date = new Date(article.published_at).toLocaleDateString(
     locale === 'fr' ? 'fr-CA' : 'en-CA',
@@ -79,7 +80,7 @@ function FeaturedCard({ article, locale, index }: { article: Article; locale: st
           <div className="relative z-10 p-5">
             {article.category && (
               <span className="mb-3 inline-block rounded-full border border-orange-500/20 bg-orange-500/10 px-2.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-widest text-orange-400">
-                {article.category}
+                {cat(article.category as 'residential' | 'commercial' | 'regulations' | 'advice' | 'trends')}
               </span>
             )}
             <h3 className="font-heading mb-2 text-lg font-bold leading-snug text-white transition-colors group-hover:text-orange-400">
@@ -116,6 +117,7 @@ function FeaturedCard({ article, locale, index }: { article: Article; locale: st
 
 function SmallCard({ article, locale, index }: { article: Article; locale: string; index: number }) {
   const t = useTranslations('blogPreview');
+  const cat = useTranslations('categories');
   const { ref, glow, onMouseMove, onMouseLeave } = useTilt();
   const date = new Date(article.published_at).toLocaleDateString(
     locale === 'fr' ? 'fr-CA' : 'en-CA',
@@ -160,7 +162,7 @@ function SmallCard({ article, locale, index }: { article: Article; locale: strin
             <div>
               {article.category && (
                 <span className="mb-1 inline-block text-[0.55rem] font-bold uppercase tracking-widest text-orange-400">
-                  {article.category}
+                  {cat(article.category as 'residential' | 'commercial' | 'regulations' | 'advice' | 'trends')}
                 </span>
               )}
               <h3 className="font-heading line-clamp-2 text-sm font-bold leading-snug text-white transition-colors group-hover:text-orange-400">
