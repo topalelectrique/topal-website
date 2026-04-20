@@ -71,13 +71,11 @@ export async function POST(req: NextRequest) {
     const frLinks = await findInternalLinks('residential', 'fr');
 
     // 4. Generate FR + EN articles in parallel
-    const [frArticle, enArticle] = await Promise.all([
-      generateArticle(keyword, articleType, 'fr', frLinks, newsContext),
-      generateArticle(keyword, articleType, 'en', [], newsContext),
-    ]);
+    const frArticle = await generateArticle(keyword, articleType, 'fr', frLinks, newsContext);
+    const enArticle = await generateArticle(keyword, articleType, 'en', [], newsContext);
 
-    // 5. Fetch image
-    const image = await fetchImage(keyword, frArticle.category);
+    // 5. Fetch image — use generated title for better relevance
+    const image = await fetchImage(frArticle.title, frArticle.category);
 
     // 6. Publish both to Supabase + revalidate
     const { frId } = await publishArticle(frArticle, enArticle, image, articleType, newsContext?.url);

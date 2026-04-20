@@ -38,8 +38,9 @@ export default function Footer() {
   const navItems = [
     { href: '/' as const, label: nav('home') },
     { href: '/services' as const, label: nav('services') },
+    { href: '/conseils' as const, label: nav('blog') },
+    { href: '/glossaire' as const, label: nav('glossary') },
     { href: '/a-propos' as const, label: nav('about') },
-    { href: '/projets' as const, label: nav('projects') },
     { href: '/contact' as const, label: nav('contact') },
   ];
 

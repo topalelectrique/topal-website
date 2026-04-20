@@ -138,10 +138,23 @@ export default function JsonLd() {
     ],
   };
 
+  const webSite = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Topal Électrique',
+    url: 'https://topalelectrique.ca',
+    inLanguage: ['fr-CA', 'en-CA'],
+    publisher: {
+      '@type': 'Organization',
+      name: 'Topal Électrique',
+      url: 'https://topalelectrique.ca',
+    },
+  };
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }} />
+    </>
   );
 }

@@ -4,9 +4,29 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Clock, Calendar, Facebook, Twitter, Link2 } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, Clock, Calendar, Facebook, Twitter, Link2, User } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import type { Article } from '@/lib/supabase';
+
+function ReadingProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const el = document.documentElement;
+      const total = el.scrollHeight - el.clientHeight;
+      setProgress(total > 0 ? (el.scrollTop / total) * 100 : 0);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+  return (
+    <div
+      className="fixed left-0 top-0 z-50 h-0.5 bg-orange-500 transition-[width] duration-100 ease-out"
+      style={{ width: `${progress}%` }}
+      aria-hidden="true"
+    />
+  );
+}
 
 function ShareButtons({ title, locale, slug }: { title: string; locale: string; slug: string }) {
   const [copied, setCopied] = useState(false);
@@ -52,12 +72,50 @@ function ShareButtons({ title, locale, slug }: { title: string; locale: string; 
   );
 }
 
+function RelatedCard({ article, locale }: { article: Article; locale: string }) {
+  const cat = useTranslations('categories');
+  const date = new Date(article.published_at).toLocaleDateString(
+    locale === 'fr' ? 'fr-CA' : 'en-CA',
+    { year: 'numeric', month: 'short', day: 'numeric' }
+  );
+  return (
+    <Link href={{ pathname: '/conseils/[slug]', params: { slug: article.slug } }}>
+      <div className="group overflow-hidden rounded-xl border border-white/8 bg-white/3 transition hover:border-orange-500/30">
+        {article.image_url && (
+          <div className="relative h-32 overflow-hidden">
+            <Image
+              src={article.image_url}
+              alt={article.image_alt ?? article.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent" />
+          </div>
+        )}
+        <div className="p-4">
+          {article.category && (
+            <span className="mb-2 inline-block text-[0.55rem] font-bold uppercase tracking-widest text-orange-400">
+              {cat(article.category as 'residential' | 'commercial' | 'regulations' | 'advice' | 'trends')}
+            </span>
+          )}
+          <h3 className="font-heading text-sm font-bold leading-snug text-white transition group-hover:text-orange-400 line-clamp-2">
+            {article.title}
+          </h3>
+          <p className="mt-2 text-[0.65rem] text-gray-500">{date}</p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 type Props = {
   article: Article;
   locale: string;
+  relatedArticles?: Article[];
 };
 
-export default function BlogArticle({ article, locale }: Props) {
+export default function BlogArticle({ article, locale, relatedArticles = [] }: Props) {
   const t = useTranslations('blog');
   const cta = useTranslations('cta');
   const cat = useTranslations('categories');
@@ -67,36 +125,11 @@ export default function BlogArticle({ article, locale }: Props) {
     { year: 'numeric', month: 'long', day: 'numeric' }
   );
 
+  const authorPath = locale === 'fr' ? '/auteur' : '/author';
+
   return (
     <>
-      {/* Article JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Article',
-            headline: article.title,
-            description: article.meta_description ?? article.excerpt ?? '',
-            image: article.image_url ?? 'https://topalelectrique.ca/og-image.png',
-            datePublished: article.published_at,
-            author: {
-              '@type': 'Organization',
-              name: 'Topal Électrique',
-              url: 'https://topalelectrique.ca',
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Topal Électrique',
-              logo: {
-                '@type': 'ImageObject',
-                url: 'https://topalelectrique.ca/images/logo.png',
-              },
-            },
-          }),
-        }}
-      />
-
+      <ReadingProgress />
       <article className="pb-24">
         {/* Hero image */}
         {article.image_url && (
@@ -146,22 +179,34 @@ export default function BlogArticle({ article, locale }: Props) {
               {article.title}
             </h1>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-500 mb-10 pb-8 border-b border-white/10">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" />
-                {date}
-              </span>
-              {article.reading_time && (
+            {article.excerpt && (
+              <p className="article-excerpt mb-6 text-base leading-relaxed text-gray-400">
+                {article.excerpt}
+              </p>
+            )}
+
+            <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-500 mb-6 pb-6 border-b border-white/10">
+              <div className="flex flex-wrap items-center gap-4">
                 <span className="flex items-center gap-1.5">
-                  <Clock className="h-4 w-4" />
-                  {article.reading_time} {t('readTime')}
+                  <Calendar className="h-4 w-4" />
+                  {date}
                 </span>
-              )}
-              <span className="flex items-center gap-1.5">
-                Topal Électrique
-              </span>
+                {article.reading_time && (
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-4 w-4" />
+                    {article.reading_time} {t('readTime')}
+                  </span>
+                )}
+                <Link
+                  href={authorPath as '/auteur'}
+                  className="flex items-center gap-1.5 transition hover:text-orange-400"
+                >
+                  <User className="h-4 w-4" />
+                  Matéo Saric
+                </Link>
+              </div>
+              <ShareButtons title={article.title} locale={locale} slug={article.slug} />
             </div>
-            <ShareButtons title={article.title} locale={locale} slug={article.slug} />
           </motion.div>
 
           {/* Article content */}
@@ -172,6 +217,25 @@ export default function BlogArticle({ article, locale }: Props) {
             className="prose-article"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
+
+          {/* Related articles */}
+          {relatedArticles.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mt-16"
+            >
+              <h2 className="font-heading text-xl font-bold text-white mb-6">
+                {t('relatedTitle')}
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {relatedArticles.map((rel) => (
+                  <RelatedCard key={rel.id} article={rel} locale={locale} />
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* CTA box */}
           <motion.div

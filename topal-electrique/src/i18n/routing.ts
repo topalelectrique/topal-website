@@ -33,5 +33,13 @@ export const routing = defineRouting({
       fr: '/conseils/[slug]',
       en: '/blog/[slug]',
     },
+    '/glossaire': {
+      fr: '/glossaire',
+      en: '/glossary',
+    },
+    '/auteur': {
+      fr: '/auteur',
+      en: '/author',
+    },
   },
 });

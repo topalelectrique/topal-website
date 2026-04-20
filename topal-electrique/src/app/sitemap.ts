@@ -13,9 +13,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { fr: '/fr/a-propos',         en: '/en/about',    freq: 'monthly', priority: 0.8 },
     { fr: '/fr/projets',          en: '/en/projects', freq: 'monthly', priority: 0.8 },
     { fr: '/fr/contact',          en: '/en/contact',  freq: 'monthly', priority: 0.8 },
-    { fr: '/fr/faq',              en: '/en/faq',      freq: 'monthly', priority: 0.7 },
-    { fr: '/fr/confidentialite',  en: '/en/privacy',  freq: 'monthly', priority: 0.3 },
-    { fr: '/fr/conditions',       en: '/en/terms',    freq: 'monthly', priority: 0.3 },
+    { fr: '/fr/faq',              en: '/en/faq',       freq: 'monthly', priority: 0.7 },
+    { fr: '/fr/glossaire',        en: '/en/glossary',  freq: 'monthly', priority: 0.7 },
+    { fr: '/fr/auteur',           en: '/en/author',    freq: 'monthly', priority: 0.5 },
+    { fr: '/fr/confidentialite',  en: '/en/privacy',   freq: 'monthly', priority: 0.3 },
+    { fr: '/fr/conditions',       en: '/en/terms',     freq: 'monthly', priority: 0.3 },
   ];
 
   const entries: MetadataRoute.Sitemap = [];

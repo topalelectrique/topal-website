@@ -291,3 +291,83 @@ html.lenis {
 .prose-article a:hover { color: #fb923c; }
 .prose-article blockquote { border-left: 3px solid #f97316; padding-left: 1.25rem; margin: 1.5rem 0; color: #d1d5db; font-style: italic; }
 .prose-article hr { border-color: rgba(255,255,255,0.08); margin: 2.5rem 0; }
+
+/* AI Overview / GEO summary block */
+.prose-article aside.ai-overview {
+  background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(249,115,22,0.04) 100%);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-left: 3px solid #f97316;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.prose-article aside.ai-overview strong {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f97316;
+  margin-bottom: 0.75rem;
+}
+.prose-article aside.ai-overview ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.prose-article aside.ai-overview li {
+  color: #d1d5db;
+  font-size: 0.875rem;
+  padding: 0.3rem 0 0.3rem 1.25rem;
+  position: relative;
+  margin-bottom: 0;
+}
+.prose-article aside.ai-overview li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #f97316;
+  font-size: 0.75rem;
+}
+
+/* FAQ accordion (details/summary) */
+.prose-article details {
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.prose-article details[open] {
+  border-color: rgba(249,115,22,0.2);
+}
+.prose-article summary {
+  cursor: pointer;
+  padding: 0.875rem 1rem;
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: color 0.2s;
+}
+.prose-article summary:hover { color: #f97316; }
+.prose-article summary::after {
+  content: '+';
+  color: #f97316;
+  font-size: 1.2rem;
+  font-weight: 300;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.prose-article details[open] summary::after {
+  transform: rotate(45deg);
+}
+.prose-article details p {
+  padding: 0 1rem 1rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}

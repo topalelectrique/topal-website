@@ -45,19 +45,30 @@ export async function fetchImage(keyword: string, category: string): Promise<Ima
   }
 
   try {
-    // Use full keyword for relevance, translated to English for better Unsplash results
+    // Translate common French words and build an English search query from the title
     const searchTerms = keyword
-      .replace(/électrique|électricien|électricité/gi, 'electrician')
+      .replace(/électrique|électricien|électricité/gi, 'electrical')
       .replace(/montréal|québec/gi, '')
-      .replace(/installation|remplacement/gi, 'installation')
+      .replace(/installation/gi, 'installation')
+      .replace(/remplacement/gi, 'replacement')
+      .replace(/panneau/gi, 'panel')
+      .replace(/tableau/gi, 'panel')
+      .replace(/câblage/gi, 'wiring')
+      .replace(/prise/gi, 'outlet')
+      .replace(/interrupteur/gi, 'switch')
+      .replace(/éclairage/gi, 'lighting')
+      .replace(/chargeur|borne/gi, 'charger')
+      .replace(/résidentiel/gi, 'residential')
+      .replace(/commercial/gi, 'commercial')
       .trim()
-      .split(' ')
-      .slice(0, 5)
+      .split(/\s+/)
+      .slice(0, 6)
       .join(' ');
 
     const query = encodeURIComponent(`electrician ${searchTerms}`);
+    const randomPage = Math.floor(Math.random() * 4) + 1;
     const res = await fetch(
-      `https://api.unsplash.com/search/photos?query=${query}&per_page=20&orientation=landscape`,
+      `https://api.unsplash.com/search/photos?query=${query}&per_page=20&page=${randomPage}&orientation=landscape`,
       { headers: { Authorization: `Client-ID ${accessKey}` } }
     );
 
@@ -66,13 +77,14 @@ export async function fetchImage(keyword: string, category: string): Promise<Ima
     const data = await res.json();
     const results: { urls: { raw: string }; alt_description: string }[] = data.results ?? [];
 
-    // Pick first unused result
-    const unused = results.find((photo) => {
+    // Prefer unused photos; pick randomly from the available pool
+    const unused = results.filter((photo) => {
       const url = `${photo.urls.raw}&w=1200&q=80&fit=crop&crop=entropy`;
       return !usedUrls.has(url);
     });
 
-    const photo = unused ?? results[Math.floor(Math.random() * results.length)];
+    const pool = unused.length > 0 ? unused : results;
+    const photo = pool[Math.floor(Math.random() * pool.length)];
     if (!photo) throw new Error('No results');
 
     return {
