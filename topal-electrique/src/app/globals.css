@@ -291,6 +291,8 @@ html.lenis {
 .prose-article a:hover { color: #fb923c; }
 .prose-article blockquote { border-left: 3px solid #f97316; padding-left: 1.25rem; margin: 1.5rem 0; color: #d1d5db; font-style: italic; }
 .prose-article hr { border-color: rgba(255,255,255,0.08); margin: 2.5rem 0; }
+.prose-article a.glossary-link { text-decoration-style: dotted; text-decoration-color: rgba(249,115,22,0.6); }
+.prose-article a.glossary-link:hover { text-decoration-style: solid; }
 
 /* AI Overview / GEO summary block */
 .prose-article aside.ai-overview {

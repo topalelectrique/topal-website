@@ -3,8 +3,22 @@ import BlogArticle from '@/components/pages/BlogArticle';
 import ArticleContextSetter from '@/components/ArticleContextSetter';
 import { supabase } from '@/lib/supabase';
 import type { Article } from '@/lib/supabase';
+import { linkifyGlossaryTerms } from '@/lib/glossary';
 
 export const revalidate = 3600;
+
+function extractH2Steps(html: string): string[] {
+  return [...html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/gi)]
+    .map((m) => m[1].replace(/<[^>]+>/g, '').trim())
+    .filter((s) => s.length > 0 && !/faq|question|fréquent/i.test(s));
+}
+
+function isHowToArticle(title: string, locale: string): boolean {
+  const lower = title.toLowerCase();
+  return locale === 'fr'
+    ? /^comment\b/.test(lower) || /^guide\b/.test(lower) || lower.includes('étapes pour')
+    : /^how (to|do)\b/.test(lower) || /^guide\b/.test(lower) || lower.includes('step by step');
+}
 
 function extractFAQs(html: string): { question: string; answer: string }[] {
   const regex = /<details[^>]*>[\s\S]*?<summary[^>]*>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/gi;
@@ -178,6 +192,22 @@ export default async function ArticlePage({
     ],
   };
 
+  // HowTo JSON-LD (for "Comment…" / "How to…" articles)
+  const howToSteps = isHowToArticle(article.title, locale) ? extractH2Steps(article.content) : [];
+  const howToSchema = howToSteps.length >= 3 ? {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: article.title,
+    description: article.excerpt ?? article.meta_description ?? '',
+    ...(article.reading_time ? { totalTime: `PT${article.reading_time}M` } : {}),
+    step: howToSteps.map((name, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name,
+      text: name,
+    })),
+  } : null;
+
   // FAQPage JSON-LD (auto-parsed from article content)
   const faqs = extractFAQs(article.content);
   const faqSchema = faqs.length > 0 ? {
@@ -192,6 +222,10 @@ export default async function ArticlePage({
 
   const pairedLocale = locale === 'fr' ? 'en' : 'fr';
 
+  // Auto-link glossary terms in article content (first occurrence only, skips headings/links/aside)
+  const linkedContent = linkifyGlossaryTerms(article.content, locale as 'fr' | 'en');
+  const processedArticle = { ...article, content: linkedContent } as Article;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
@@ -199,9 +233,12 @@ export default async function ArticlePage({
       {faqSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
+      {howToSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      )}
       <ArticleContextSetter pairedSlug={pairedSlug} pairedLocale={pairedLocale as 'fr' | 'en'} />
       <BlogArticle
-        article={article as Article}
+        article={processedArticle}
         locale={locale}
         relatedArticles={(relatedArticles ?? []) as Article[]}
       />

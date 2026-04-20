@@ -229,3 +229,63 @@ export function getTermsByLocale(locale: 'fr' | 'en') {
     definition: t[locale].definition,
   })).sort((a, b) => a.term.localeCompare(b.term, locale, { sensitivity: 'base' }));
 }
+
+/**
+ * Scans article HTML and wraps the first occurrence of each glossary term
+ * in a link to the glossary definition. Skips <a>, <h1-3>, <aside>, <details>.
+ */
+export function linkifyGlossaryTerms(html: string, locale: 'fr' | 'en'): string {
+  const terms = GLOSSARY_TERMS
+    .map((t) => ({
+      slug: t.slug,
+      // Use base term before any parenthetical like "(A)" or "(tableau électrique)"
+      baseTerm: t[locale].term.split('(')[0].trim(),
+    }))
+    .filter((t) => t.baseTerm.length >= 6)
+    // Longer terms first to avoid partial matches
+    .sort((a, b) => b.baseTerm.length - a.baseTerm.length);
+
+  const linked = new Set<string>();
+
+  // Split into text nodes and tag nodes
+  const segments = html.split(/(<[^>]+>)/);
+
+  let inA = 0;
+  let inHeading = 0;
+  let inAside = 0;
+  let inDetails = 0;
+
+  const processed = segments.map((seg) => {
+    if (seg.startsWith('<')) {
+      const lower = seg.toLowerCase();
+      if (/^<a[\s>]/.test(lower)) inA++;
+      if (/^<\/a>/.test(lower)) inA = Math.max(0, inA - 1);
+      if (/^<h[123][\s>]/.test(lower)) inHeading++;
+      if (/^<\/h[123]>/.test(lower)) inHeading = Math.max(0, inHeading - 1);
+      if (/^<aside[\s>]/.test(lower)) inAside++;
+      if (/^<\/aside>/.test(lower)) inAside = Math.max(0, inAside - 1);
+      if (/^<details[\s>]/.test(lower)) inDetails++;
+      if (/^<\/details>/.test(lower)) inDetails = Math.max(0, inDetails - 1);
+      return seg;
+    }
+
+    // Skip text inside protected elements
+    if (inA > 0 || inHeading > 0 || inAside > 0 || inDetails > 0) return seg;
+
+    let text = seg;
+    for (const { slug, baseTerm } of terms) {
+      if (linked.has(slug)) continue;
+      const escaped = baseTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // Unicode-aware boundary — works with French accented chars
+      const regex = new RegExp(`(?<![a-zA-ZÀ-ÿ0-9])(${escaped})(?![a-zA-ZÀ-ÿ0-9])`, 'i');
+      if (regex.test(text)) {
+        const path = locale === 'fr' ? `/fr/glossaire#${slug}` : `/en/glossary#${slug}`;
+        text = text.replace(regex, `<a href="${path}" class="glossary-link">$1</a>`);
+        linked.add(slug);
+      }
+    }
+    return text;
+  });
+
+  return processed.join('');
+}

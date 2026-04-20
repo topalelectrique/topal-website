@@ -5,24 +5,41 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Calendar, Facebook, Twitter, Link2, User } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Article } from '@/lib/supabase';
 
 function ReadingProgress() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+
     const update = () => {
-      const el = document.documentElement;
-      const total = el.scrollHeight - el.clientHeight;
-      setProgress(total > 0 ? (el.scrollTop / total) * 100 : 0);
+      const article = document.querySelector('article');
+      if (!article) return;
+      const articleTop = (article as HTMLElement).offsetTop;
+      const articleH = (article as HTMLElement).offsetHeight;
+      const viewportH = window.innerHeight;
+      const scrollY = window.scrollY;
+      // Start when article enters view, end when article content is fully scrolled
+      const start = articleTop;
+      const end = articleTop + articleH - viewportH;
+      if (end <= 0) { bar.style.width = '100%'; return; }
+      const pct = Math.min(Math.max((scrollY - start) / (end - start), 0), 1) * 100;
+      bar.style.width = `${pct}%`;
     };
+
     window.addEventListener('scroll', update, { passive: true });
+    update();
     return () => window.removeEventListener('scroll', update);
   }, []);
+
   return (
     <div
-      className="fixed left-0 top-0 z-50 h-0.5 bg-orange-500 transition-[width] duration-100 ease-out"
-      style={{ width: `${progress}%` }}
+      ref={barRef}
+      className="fixed left-0 top-0 z-50 h-0.5 bg-gradient-to-r from-orange-500 to-orange-400"
+      style={{ width: '0%', transition: 'width 120ms linear', willChange: 'width' }}
       aria-hidden="true"
     />
   );
