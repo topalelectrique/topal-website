@@ -3,12 +3,13 @@
 import { useTranslations, useLocale } from 'next-intl';
 import {
   Zap, Building2, AlertCircle, Car, LayoutGrid,
-  ArrowRight, Check, ChevronDown, Phone,
+  ArrowRight, Check, ChevronDown, Phone, BookOpen,
 } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import type { Article } from '@/lib/supabase';
 import { PHONE, PHONE_LINK } from '@/lib/constants';
 
 /* ─────────────────────────────────────
@@ -79,6 +80,138 @@ function FeatureItem({ text, delay }: { text: string; delay: number }) {
 }
 
 /* ─────────────────────────────────────
+   Article card (topic cluster strip)
+───────────────────────────────────── */
+function ArticleCard({ article, locale, index }: { article: Article; locale: string; index: number }) {
+  const [hovered, setHovered] = useState(false);
+  const [glowPos, setGlowPos] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const date = new Date(article.published_at).toLocaleDateString(
+    locale === 'fr' ? 'fr-CA' : 'en-CA',
+    { month: 'short', day: 'numeric', year: 'numeric' }
+  );
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setGlowPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <Link href={{ pathname: '/conseils/[slug]', params: { slug: article.slug } }}>
+        <div
+          ref={cardRef}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onMouseMove={handleMouseMove}
+          className="group relative overflow-hidden rounded-xl border border-white/8 bg-dark-800/60 backdrop-blur-sm transition-all duration-300 hover:border-orange-500/35"
+          style={{
+            transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+            transition: 'transform 0.25s ease, border-color 0.3s ease',
+          }}
+        >
+          {/* Mouse-tracking glow */}
+          <div
+            className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
+            style={{
+              opacity: hovered ? 1 : 0,
+              background: `radial-gradient(280px circle at ${glowPos.x}px ${glowPos.y}px, rgba(249,115,22,0.10), transparent 65%)`,
+            }}
+          />
+
+          {/* Thumbnail */}
+          {article.image_url ? (
+            <div className="relative h-28 overflow-hidden">
+              <Image
+                src={article.image_url}
+                alt={article.image_alt ?? article.title}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-800 via-dark-800/30 to-transparent" />
+            </div>
+          ) : (
+            <div className="h-2 w-full bg-gradient-to-r from-orange-500/30 via-orange-500/10 to-transparent" />
+          )}
+
+          <div className="relative z-10 p-4">
+            <h3 className="font-heading text-sm font-bold leading-snug text-white transition-colors duration-200 group-hover:text-orange-400 line-clamp-2">
+              {article.title}
+            </h3>
+            {article.excerpt && (
+              <p className="mt-1.5 line-clamp-2 text-[0.7rem] leading-relaxed text-gray-500">
+                {article.excerpt}
+              </p>
+            )}
+            <div className="mt-3 flex items-center justify-between">
+              <span className="text-[0.6rem] text-gray-600">{date}{article.reading_time ? ` · ${article.reading_time} min` : ''}</span>
+              <span className="flex items-center gap-1 text-[0.65rem] font-semibold text-orange-500 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 translate-x-[-4px]">
+                {locale === 'fr' ? 'Lire' : 'Read'} <ArrowRight className="h-2.5 w-2.5" />
+              </span>
+            </div>
+          </div>
+
+          {/* Bottom accent line */}
+          <div
+            className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-orange-500 to-transparent transition-all duration-500"
+            style={{ width: hovered ? '100%' : '0%' }}
+          />
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────
+   Article strip (topic cluster)
+───────────────────────────────────── */
+function ServiceArticleStrip({ articles, locale }: { articles: Article[]; locale: string }) {
+  if (articles.length === 0) return null;
+  const label = locale === 'fr' ? 'Ressources connexes' : 'Related resources';
+  const viewAll = locale === 'fr' ? 'Voir tous les articles' : 'View all articles';
+
+  return (
+    <div className="relative max-w-6xl mx-auto px-4 md:px-6 pb-10">
+      <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+        {/* Header */}
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-500/10 border border-orange-500/20">
+              <BookOpen className="h-3.5 w-3.5 text-orange-400" />
+            </div>
+            <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-orange-400">
+              {label}
+            </span>
+          </div>
+          <Link
+            href="/conseils"
+            className="group flex items-center gap-1 text-[0.65rem] font-medium text-gray-500 transition hover:text-orange-400"
+          >
+            {viewAll}
+            <ArrowRight className="h-2.5 w-2.5 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.slice(0, 3).map((article, i) => (
+            <ArticleCard key={article.id} article={article} locale={locale} index={i} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────
    Service section
 ───────────────────────────────────── */
 interface ServiceSectionProps {
@@ -93,10 +226,11 @@ interface ServiceSectionProps {
   callLabel: string;
   isUrgence?: boolean;
   locale: string;
+  relatedArticles: Article[];
 }
 
 function ServiceSection({
-  index, anchor, icon: Icon, title, description, features, image, ctaLabel, callLabel, isUrgence, locale,
+  index, anchor, icon: Icon, title, description, features, image, ctaLabel, callLabel, isUrgence, locale, relatedArticles,
 }: ServiceSectionProps) {
   const reversed = index % 2 !== 0;
   const contentRef = useRef(null);
@@ -104,6 +238,7 @@ function ServiceSection({
   const num = String(index + 1).padStart(2, '0');
 
   return (
+    <>
     <section id={anchor} className="relative py-16 md:py-20 px-4 md:px-6">
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
@@ -171,6 +306,9 @@ function ServiceSection({
         </motion.div>
       </div>
     </section>
+
+    <ServiceArticleStrip articles={relatedArticles} locale={locale} />
+    </>
   );
 }
 
@@ -575,10 +713,13 @@ const SERVICE_IMAGES = [
   { src: '/images/services/electrical-panel.jpg', alt: 'Mise à niveau de panneau électrique à Montréal' },
 ];
 
+// Maps each service index to its closest blog category
+const SERVICE_CATEGORIES = ['residential', 'commercial', 'advice', 'trends', 'residential'] as const;
+
 /* ─────────────────────────────────────
    Main export
 ───────────────────────────────────── */
-export default function ServicesPage() {
+export default function ServicesPage({ articles = [] }: { articles?: Article[] }) {
   const t = useTranslations('services');
   const cta = useTranslations('cta');
   const locale = useLocale();
@@ -594,6 +735,9 @@ export default function ServicesPage() {
     anchor: SERVICE_ANCHORS[i],
     image: SERVICE_IMAGES[i],
     features: features[i],
+    relatedArticles: articles
+      .filter((a) => a.category === SERVICE_CATEGORIES[i])
+      .slice(0, 3),
   }));
 
   const bottomCTARef = useRef(null);
@@ -640,6 +784,7 @@ export default function ServicesPage() {
           callLabel={callLabel}
           isUrgence={i === 2}
           locale={locale}
+          relatedArticles={service.relatedArticles}
         />
       ))}
 

@@ -53,10 +53,10 @@ export default async function AuthorPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Matéo Saric',
-    jobTitle: isFr ? 'Électricien certifié' : 'Certified Electrician',
+    jobTitle: isFr ? 'Électricien de métier' : 'Journeyman Electrician',
     description: isFr
-      ? 'Électricien certifié chez Topal Électrique avec 7 ans d\'expérience en électricité résidentielle et commerciale dans le Grand Montréal.'
-      : 'Certified electrician at Topal Électrique with 7 years of experience in residential and commercial electrical work in Greater Montreal.',
+      ? 'Électricien de métier chez Topal Électrique avec 7 ans d\'expérience terrain en électricité résidentielle et commerciale dans le Grand Montréal.'
+      : 'Journeyman electrician at Topal Électrique with 7 years of hands-on experience in residential and commercial electrical work throughout Greater Montreal.',
     url: isFr ? `${base}/fr/auteur` : `${base}/en/author`,
     image: `${base}/images/logo.png`,
     worksFor: {
@@ -69,8 +69,8 @@ export default async function AuthorPage({ params }: Props) {
       ],
     },
     knowsAbout: isFr
-      ? ['Électricité résidentielle', 'Électricité commerciale', 'Panneaux électriques', 'Bornes de recharge EV', 'Code de construction du Québec']
-      : ['Residential electrical', 'Commercial electrical', 'Electrical panels', 'EV charging stations', 'Quebec Construction Code'],
+      ? ['Électricité résidentielle', 'Électricité commerciale', 'Panneaux électriques', 'Bornes de recharge EV', 'Code de construction du Québec', 'Rénovation électrique']
+      : ['Residential electrical', 'Commercial electrical', 'Electrical panels', 'EV charging stations', 'Quebec Construction Code', 'Electrical renovation'],
     sameAs: ['https://topalelectrique.ca'],
   };
 
@@ -118,26 +118,26 @@ export default async function AuthorPage({ params }: Props) {
             <div className="text-center sm:text-left">
               <h1 className="font-heading text-3xl font-bold text-white">Matéo Saric</h1>
               <p className="mt-1 text-sm font-medium text-orange-400">
-                {isFr ? 'Électricien certifié — Topal Électrique' : 'Certified Electrician — Topal Électrique'}
+                {isFr ? 'Électricien de métier — Topal Électrique' : 'Journeyman Electrician — Topal Électrique'}
               </p>
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-gray-400">
                 {isFr
-                  ? 'Électricien certifié avec 7 ans d\'expérience en électricité résidentielle et commerciale dans le Grand Montréal. Spécialisé dans les mises à niveau de panneaux, les installations de bornes EV et les projets de rénovation. Tous les articles publiés sur ce blogue sont rédigés en accord avec les standards du Code de construction du Québec et les certifications RBQ et CMEQ de Topal Électrique.'
-                  : 'Certified electrician with 7 years of experience in residential and commercial electrical work throughout Greater Montreal. Specialized in panel upgrades, EV charger installations, and renovation projects. All articles published on this blog are written in accordance with the Quebec Construction Code and Topal Électrique\'s RBQ and CMEQ certifications.'}
+                  ? 'Électricien de métier avec 7 ans d\'expérience terrain en électricité résidentielle et commerciale dans le Grand Montréal. Spécialisé dans les mises à niveau de panneaux, les installations de bornes EV et les projets de rénovation complète. Les travaux sont réalisés sous la licence RBQ de Topal Électrique (8317-3658-34), membre CMEQ.'
+                  : 'Journeyman electrician with 7 years of hands-on experience in residential and commercial electrical work throughout Greater Montreal. Specialized in panel upgrades, EV charger installations, and full renovation projects. All work is performed under Topal Électrique\'s RBQ licence (8317-3658-34), a CMEQ member company.'}
               </p>
 
               <div className="mt-5 flex flex-wrap justify-center gap-3 sm:justify-start">
                 <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-                  <Award className="h-3 w-3 text-orange-400" />
-                  {isFr ? 'Licence RBQ 8317-3658-34' : 'RBQ Licence 8317-3658-34'}
-                </span>
-                <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-                  <Award className="h-3 w-3 text-orange-400" />
-                  {isFr ? 'Membre CMEQ' : 'CMEQ Member'}
-                </span>
-                <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
                   <Clock className="h-3 w-3 text-orange-400" />
-                  {isFr ? '7 ans d\'expérience' : '7 years of experience'}
+                  {isFr ? '7 ans d\'expérience terrain' : '7 years hands-on experience'}
+                </span>
+                <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                  <Award className="h-3 w-3 text-orange-400" />
+                  {isFr ? 'Panneaux · Bornes EV · Rénovation' : 'Panels · EV Chargers · Renovation'}
+                </span>
+                <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                  <Award className="h-3 w-3 text-orange-400" />
+                  {isFr ? 'Sous licence RBQ 8317-3658-34' : 'Under RBQ licence 8317-3658-34'}
                 </span>
               </div>
             </div>
