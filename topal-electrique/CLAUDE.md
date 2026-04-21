@@ -102,6 +102,8 @@ Every new page under `src/app/[locale]/` must have:
 - Every page in a hreflang pair must reference all variants including itself (A→B and B→A).
 - Article hreflang is driven by `pair_id` in Supabase. If `pair_id` is null or the paired article
   doesn't exist, the code now falls back to self-only hreflang (see `conseils/[slug]/page.tsx`).
+- Every page must include `x-default` pointing to the EN URL. For unpaired articles, x-default = canonical.
+- hreflang is declared **only** in `generateMetadata` — middleware has `alternateLinks: false`. Never add hreflang in layout or middleware.
 
 ---
 
