@@ -82,7 +82,7 @@ Every new page under `src/app/[locale]/` must have:
   - `title` — under 60 characters, primary keyword first
   - `description` — 120–160 characters, include a soft CTA
   - `alternates.canonical` — locale-conditional absolute URL (`https://topalelectrique.ca/fr/...`)
-  - `alternates.languages` — both `fr-CA` and `en-CA` pointing to their respective absolute paths
+  - `alternates.languages` — `fr-CA`, `en-CA`, and `x-default` (pointing to EN URL)
   - `openGraph.images` — always include, use `/og-image.png` as fallback
   - `openGraph.url` — must match canonical
 - [ ] Exactly one `<h1>` tag in the page component
