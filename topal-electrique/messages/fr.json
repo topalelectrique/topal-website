@@ -52,31 +52,31 @@
         "title": "Installation électrique résidentielle",
         "description": "Installation électrique sécuritaire et conforme au Code de construction du Québec pour maisons neuves, rénovations et mises à niveau. Prises, luminaires, panneaux et câblage complet par des maîtres électriciens certifiés.",
         "slug": "installation-electrique-residentielle",
-        "link": "/services#residentiel"
+        "link": "/fr/services#residentiel"
       },
       {
         "title": "Installation électrique commerciale",
         "description": "Services électriques sur mesure pour commerces, bureaux et bâtiments industriels. Éclairage optimisé, systèmes triphasés et installations haute performance conformes aux normes CSA.",
         "slug": "installation-electrique-commerciale",
-        "link": "/services#commercial"
+        "link": "/fr/services#commercial"
       },
       {
         "title": "Service d'urgence 24/7 et dépannage",
         "description": "Intervention d'urgence rapide disponible nuits, fins de semaine et jours fériés. Pannes électriques, courts-circuits, disjoncteurs défaillants — nos électriciens interviennent partout dans le Grand Montréal.",
         "slug": "service-urgence-depannage",
-        "link": "/services#urgence"
+        "link": "/fr/services#urgence"
       },
       {
         "title": "Installation de bornes de recharge EV",
         "description": "Installation certifiée de bornes de recharge pour véhicules électriques (niveau 2) en résidentiel et commercial. Compatible Tesla, Grizzl-E et toutes marques. Conforme aux normes CSA et admissible aux subventions.",
         "slug": "installation-bornes-recharge",
-        "link": "/services#bornes"
+        "link": "/fr/services#bornes"
       },
       {
         "title": "Mise à niveau de panneaux électriques",
         "description": "Remplacement et mise à niveau de panneaux électriques 100A, 200A, 320A et 400A. Augmentez la capacité de votre installation pour répondre aux besoins modernes en toute sécurité.",
         "slug": "mise-a-jour-panneaux-electriques",
-        "link": "/services#panneaux"
+        "link": "/fr/services#panneaux"
       }
     ]
   },

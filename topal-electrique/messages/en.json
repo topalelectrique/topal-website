@@ -52,31 +52,31 @@
         "title": "Residential electrical installation",
         "description": "Safe, Quebec Building Code-compliant electrical installations for new homes, renovations and upgrades. Outlets, lighting, panels and complete wiring by certified master electricians.",
         "slug": "residential-electrical-installation",
-        "link": "/services#residentiel"
+        "link": "/en/services#residentiel"
       },
       {
         "title": "Commercial electrical installation",
         "description": "Custom electrical services for retail, offices and industrial buildings. Optimized lighting, three-phase systems and high-performance CSA-compliant installations.",
         "slug": "commercial-electrical-installation",
-        "link": "/services#commercial"
+        "link": "/en/services#commercial"
       },
       {
         "title": "24/7 Emergency service & troubleshooting",
         "description": "Fast emergency response available nights, weekends and holidays. Power outages, short circuits, faulty breakers — our electricians respond across Greater Montreal.",
         "slug": "emergency-service-troubleshooting",
-        "link": "/services#urgence"
+        "link": "/en/services#urgence"
       },
       {
         "title": "EV charging station installation",
         "description": "Certified Level 2 EV charging station installation for residential and commercial properties. Compatible with Tesla, Grizzl-E and all brands. CSA-compliant and subsidy-eligible.",
         "slug": "ev-charging-station-installation",
-        "link": "/services#bornes"
+        "link": "/en/services#bornes"
       },
       {
         "title": "Electrical panel upgrades",
         "description": "100A, 200A, 320A and 400A electrical panel replacement and upgrades. Increase your installation's capacity to safely meet modern electrical demands.",
         "slug": "electrical-panel-upgrades",
-        "link": "/services#panneaux"
+        "link": "/en/services#panneaux"
       }
     ]
   },
