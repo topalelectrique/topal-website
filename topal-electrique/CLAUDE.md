@@ -20,6 +20,8 @@ Deployed on **Render**. Domain: `topalelectrique.ca`.
 - Navigation uses `Link` from `@/i18n/navigation` (not next/link directly)
 - Translations in `messages/fr.json` and `messages/en.json`
 - Middleware at `src/middleware.ts` — matcher: `/((?!_next|_vercel|.*\\..*).*)`
+- `localePrefix: 'always'` is set — every URL must include the locale prefix
+- `alternateLinks: false` is set — hreflang comes only from `generateMetadata`, never from middleware headers
 
 ## SEO setup
 - Per-page `generateMetadata` with canonical, hreflang (fr-CA / en-CA), OG, Twitter
@@ -46,6 +48,32 @@ All in `src/lib/constants.ts`: SITE_URL, PHONE, PHONE_LINK, EMAIL, ADDRESS, SOCI
 
 ---
 
+## Rules: internal links (read before touching any href)
+
+**Never use a bare `/path` href anywhere in the codebase.** Every internal link must be locale-prefixed. This applies to:
+- JSX `<a href="...">` tags
+- Values stored in `messages/fr.json` and `messages/en.json`
+- Any string used as an href in a component
+
+**Rule for components:**
+- Use `<Link href="/path">` from `@/i18n/navigation` only in **server components** — it reliably renders the locale-prefixed URL during SSR.
+- In **client components** (`'use client'`), use `useLocale()` and build the href explicitly: `` `/${locale}/path` ``. Do not rely on next-intl Link auto-prefixing in client components — it may not be available during SSR and Ahrefs will see the bare path.
+
+**Rule for translation files (`messages/fr.json`, `messages/en.json`):**
+- FR links must start with `/fr/` — e.g. `"/fr/services#residentiel"`
+- EN links must start with `/en/` — e.g. `"/en/services#residentiel"`
+- Never store `/path` without locale prefix as a link value
+
+**Rule for social links and external URLs:**
+- Always use the `www.` canonical form (e.g. `https://www.tiktok.com/`, `https://www.facebook.com/`)
+- All social links are in `src/lib/constants.ts` — update there, nowhere else
+
+**Rule for JSON-LD / Schema.org URLs:**
+- Never use `https://topalelectrique.ca` (root) — it 301 redirects
+- Use `https://topalelectrique.ca/fr` as the canonical site URL in JSON-LD
+
+---
+
 ## Checklist: adding a new static page
 
 Every new page under `src/app/[locale]/` must have:
@@ -53,14 +81,16 @@ Every new page under `src/app/[locale]/` must have:
 - [ ] `generateMetadata()` with:
   - `title` — under 60 characters, primary keyword first
   - `description` — 120–160 characters, include a soft CTA
-  - `alternates.canonical` — locale-conditional absolute URL
-  - `alternates.languages` — both `fr-CA` and `en-CA` pointing to their respective paths
+  - `alternates.canonical` — locale-conditional absolute URL (`https://topalelectrique.ca/fr/...`)
+  - `alternates.languages` — both `fr-CA` and `en-CA` pointing to their respective absolute paths
   - `openGraph.images` — always include, use `/og-image.png` as fallback
   - `openGraph.url` — must match canonical
 - [ ] Exactly one `<h1>` tag in the page component
 - [ ] Route registered in `src/i18n/routing.ts` with both FR and EN paths
 - [ ] Both FR and EN paths added to `src/app/sitemap.ts`
 - [ ] Translations added to both `messages/fr.json` and `messages/en.json`
+- [ ] Any internal links in the page or its translations use locale-prefixed paths (`/fr/...` or `/en/...`)
+- [ ] If the page is a client component, hrefs are built with `useLocale()`, not bare strings
 
 ---
 
@@ -89,10 +119,19 @@ and their fixes — all already implemented, listed here so they stay fixed:
 | FR links injected into EN articles | `findInternalLinks` called with `'fr'` for both | `route.ts` now fetches EN links separately for EN generation |
 | Wrong-locale slugs in old articles | Pre-fix pipeline bug | 301 redirects in `middleware.ts` for the 10 affected URLs |
 | Redirect chains (307→301) | Ahrefs crawls non-prefixed `/conseils/` URLs, next-intl adds locale prefix before our redirect fires | Non-prefixed redirects added to `middleware.ts` |
+| meta_title over 60 chars | Claude doesn't always respect character limits | Hard clamp in `generator.ts` after parsing |
+| meta_description over 160 chars | Same | Hard clamp in `generator.ts` after parsing |
+| Wrong pair_id links FR article to EN article with wrong-locale slug | Old pipeline bug | Fixed in Supabase with SQL — pair_ids now link correct FR↔EN slug pairs |
 
 **When adding new redirect entries to `middleware.ts`:**
 Always add both the locale-prefixed version (`/fr/conseils/[slug]`) AND the non-prefixed
 version (`/conseils/[slug]`) to avoid 307→301 chains.
+
+**After every pipeline run, verify in Supabase:**
+- FR articles have French slugs (no accents in slugs, but French words)
+- EN articles have English slugs (no French words)
+- Each pair_id links exactly one FR article and one EN article
+- Internal links in article content use `/fr/conseils/` and `/en/blog/` prefixes (check with `SELECT slug FROM articles WHERE content LIKE '%href="/conseils/%'`)
 
 ---
 
