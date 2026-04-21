@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     const { frId } = await publishArticle(frArticle, enArticle, image, articleType, newsContext?.url);
 
     // 7. Cross-post to Facebook (async, non-blocking)
-    postToFacebook(frArticle.slug, frArticle.title, frArticle.excerpt, frId, image.url).catch((err) => {
+    postToFacebook(frArticle.slug, frArticle.title, frArticle.excerpt, frId, image.url, frArticle.category).catch((err) => {
       console.error('Facebook post failed:', err.message);
     });
 

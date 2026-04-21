@@ -23,12 +23,85 @@ const CATEGORY_FALLBACKS: Record<string, string[]> = {
   ],
 };
 
+// Category context words appended to give Unsplash more signal
+const CATEGORY_CONTEXT: Record<string, string> = {
+  residential: 'home wiring',
+  commercial: 'office building electrical',
+  regulations: 'building permit inspection',
+  advice: 'home improvement',
+  trends: 'smart home technology',
+  default: 'electrical work',
+};
+
+// FR → EN word-for-word translation map (sorted longest-first for greedy matching)
+const FR_EN_MAP: [RegExp, string][] = [
+  [/panneau électrique|tableau électrique/gi, 'electrical panel'],
+  [/borne de recharge|chargeur de véhicule|chargeur ev/gi, 'EV charger'],
+  [/mise à la terre/gi, 'electrical grounding'],
+  [/disjoncteur différentiel|prise gfci/gi, 'GFCI outlet'],
+  [/câblage résidentiel/gi, 'residential wiring'],
+  [/éclairage extérieur/gi, 'outdoor lighting'],
+  [/éclairage intérieur/gi, 'indoor lighting'],
+  [/installation électrique/gi, 'electrical installation'],
+  [/rénovation électrique/gi, 'electrical renovation'],
+  [/électricien résidentiel/gi, 'residential electrician'],
+  [/électricien commercial/gi, 'commercial electrician'],
+  [/électricien|électricienne/gi, 'electrical work'],
+  [/électrique|électricité/gi, 'electrical'],
+  [/panneau|tableau/gi, 'panel'],
+  [/câblage|câble/gi, 'wiring'],
+  [/prise de courant|prise/gi, 'outlet'],
+  [/interrupteur/gi, 'light switch'],
+  [/disjoncteur/gi, 'circuit breaker'],
+  [/éclairage|lumière/gi, 'lighting'],
+  [/chargeur|borne/gi, 'charger'],
+  [/résidentiel|maison|domicile/gi, 'home'],
+  [/commercial|bureau/gi, 'office'],
+  [/remplacement/gi, 'replacement'],
+  [/installation/gi, 'installation'],
+  [/réparation/gi, 'repair'],
+  [/inspection/gi, 'inspection'],
+  [/sécurité/gi, 'safety'],
+  [/coût|prix/gi, 'cost'],
+  [/économie|économiser/gi, 'energy saving'],
+  [/montréal|québec|laval|longueuil/gi, ''],
+  [/comment|guide|étapes|conseils/gi, ''],
+];
+
+/**
+ * Translates a French article title into a concise English Unsplash search query.
+ * Strips filler words and builds a topic-focused query with category context.
+ */
+function buildSearchQuery(title: string, category: string): string {
+  let q = title;
+
+  for (const [pattern, replacement] of FR_EN_MAP) {
+    q = q.replace(pattern, replacement);
+  }
+
+  // Remove common French filler / stop words
+  q = q.replace(/\b(de|du|des|le|la|les|un|une|et|en|à|au|aux|sur|pour|par|avec|sans|dans|tout|tous|votre|notre|vos|nos|son|ses|leur|leurs|ce|cet|cette|ces|qui|que|quoi|comment|pourquoi|quand|combien|quel|quelle|quels|quelles|est|sont|faire|avoir|être|se|si|ne|pas|plus|aussi|très|bien|peut|doit|faut)\b/gi, ' ');
+
+  // Collapse whitespace and take first 5 meaningful words
+  const words = q
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter((w) => w.length > 2)
+    .slice(0, 5);
+
+  const context = CATEGORY_CONTEXT[category] ?? CATEGORY_CONTEXT.default;
+  const combined = [...new Set([...words, ...context.split(' ')])].slice(0, 7).join(' ');
+
+  return combined.trim() || context;
+}
+
 export type ImageResult = {
   url: string;
   alt: string;
 };
 
-export async function fetchImage(keyword: string, category: string): Promise<ImageResult> {
+export async function fetchImage(title: string, category: string): Promise<ImageResult> {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
 
   // Fetch already-used image URLs from Supabase to avoid duplicates
@@ -41,32 +114,14 @@ export async function fetchImage(keyword: string, category: string): Promise<Ima
   if (!accessKey) {
     const fallbacks = CATEGORY_FALLBACKS[category] ?? CATEGORY_FALLBACKS.default;
     const unused = fallbacks.find((u) => !usedUrls.has(u)) ?? fallbacks[0];
-    return { url: unused, alt: keyword };
+    return { url: unused, alt: title };
   }
 
   try {
-    // Translate common French words and build an English search query from the title
-    const searchTerms = keyword
-      .replace(/électrique|électricien|électricité/gi, 'electrical')
-      .replace(/montréal|québec/gi, '')
-      .replace(/installation/gi, 'installation')
-      .replace(/remplacement/gi, 'replacement')
-      .replace(/panneau/gi, 'panel')
-      .replace(/tableau/gi, 'panel')
-      .replace(/câblage/gi, 'wiring')
-      .replace(/prise/gi, 'outlet')
-      .replace(/interrupteur/gi, 'switch')
-      .replace(/éclairage/gi, 'lighting')
-      .replace(/chargeur|borne/gi, 'charger')
-      .replace(/résidentiel/gi, 'residential')
-      .replace(/commercial/gi, 'commercial')
-      .trim()
-      .split(/\s+/)
-      .slice(0, 6)
-      .join(' ');
-
-    const query = encodeURIComponent(`electrician ${searchTerms}`);
+    const searchTerms = buildSearchQuery(title, category);
+    const query = encodeURIComponent(searchTerms);
     const randomPage = Math.floor(Math.random() * 4) + 1;
+
     const res = await fetch(
       `https://api.unsplash.com/search/photos?query=${query}&per_page=20&page=${randomPage}&orientation=landscape`,
       { headers: { Authorization: `Client-ID ${accessKey}` } }
@@ -77,7 +132,6 @@ export async function fetchImage(keyword: string, category: string): Promise<Ima
     const data = await res.json();
     const results: { urls: { raw: string }; alt_description: string }[] = data.results ?? [];
 
-    // Prefer unused photos; pick randomly from the available pool
     const unused = results.filter((photo) => {
       const url = `${photo.urls.raw}&w=1200&q=80&fit=crop&crop=entropy`;
       return !usedUrls.has(url);
@@ -89,11 +143,11 @@ export async function fetchImage(keyword: string, category: string): Promise<Ima
 
     return {
       url: `${photo.urls.raw}&w=1200&q=80&fit=crop&crop=entropy`,
-      alt: photo.alt_description ?? keyword,
+      alt: photo.alt_description ?? title,
     };
   } catch {
     const fallbacks = CATEGORY_FALLBACKS[category] ?? CATEGORY_FALLBACKS.default;
     const unused = fallbacks.find((u) => !usedUrls.has(u)) ?? fallbacks[0];
-    return { url: unused, alt: keyword };
+    return { url: unused, alt: title };
   }
 }
