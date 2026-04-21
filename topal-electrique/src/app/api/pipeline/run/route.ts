@@ -67,12 +67,13 @@ export async function POST(req: NextRequest) {
     // 2. Claim keyword immediately so no retry picks it again
     if (keywordId) await markKeywordUsed(keywordId);
 
-    // 3. Find internal links (FR)
+    // 3. Find internal links for each locale
     const frLinks = await findInternalLinks('residential', 'fr');
+    const enLinks = await findInternalLinks('residential', 'en');
 
-    // 4. Generate FR + EN articles in parallel
+    // 4. Generate FR + EN articles sequentially (memory constraint on 512MB Render)
     const frArticle = await generateArticle(keyword, articleType, 'fr', frLinks, newsContext);
-    const enArticle = await generateArticle(keyword, articleType, 'en', [], newsContext);
+    const enArticle = await generateArticle(keyword, articleType, 'en', enLinks, newsContext);
 
     // 5. Fetch image — use generated title for better relevance
     const image = await fetchImage(frArticle.title, frArticle.category);
