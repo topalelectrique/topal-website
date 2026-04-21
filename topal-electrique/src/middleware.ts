@@ -2,7 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 
-const intlMiddleware = createMiddleware(routing);
+const intlMiddleware = createMiddleware({ ...routing, alternateLinks: false });
 
 // Non-locale-prefixed static paths → next-intl would 307 these; we 301 directly.
 // French-named paths always resolve to /fr/. Neutral paths (/contact) resolve to /fr/
