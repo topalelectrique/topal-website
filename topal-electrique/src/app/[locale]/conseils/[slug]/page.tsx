@@ -61,17 +61,19 @@ export async function generateMetadata({
     pairedSlug = paired?.slug ?? null;
   }
 
-  const frPath = locale === 'fr'
-    ? `${base}/fr/conseils/${article.slug}`
-    : pairedSlug ? `${base}/fr/conseils/${pairedSlug}` : `${base}/fr/conseils`;
+  const frPath = `${base}/fr/conseils/${isFr ? article.slug : (pairedSlug ?? '')}`;
+  const enPath = `${base}/en/blog/${!isFr ? article.slug : (pairedSlug ?? '')}`;
+  const canonical = isFr ? `${base}/fr/conseils/${article.slug}` : `${base}/en/blog/${article.slug}`;
 
-  const enPath = locale === 'en'
-    ? `${base}/en/blog/${article.slug}`
-    : pairedSlug ? `${base}/en/blog/${pairedSlug}` : `${base}/en/blog`;
+  // Only declare cross-language hreflang when the paired article actually exists.
+  // Falling back to list pages (/fr/conseils or /en/blog) causes "missing reciprocal
+  // hreflang" errors because the list page doesn't link back to this article.
+  const hreflangLanguages = pairedSlug
+    ? { 'fr-CA': frPath, 'en-CA': enPath }
+    : { [isFr ? 'fr-CA' : 'en-CA']: canonical };
 
   const title = article.meta_title ?? article.title;
   const description = article.meta_description ?? '';
-  const canonical = isFr ? frPath : enPath;
 
   return {
     title,
@@ -79,7 +81,7 @@ export async function generateMetadata({
     authors: [{ name: 'Matéo Saric', url: `${base}/${locale}/${isFr ? 'auteur' : 'author'}` }],
     alternates: {
       canonical,
-      languages: { 'fr-CA': frPath, 'en-CA': enPath },
+      languages: hreflangLanguages,
     },
     openGraph: {
       title,
