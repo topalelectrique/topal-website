@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
@@ -34,6 +34,8 @@ function TikTokIcon({ className }: { className?: string }) {
 export default function Footer() {
   const t = useTranslations('footer');
   const nav = useTranslations('nav');
+  const locale = useLocale();
+  const servicesHref = `/${locale}/services`;
 
   const navItems = [
     { href: '/' as const, label: nav('home') },
@@ -133,12 +135,12 @@ export default function Footer() {
             <ul className="mt-4 space-y-3">
               {services.map((service) => (
                 <li key={service}>
-                  <Link
-                    href="/services"
+                  <a
+                    href={servicesHref}
                     className="text-sm text-white/50 transition-colors duration-300 hover:text-orange-500"
                   >
                     {service}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
