@@ -14,11 +14,18 @@ const ARTICLE_REDIRECTS: [string, string][] = [
   ['/en/blog/electricien-urgence-24h-montreal',               '/fr/conseils/electricien-urgence-24h-montreal'],
   ['/en/blog/remplacement-panneau-electrique-montreal',       '/fr/conseils/remplacement-panneau-electrique-montreal'],
   // English slugs that ended up under /fr/conseils/
-  ['/fr/conseils/free-electrical-quote-montreal-no-commitment', '/en/blog/free-electrical-quote-montreal-no-commitment'],
+  ['/fr/conseils/free-electrical-quote-montreal-no-commitment',  '/en/blog/free-electrical-quote-montreal-no-commitment'],
   ['/fr/conseils/electrician-south-shore-montreal-fast-service', '/en/blog/electrician-south-shore-montreal-fast-service'],
-  ['/fr/conseils/certified-rbq-master-electrician-montreal',   '/en/blog/certified-rbq-master-electrician-montreal'],
-  ['/fr/conseils/electrical-panel-replacement-montreal',       '/en/blog/electrical-panel-replacement-montreal'],
-  ['/fr/conseils/emergency-electrician-24h-montreal-topal',    '/en/blog/emergency-electrician-24h-montreal-topal'],
+  ['/fr/conseils/certified-rbq-master-electrician-montreal',     '/en/blog/certified-rbq-master-electrician-montreal'],
+  ['/fr/conseils/electrical-panel-replacement-montreal',         '/en/blog/electrical-panel-replacement-montreal'],
+  ['/fr/conseils/emergency-electrician-24h-montreal-topal',      '/en/blog/emergency-electrician-24h-montreal-topal'],
+  // Non-locale-prefixed versions (Ahrefs crawled /conseils/... → next-intl 307 → our 301 = chain)
+  // Catch them before next-intl runs to make it a single direct 301
+  ['/conseils/free-electrical-quote-montreal-no-commitment',  '/en/blog/free-electrical-quote-montreal-no-commitment'],
+  ['/conseils/electrician-south-shore-montreal-fast-service', '/en/blog/electrician-south-shore-montreal-fast-service'],
+  ['/conseils/certified-rbq-master-electrician-montreal',     '/en/blog/certified-rbq-master-electrician-montreal'],
+  ['/conseils/electrical-panel-replacement-montreal',         '/en/blog/electrical-panel-replacement-montreal'],
+  ['/conseils/emergency-electrician-24h-montreal-topal',      '/en/blog/emergency-electrician-24h-montreal-topal'],
 ];
 
 export default function middleware(request: NextRequest) {
