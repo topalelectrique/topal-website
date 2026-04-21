@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: t('description'),
     alternates: {
       canonical: locale === 'fr' ? frPath : enPath,
-      languages: { 'fr-CA': frPath, 'en-CA': enPath, 'x-default': frPath },
+      languages: { 'fr-CA': frPath, 'en-CA': enPath, 'x-default': enPath },
     },
     openGraph: {
       title: t('title'),

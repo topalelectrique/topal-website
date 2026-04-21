@@ -69,8 +69,8 @@ export async function generateMetadata({
   // Falling back to list pages (/fr/conseils or /en/blog) causes "missing reciprocal
   // hreflang" errors because the list page doesn't link back to this article.
   const hreflangLanguages = pairedSlug
-    ? { 'fr-CA': frPath, 'en-CA': enPath }
-    : { [isFr ? 'fr-CA' : 'en-CA']: canonical };
+    ? { 'fr-CA': frPath, 'en-CA': enPath, 'x-default': enPath }
+    : { [isFr ? 'fr-CA' : 'en-CA']: canonical, 'x-default': canonical };
 
   const title = article.meta_title ?? article.title;
   const description = article.meta_description ?? '';
