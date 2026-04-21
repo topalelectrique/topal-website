@@ -193,5 +193,13 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no text 
     parsed.category = 'advice';
   }
 
+  // Hard clamp meta fields to Ahrefs-safe lengths
+  if (parsed.meta_title && parsed.meta_title.length > 60) {
+    parsed.meta_title = parsed.meta_title.slice(0, 57).trimEnd() + '…';
+  }
+  if (parsed.meta_description && parsed.meta_description.length > 160) {
+    parsed.meta_description = parsed.meta_description.slice(0, 157).trimEnd() + '…';
+  }
+
   return parsed;
 }

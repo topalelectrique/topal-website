@@ -44,6 +44,8 @@ const ARTICLE_REDIRECTS: [string, string][] = [
   ['/conseils/devis-electricien-gratuit-montreal',                    '/fr/conseils/devis-electricien-gratuit-montreal'],
   ['/conseils/maitre-electricien-certifie-rbq-montreal-topal',        '/fr/conseils/maitre-electricien-certifie-rbq-montreal-topal'],
   ['/conseils/electricien-grand-montreal-rive-sud-service-rapide',    '/fr/conseils/electricien-grand-montreal-rive-sud-service-rapide'],
+  ['/conseils/remplacement-panneau-electrique-montreal',              '/fr/conseils/remplacement-panneau-electrique-montreal'],
+  ['/conseils/electricien-urgence-24h-montreal',                      '/fr/conseils/electricien-urgence-24h-montreal'],
 ];
 
 export default function middleware(request: NextRequest) {
