@@ -8,6 +8,7 @@ const intlMiddleware = createMiddleware(routing);
 // French-named paths always resolve to /fr/. Neutral paths (/contact) resolve to /fr/
 // since FR is the default locale and these links come from FR content.
 const STATIC_REDIRECTS: [string, string][] = [
+  ['/',          '/fr'],
   ['/a-propos',  '/fr/a-propos'],
   ['/conseils',  '/fr/conseils'],
   ['/glossaire', '/fr/glossaire'],

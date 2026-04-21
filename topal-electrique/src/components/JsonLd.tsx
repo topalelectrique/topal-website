@@ -5,7 +5,7 @@ export default function JsonLd() {
     name: 'Topal Électrique',
     description:
       'Topal Électrique, maîtres électriciens certifiés à Montréal. Installation électrique résidentielle et commerciale, panneaux électriques, bornes de recharge EV et service d\'urgence 24/7 dans le Grand Montréal.',
-    url: 'https://topalelectrique.ca',
+    url: 'https://topalelectrique.ca/fr',
     telephone: '+1-514-999-2030',
     email: 'service@topalelectrique.ca',
     image: 'https://topalelectrique.ca/images/logo.png',
@@ -132,9 +132,9 @@ export default function JsonLd() {
       },
     ],
     sameAs: [
-      'https://facebook.com/topalelectrique',
-      'https://instagram.com/topal_electrique',
-      'https://tiktok.com/@topalelectrique',
+      'https://www.facebook.com/topalelectrique',
+      'https://www.instagram.com/topal_electrique',
+      'https://www.tiktok.com/@topalelectrique',
     ],
   };
 
@@ -142,12 +142,12 @@ export default function JsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Topal Électrique',
-    url: 'https://topalelectrique.ca',
+    url: 'https://topalelectrique.ca/fr',
     inLanguage: ['fr-CA', 'en-CA'],
     publisher: {
       '@type': 'Organization',
       name: 'Topal Électrique',
-      url: 'https://topalelectrique.ca',
+      url: 'https://topalelectrique.ca/fr',
     },
   };
 

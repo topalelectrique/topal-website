@@ -7,7 +7,7 @@ export const ADDRESS = 'Montréal, QC';
 export const SERVICE_AREA = 'Grand Montréal';
 
 export const SOCIAL_LINKS = {
-  facebook: 'https://facebook.com/topalelectrique',
-  instagram: 'https://instagram.com/topal_electrique',
-  tiktok: 'https://tiktok.com/@topalelectrique',
+  facebook: 'https://www.facebook.com/topalelectrique',
+  instagram: 'https://www.instagram.com/topal_electrique',
+  tiktok: 'https://www.tiktok.com/@topalelectrique',
 } as const;
