@@ -4,6 +4,21 @@ import type { GeneratedArticle, ArticleType } from './generator';
 import type { ImageResult } from './imager';
 import { v4 as uuidv4 } from 'uuid';
 
+async function submitIndexNow(urls: string[]): Promise<void> {
+  const key = process.env.INDEXNOW_KEY;
+  if (!key) return;
+  await fetch('https://api.indexnow.org/indexnow', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({
+      host: 'topalelectrique.ca',
+      key,
+      keyLocation: `https://topalelectrique.ca/api/indexnow/key`,
+      urlList: urls,
+    }),
+  });
+}
+
 async function uniqueSlug(baseSlug: string): Promise<string> {
   const { data } = await supabase
     .from('articles')
@@ -87,6 +102,12 @@ export async function publishArticle(
   revalidatePath('/en/blog');
   revalidatePath(`/fr/conseils/${frArticle.slug}`);
   revalidatePath(`/en/blog/${enArticle.slug}`);
+
+  // Notify IndexNow (fire-and-forget — never blocks publish)
+  submitIndexNow([
+    `https://topalelectrique.ca/fr/conseils/${frArticle.slug}`,
+    `https://topalelectrique.ca/en/blog/${enArticle.slug}`,
+  ]).catch(() => {});
 
   return { frId: frData.id, enId: enData.id };
 }

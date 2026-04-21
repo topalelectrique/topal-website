@@ -1,7 +1,7 @@
 export default function JsonLd() {
   const localBusiness = {
     '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'Electrician'],
+    '@type': 'LocalBusiness',
     name: 'Topal Électrique',
     description:
       'Topal Électrique, maîtres électriciens certifiés à Montréal. Installation électrique résidentielle et commerciale, panneaux électriques, bornes de recharge EV et service d\'urgence 24/7 dans le Grand Montréal.',
@@ -40,7 +40,7 @@ export default function JsonLd() {
           latitude: 45.5017,
           longitude: -73.5673,
         },
-        geoRadius: '50000',
+        geoRadius: 50000,
       },
     ],
     openingHoursSpecification: [
@@ -58,7 +58,7 @@ export default function JsonLd() {
       },
     ],
     priceRange: '$$',
-    paymentAccepted: ['Cash', 'Credit Card', 'Debit Card', 'Interac'],
+    paymentAccepted: ['Cash', 'CreditCard', 'DebitCard'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Services électriques',

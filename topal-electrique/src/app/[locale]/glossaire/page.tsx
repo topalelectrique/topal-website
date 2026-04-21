@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isFr = locale === 'fr';
 
   const title = isFr
-    ? 'Glossaire d\'électricité | Définitions des termes électriques | Topal Électrique'
-    : 'Electrical Glossary | Definitions of Electrical Terms | Topal Électrique';
+    ? 'Glossaire électrique | Termes et définitions | Topal Électrique'
+    : 'Electrical Glossary | Terms & Definitions | Topal Électrique';
   const description = isFr
     ? 'Définitions claires de tous les termes électriques utilisés en résidentiel et commercial au Québec. Disjoncteur, panneau, GFCI, RBQ, mise à la terre et plus.'
     : 'Clear definitions of all electrical terms used in residential and commercial work in Quebec. Circuit breaker, panel, GFCI, RBQ, grounding and more.';
@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Topal Électrique',
       locale: isFr ? 'fr_CA' : 'en_CA',
       type: 'website',
+      images: [{ url: `${base}/og-image.png`, width: 1200, height: 630, alt: 'Topal Électrique' }],
     },
   };
 }

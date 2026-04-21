@@ -52,7 +52,7 @@
         "title": "Residential electrical installation",
         "description": "Safe, Quebec Building Code-compliant electrical installations for new homes, renovations and upgrades. Outlets, lighting, panels and complete wiring by certified master electricians.",
         "slug": "residential-electrical-installation",
-        "link": "/services#residential"
+        "link": "/services#residentiel"
       },
       {
         "title": "Commercial electrical installation",
@@ -64,19 +64,19 @@
         "title": "24/7 Emergency service & troubleshooting",
         "description": "Fast emergency response available nights, weekends and holidays. Power outages, short circuits, faulty breakers — our electricians respond across Greater Montreal.",
         "slug": "emergency-service-troubleshooting",
-        "link": "/services#emergency"
+        "link": "/services#urgence"
       },
       {
         "title": "EV charging station installation",
         "description": "Certified Level 2 EV charging station installation for residential and commercial properties. Compatible with Tesla, Grizzl-E and all brands. CSA-compliant and subsidy-eligible.",
         "slug": "ev-charging-station-installation",
-        "link": "/services#ev-charging"
+        "link": "/services#bornes"
       },
       {
         "title": "Electrical panel upgrades",
         "description": "100A, 200A, 320A and 400A electrical panel replacement and upgrades. Increase your installation's capacity to safely meet modern electrical demands.",
         "slug": "electrical-panel-upgrades",
-        "link": "/services#panels"
+        "link": "/services#panneaux"
       }
     ]
   },
@@ -298,15 +298,15 @@
       "description": "Certified master electricians in Montreal. Residential, commercial, electrical panels, EV chargers and 24/7 emergency service. Call (514) 999-2030."
     },
     "services": {
-      "title": "Electrical Services in Montreal | Installation, Repairs, EV Charging | Topal Électrique",
-      "description": "Professional electrical services in Montreal: residential and commercial installation, EV charging stations, panel upgrades, lighting and 24/7 emergency troubleshooting."
+      "title": "Electrical Services Montreal | Topal Électrique",
+      "description": "Professional electrical services in Montreal: residential and commercial installation, EV charging, panel upgrades and 24/7 emergency troubleshooting."
     },
     "about": {
-      "title": "About Us | Certified Master Electricians Montreal | Topal Électrique",
-      "description": "Topal Électrique, CMEQ-certified master electricians with over 20 years of experience in Montreal. Residential and commercial electrical installation, renovation and repair."
+      "title": "Certified Electricians Montreal | Topal Électrique",
+      "description": "Certified electricians in Montreal for 20+ years. Residential and commercial installation, panel upgrades, EV chargers and 24/7 emergency service."
     },
     "projects": {
-      "title": "Our Projects | Residential & Commercial Electrical Work | Topal Électrique",
+      "title": "Electrical Projects Montreal | Topal Électrique",
       "description": "Browse over 1,000 electrical installation projects completed by Topal Électrique in Montreal, Laval and the South Shore. Residential and commercial."
     },
     "contact": {
@@ -314,16 +314,16 @@
       "description": "Contact Topal Électrique for a quote. Certified electrician in Montreal for residential, commercial and 24/7 emergency service. (514) 999-2030."
     },
     "faq": {
-      "title": "FAQ | Frequently Asked Questions | Montreal Electrician | Topal Électrique",
+      "title": "FAQ | Montreal Electrician | Topal Électrique",
       "description": "Answers to your questions about our electrical services in Montreal. Hours, certifications, service area and 24/7 emergency. Certified master electricians."
     },
     "privacy": {
       "title": "Privacy Policy | Topal Électrique",
-      "description": "Privacy policy for Topal Électrique. Learn how we protect your personal data."
+      "description": "Privacy policy for Topal Électrique. Learn how we collect, use, and protect your personal data when you use our website and request our services."
     },
     "terms": {
       "title": "Terms of Service | Topal Électrique",
-      "description": "Terms of service for the Topal Électrique website, certified electrician in Montreal."
+      "description": "Terms of service for the Topal Électrique website. By using our site, you agree to these terms and conditions for electrical services in Montreal."
     }
   },
   "blog": {
@@ -342,7 +342,7 @@
     "backToBlog": "Back to blog",
     "noArticles": "No articles yet. Check back soon!",
     "relatedTitle": "Related articles",
-    "metaTitle": "Montreal Electrician Blog | Tips & Updates | Topal Électrique",
-    "metaDescription": "Practical tips, regulations and trends in residential and commercial electricity in Montreal. By the master electricians of Topal Électrique."
+    "metaTitle": "Montreal Electrician Blog | Topal Électrique",
+    "metaDescription": "Practical tips, electrical regulations and industry trends in Montreal. Expert guides on residential and commercial electrical work by Topal Électrique."
   }
 }

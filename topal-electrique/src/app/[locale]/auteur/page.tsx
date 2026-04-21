@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Topal Électrique',
       locale: isFr ? 'fr_CA' : 'en_CA',
       type: 'profile',
+      images: [{ url: `${base}/og-image.png`, width: 1200, height: 630, alt: 'Topal Électrique' }],
     },
   };
 }
@@ -59,14 +60,14 @@ export default async function AuthorPage({ params }: Props) {
       : 'Journeyman electrician at Topal Électrique with 7 years of hands-on experience in residential and commercial electrical work throughout Greater Montreal.',
     url: isFr ? `${base}/fr/auteur` : `${base}/en/author`,
     image: `${base}/images/logo.png`,
+    hasCredential: [
+      { '@type': 'EducationalOccupationalCredential', credentialCategory: 'licence', name: 'Licence RBQ 8317-3658-34' },
+      { '@type': 'EducationalOccupationalCredential', credentialCategory: 'membership', name: 'Membre CMEQ' },
+    ],
     worksFor: {
       '@type': 'Organization',
       name: 'Topal Électrique',
       url: base,
-      hasCredential: [
-        { '@type': 'EducationalOccupationalCredential', credentialCategory: 'licence', name: 'Licence RBQ 8317-3658-34' },
-        { '@type': 'EducationalOccupationalCredential', credentialCategory: 'membership', name: 'Membre CMEQ' },
-      ],
     },
     knowsAbout: isFr
       ? ['Électricité résidentielle', 'Électricité commerciale', 'Panneaux électriques', 'Bornes de recharge EV', 'Code de construction du Québec', 'Rénovation électrique']
