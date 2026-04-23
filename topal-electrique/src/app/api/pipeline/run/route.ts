@@ -7,7 +7,7 @@ import { findInternalLinks } from '@/lib/pipeline/linker';
 import { publishArticle, markKeywordUsed, logPipelineRun } from '@/lib/pipeline/publisher';
 import { postToFacebook } from '@/lib/pipeline/facebook';
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 function getTypeFromDay(): ArticleType {
   const day = new Date().getDay();
