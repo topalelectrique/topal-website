@@ -26,6 +26,10 @@ const content = {
         text: "Nous nous efforçons de maintenir les informations sur ce site à jour et exactes. Cependant, nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité de toutes les informations présentées. Les prix, disponibilités et détails des services peuvent varier.",
       },
       {
+        title: 'Contenu éditorial et exemples illustratifs',
+        text: "Les articles, conseils et exemples publiés sur ce site sont rédigés à titre informatif et éducatif. Certains scénarios, anecdotes ou situations décrites dans nos articles sont des exemples composites ou illustratifs, représentatifs de situations courantes rencontrées dans le domaine de l'électricité au Québec. Ils ne constituent pas le récit d'événements spécifiques et ne doivent pas être interprétés comme tels. Topal Électrique se base sur son expérience terrain pour offrir des conseils pratiques, mais décline toute responsabilité quant à l'application de ces conseils sans consultation professionnelle préalable.",
+      },
+      {
         title: 'Limitation de responsabilité',
         text: `${COMPANY_NAME} ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation de ce site web ou de l'impossibilité d'y accéder.`,
       },
@@ -66,6 +70,10 @@ const content = {
       {
         title: 'Accuracy of Information',
         text: 'We strive to keep the information on this site current and accurate. However, we do not guarantee the accuracy, completeness or timeliness of all information presented. Prices, availability and service details may vary.',
+      },
+      {
+        title: 'Editorial Content and Illustrative Examples',
+        text: 'Articles, tips and examples published on this site are written for informational and educational purposes. Some scenarios, anecdotes or situations described in our articles are composite or illustrative examples, representative of common situations encountered in the electrical trade in Quebec. They are not accounts of specific events and should not be interpreted as such. Topal Électrique draws on its field experience to offer practical advice, but accepts no liability for the application of this advice without prior professional consultation.',
       },
       {
         title: 'Limitation of Liability',

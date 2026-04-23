@@ -101,41 +101,43 @@ export type ImageResult = {
   alt: string;
 };
 
+function extractUnsplashId(url: string): string {
+  const match = url.match(/photo-([A-Za-z0-9_-]+)/);
+  return match ? match[1] : url;
+}
+
 export async function fetchImage(title: string, category: string): Promise<ImageResult> {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
 
-  // Fetch already-used image URLs from Supabase to avoid duplicates
+  // Deduplicate by Unsplash photo ID — more reliable than full URL string comparison
   const { data: usedRows } = await supabase
     .from('articles')
     .select('image_url')
     .not('image_url', 'is', null);
-  const usedUrls = new Set((usedRows ?? []).map((r) => r.image_url as string));
+  const usedIds = new Set((usedRows ?? []).map((r) => extractUnsplashId(r.image_url as string)));
 
   if (!accessKey) {
     const fallbacks = CATEGORY_FALLBACKS[category] ?? CATEGORY_FALLBACKS.default;
-    const unused = fallbacks.find((u) => !usedUrls.has(u)) ?? fallbacks[0];
+    const unused = fallbacks.find((u) => !usedIds.has(extractUnsplashId(u))) ?? fallbacks[0];
     return { url: unused, alt: title };
   }
 
   try {
     const searchTerms = buildSearchQuery(title, category);
     const query = encodeURIComponent(searchTerms);
-    const randomPage = Math.floor(Math.random() * 4) + 1;
+    const randomPage = Math.floor(Math.random() * 8) + 1;
 
     const res = await fetch(
-      `https://api.unsplash.com/search/photos?query=${query}&per_page=20&page=${randomPage}&orientation=landscape`,
+      `https://api.unsplash.com/search/photos?query=${query}&per_page=30&page=${randomPage}&orientation=landscape&order_by=relevant`,
       { headers: { Authorization: `Client-ID ${accessKey}` } }
     );
 
     if (!res.ok) throw new Error('Unsplash API error');
 
     const data = await res.json();
-    const results: { urls: { raw: string }; alt_description: string }[] = data.results ?? [];
+    const results: { id: string; urls: { raw: string }; alt_description: string }[] = data.results ?? [];
 
-    const unused = results.filter((photo) => {
-      const url = `${photo.urls.raw}&w=1200&q=80&fit=crop&crop=entropy`;
-      return !usedUrls.has(url);
-    });
+    const unused = results.filter((photo) => !usedIds.has(photo.id));
 
     const pool = unused.length > 0 ? unused : results;
     const photo = pool[Math.floor(Math.random() * pool.length)];
@@ -147,7 +149,7 @@ export async function fetchImage(title: string, category: string): Promise<Image
     };
   } catch {
     const fallbacks = CATEGORY_FALLBACKS[category] ?? CATEGORY_FALLBACKS.default;
-    const unused = fallbacks.find((u) => !usedUrls.has(u)) ?? fallbacks[0];
+    const unused = fallbacks.find((u) => !usedIds.has(extractUnsplashId(u))) ?? fallbacks[0];
     return { url: unused, alt: title };
   }
 }
