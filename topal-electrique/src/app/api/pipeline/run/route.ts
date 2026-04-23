@@ -10,11 +10,9 @@ import { postToFacebook } from '@/lib/pipeline/facebook';
 export const maxDuration = 60;
 
 function getTypeFromDay(): ArticleType {
-  const day = new Date().getDay(); // 0=Sun, 1=Mon, 3=Wed, 5=Fri
+  const day = new Date().getDay();
   if (day === 1) return 'evergreen';
-  if (day === 3) return 'news';
-  if (day === 5) return 'topal';
-  return 'evergreen';
+  return 'topal';
 }
 
 export async function POST(req: NextRequest) {
