@@ -114,5 +114,9 @@ export async function applyBranding(
 export async function downloadImage(url: string): Promise<Buffer> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to download image: ${res.status}`);
+  const contentType = res.headers.get('content-type') ?? '';
+  if (!contentType.startsWith('image/')) {
+    throw new Error(`Expected image, got ${contentType} — URL may be expired or rate-limited`);
+  }
   return Buffer.from(await res.arrayBuffer());
 }
