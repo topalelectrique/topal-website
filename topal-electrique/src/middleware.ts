@@ -36,6 +36,7 @@ const ARTICLE_REDIRECTS: [string, string][] = [
   ['/fr/conseils/emergency-electrician-24h-montreal-topal',      '/en/blog/emergency-electrician-24h-montreal-topal'],
   ['/fr/conseils/complete-home-electrical-renovation-montreal',  '/en/blog/complete-home-electrical-renovation-montreal'],
   ['/conseils/complete-home-electrical-renovation-montreal',     '/en/blog/complete-home-electrical-renovation-montreal'],
+  ['/blog/complete-home-electrical-renovation-montreal',         '/en/blog/complete-home-electrical-renovation-montreal'],
   // Non-locale-prefixed EN slugs under /conseils/
   ['/conseils/free-electrical-quote-montreal-no-commitment',  '/en/blog/free-electrical-quote-montreal-no-commitment'],
   ['/conseils/electrician-south-shore-montreal-fast-service', '/en/blog/electrician-south-shore-montreal-fast-service'],
