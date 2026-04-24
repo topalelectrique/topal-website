@@ -192,7 +192,7 @@ Retourne UNIQUEMENT un objet JSON valide avec cette structure exacte (pas de mar
 }`
       : `Today is ${currentDate}. Write a complete SEO article in Canadian English on the topic: "${keyword}". Write entirely in English regardless of the topic keyword language.${newsContext_}${linkContext}
 
-Include 2-3 outbound links to authoritative sources (use <a href="URL" target="_blank" rel="noopener noreferrer">anchor text</a> tags) from: rbq.gouv.qc.ca, cmeq.org, hydroquebec.com, nrcan.gc.ca. Add these links only when referencing a regulation, standard, or official program.
+Include 2-3 outbound links to authoritative sources (use <a href="URL" target="_blank" rel="noopener noreferrer">anchor text</a> tags) from: rbq.gouv.qc.ca, cmeq.org, hydroquebec.com, nrcan.gc.ca. Add these links only when referencing a regulation, standard, or official program. IMPORTANT: CMEQ only has a French website — always link to https://www.cmeq.org/ never https://www.cmeq.org/en/ which does not exist.
 
 MANDATORY content structure in the "content" field:
 1. A GEO summary block at the very top (before any other content) in this exact format:
