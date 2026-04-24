@@ -17,6 +17,21 @@ if (!UNSPLASH_KEY) {
   process.exit(1);
 }
 
+const BLACKLIST = [
+  'phone', 'iphone', 'smartphone', 'tablet', 'laptop', 'computer', 'keyboard', 'screen', 'monitor',
+  'electronics', 'gadget', 'device', 'circuit board', 'motherboard', 'chip', 'microchip', 'led strip',
+  'cooking', 'food', 'restaurant', 'kitchen', 'chef', 'coffee', 'drink',
+  'fashion', 'model', 'selfie', 'portrait', 'office worker', 'business person',
+  'surgery', 'medical', 'doctor', 'gym', 'fitness', 'sport',
+];
+
+const REQUIRED = ['electric', 'electrician', 'wire', 'wiring', 'cable', 'panel', 'outlet', 'switch', 'circuit', 'power', 'voltage', 'conduit', 'breaker', 'construction', 'worker', 'tools', 'building', 'installation', 'repair', 'maintenance', 'industrial', 'infrastructure'];
+
+const isGoodPhoto = (photo) => {
+  const alt = photo.alt_description?.toLowerCase() ?? '';
+  return !BLACKLIST.some(w => alt.includes(w)) && REQUIRED.some(w => alt.includes(w));
+};
+
 const CATEGORY_CONTEXT = {
   residential: 'residential electrician home wiring',
   commercial: 'commercial building electrical office',
@@ -88,13 +103,14 @@ async function fetchSubjectImage(title, category, usedIds, attempt = 0) {
   if (!res.ok) throw new Error(`Unsplash ${res.status}`);
   const data = await res.json();
   const results = data.results ?? [];
-  const unused = results.filter(p => !usedIds.has(p.id));
+  const unused = results.filter(p => !usedIds.has(p.id) && isGoodPhoto(p));
+  const anyGood = results.filter(isGoodPhoto);
 
   if (unused.length === 0 && attempt < queries.length - 1) {
     return fetchSubjectImage(title, category, usedIds, attempt + 1);
   }
 
-  const pool = unused.length > 0 ? unused : results;
+  const pool = unused.length > 0 ? unused : anyGood.length > 0 ? anyGood : results;
   const photo = pool[Math.floor(Math.random() * pool.length)];
   if (!photo) throw new Error('No results');
 

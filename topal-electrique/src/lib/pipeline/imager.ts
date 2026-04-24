@@ -23,15 +23,31 @@ const CATEGORY_FALLBACKS: Record<string, string[]> = {
   ],
 };
 
-// Category context words appended to give Unsplash more signal
+// Mandatory keywords appended to every query to keep results on-topic
 const CATEGORY_CONTEXT: Record<string, string> = {
-  residential: 'home wiring',
-  commercial: 'office building electrical',
-  regulations: 'building permit inspection',
-  advice: 'home improvement',
-  trends: 'smart home technology',
-  default: 'electrical work',
+  residential: 'electrician home wiring residential',
+  commercial: 'electrician commercial building electrical',
+  regulations: 'electrical inspection safety permit',
+  advice: 'electrician tools electrical work',
+  trends: 'smart home electrical technology',
+  default: 'electrician electrical work',
 };
+
+// Blacklisted terms — skip any photo whose alt_description contains these
+const BLACKLIST = [
+  // Electronics / gadgets
+  'phone', 'iphone', 'smartphone', 'tablet', 'laptop', 'computer', 'keyboard', 'screen', 'monitor',
+  'electronics', 'gadget', 'device', 'circuit board', 'motherboard', 'chip', 'microchip', 'led strip',
+  // Food / lifestyle
+  'cooking', 'food', 'restaurant', 'kitchen', 'chef', 'coffee', 'drink',
+  // People / fashion
+  'fashion', 'model', 'selfie', 'portrait', 'office worker', 'business person',
+  // Health / other
+  'surgery', 'medical', 'doctor', 'gym', 'fitness', 'sport',
+];
+
+// Required keywords — at least one must appear in alt_description for the photo to qualify
+const REQUIRED = ['electric', 'electrician', 'wire', 'wiring', 'cable', 'panel', 'outlet', 'switch', 'circuit', 'power', 'voltage', 'conduit', 'breaker', 'construction', 'worker', 'tools', 'building', 'installation', 'repair', 'maintenance', 'industrial', 'infrastructure'];
 
 // FR → EN word-for-word translation map (sorted longest-first for greedy matching)
 const FR_EN_MAP: [RegExp, string][] = [
@@ -137,9 +153,17 @@ export async function fetchImage(title: string, category: string): Promise<Image
     const data = await res.json();
     const results: { id: string; urls: { raw: string }; alt_description: string }[] = data.results ?? [];
 
-    const unused = results.filter((photo) => !usedIds.has(photo.id));
+    const isGoodPhoto = (photo: { id: string; alt_description: string }) => {
+      const alt = photo.alt_description?.toLowerCase() ?? '';
+      const blacklisted = BLACKLIST.some(word => alt.includes(word));
+      const relevant = REQUIRED.some(word => alt.includes(word));
+      return !blacklisted && relevant;
+    };
 
-    const pool = unused.length > 0 ? unused : results;
+    const unused = results.filter((photo) => !usedIds.has(photo.id) && isGoodPhoto(photo));
+    const anyGood = results.filter(isGoodPhoto);
+
+    const pool = unused.length > 0 ? unused : anyGood.length > 0 ? anyGood : results;
     const photo = pool[Math.floor(Math.random() * pool.length)];
     if (!photo) throw new Error('No results');
 
