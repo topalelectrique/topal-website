@@ -54,6 +54,16 @@ const ARTICLE_REDIRECTS: [string, string][] = [
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Skip Next.js internals, API routes, and static files (images, fonts, etc.)
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/_vercel') ||
+    pathname.startsWith('/api') ||
+    /\.[^/]+$/.test(pathname)
+  ) {
+    return NextResponse.next();
+  }
+
   for (const [from, to] of STATIC_REDIRECTS) {
     if (pathname === from) {
       return NextResponse.redirect(new URL(to, request.url), { status: 301 });
@@ -70,6 +80,7 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run on all paths except Next.js internals, API routes, and static files (path-to-regexp v8: no bare .*)
-  matcher: '/((?!_next|_vercel|api|[^/]+\\.[^/]+).+)',
+  // path-to-regexp v8 (Next.js 16): /:path* is valid because :path has / as prefix.
+  // Static file / internal path exclusion is handled inside the function above.
+  matcher: '/:path*',
 };
