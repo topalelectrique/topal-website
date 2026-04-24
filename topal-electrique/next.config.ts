@@ -9,5 +9,25 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
+  async redirects() {
+    return [
+      // Redirect old WordPress URLs — site was never WordPress but Google has stale references
+      {
+        source: '/wp-sitemap:path*',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
+      {
+        source: '/wp-:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/wordpress:path*',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
 };
 export default withNextIntl(nextConfig);
