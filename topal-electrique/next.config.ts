@@ -13,17 +13,17 @@ const nextConfig: NextConfig = {
     return [
       // Redirect old WordPress URLs — site was never WordPress but Google has stale references
       {
-        source: '/wp-sitemap:path*',
+        source: '/wp-sitemap:path(.*)',
         destination: '/sitemap.xml',
         permanent: true,
       },
       {
-        source: '/wp-:path*',
+        source: '/wp-:path(.*)',
         destination: '/',
         permanent: true,
       },
       {
-        source: '/wordpress:path*',
+        source: '/wordpress:path(.*)',
         destination: '/',
         permanent: true,
       },
