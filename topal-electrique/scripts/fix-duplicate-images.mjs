@@ -68,7 +68,7 @@ async function fetchFreshImage(title, category, usedIds) {
 async function main() {
   const { data: articles, error } = await supabase
     .from('articles')
-    .select('id, slug, title, category, locale, image_url')
+    .select('id, slug, title, category, locale, image_url, pair_id')
     .order('published_at', { ascending: true });
 
   if (error) throw new Error(error.message);
@@ -81,12 +81,19 @@ async function main() {
     idToArticles.get(photoId).push(article);
   }
 
-  // Collect articles that need a new image (all but the first occurrence of each duplicate)
+  // Collect articles that need a new image — ignore FR/EN pairs sharing the same image (correct behaviour)
   const toFix = [];
   for (const [, group] of idToArticles) {
-    if (group.length > 1) {
-      console.log(`Duplicate found (${group.length}x): ${extractId(group[0].image_url)}`);
-      group.slice(1).forEach(a => toFix.push(a));
+    if (group.length <= 1) continue;
+
+    // Remove articles that share a pair_id with another article in the group (legitimate FR/EN pairs)
+    const pairIds = group.map(a => a.pair_id).filter(Boolean);
+    const pairedDupes = new Set(pairIds.filter((id, _, arr) => arr.filter(x => x === id).length > 1));
+    const realDuplicates = group.filter(a => !pairedDupes.has(a.pair_id));
+
+    if (realDuplicates.length > 1) {
+      console.log(`Duplicate found (${realDuplicates.length}x): ${extractId(group[0].image_url)}`);
+      realDuplicates.slice(1).forEach(a => toFix.push(a));
     }
   }
 

@@ -158,7 +158,8 @@ export async function generateArticle(
       : `\n\nNews context to cover:\nTitle: ${newsContext.title}\nSummary: ${newsContext.summary}\nSource: ${newsContext.url}`
     : '';
 
-  const currentDate = new Date().toLocaleDateString(
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Toronto' }));
+  const currentDate = now.toLocaleDateString(
     locale === 'fr' ? 'fr-CA' : 'en-CA',
     { year: 'numeric', month: 'long', day: 'numeric' }
   );
