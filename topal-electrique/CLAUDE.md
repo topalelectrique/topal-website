@@ -127,6 +127,7 @@ and their fixes — all already implemented, listed here so they stay fixed:
 | Duplicate images across articles | Fallback URLs reused when Unsplash key missing | `imager.ts` deduplicates by Unsplash photo ID; `UNSPLASH_ACCESS_KEY` set on Render web service |
 | EN article image has French alt text | `image.alt` shared across both locales | `publisher.ts` now sets `image_alt: frArticle.title` for FR and `image_alt: enArticle.title` for EN |
 | Irrelevant photos (iPhones, food…) | Unsplash search too generic | `imager.ts` has `BLACKLIST` + `REQUIRED` keyword filters on `alt_description` |
+| Person portrait photos (smiling man, etc.) | `regulations` fallback was a portrait; BLACKLIST missing face/person terms; `worker` in REQUIRED matched people | Bad fallback replaced; BLACKLIST expanded with ~15 person/portrait terms; `worker` removed from REQUIRED and CATEGORY_CONTEXT |
 | Article date shows next UTC day | `new Date()` runs in UTC on Render; after 8pm EDT = next day UTC | `generator.ts` converts to `America/Toronto` timezone before formatting date |
 | `cmeq.org/en/` outbound link 404s | CMEQ is French-only | Generator prompt now explicitly forbids linking to `cmeq.org/en/` |
 | EN articles contain FR internal links | `findInternalLinks` injected FR links into EN content | Fixed in `route.ts`; existing articles need SQL cleanup (see memory: internal links cleanup) |

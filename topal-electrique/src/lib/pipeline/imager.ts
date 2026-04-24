@@ -10,7 +10,8 @@ const CATEGORY_FALLBACKS: Record<string, string[]> = {
     'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80',
   ],
   regulations: [
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80',
+    'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1200&q=80',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
   ],
   advice: [
     'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80',
@@ -25,12 +26,12 @@ const CATEGORY_FALLBACKS: Record<string, string[]> = {
 
 // Mandatory keywords appended to every query to keep results on-topic
 const CATEGORY_CONTEXT: Record<string, string> = {
-  residential: 'electrician home wiring residential',
-  commercial: 'electrician commercial building electrical',
-  regulations: 'electrical inspection safety permit',
-  advice: 'electrician tools electrical work',
-  trends: 'smart home electrical technology',
-  default: 'electrician electrical work',
+  residential: 'electrical panel wiring residential home',
+  commercial: 'electrical commercial building wiring',
+  regulations: 'electrical panel inspection safety permit',
+  advice: 'electrical tools wiring installation',
+  trends: 'smart home electrical panel technology',
+  default: 'electrical panel wiring installation',
 };
 
 // Blacklisted terms — skip any photo whose alt_description contains these
@@ -40,14 +41,19 @@ const BLACKLIST = [
   'electronics', 'gadget', 'device', 'circuit board', 'motherboard', 'chip', 'microchip', 'led strip',
   // Food / lifestyle
   'cooking', 'food', 'restaurant', 'kitchen', 'chef', 'coffee', 'drink',
-  // People / fashion
+  // People / portraits — must reject before REQUIRED check fires
   'fashion', 'model', 'selfie', 'portrait', 'office worker', 'business person',
+  'man smiling', 'woman smiling', 'person smiling', 'smiling man', 'smiling woman',
+  'man standing', 'woman standing', 'man sitting', 'woman sitting',
+  'man wearing', 'woman wearing', 'man holding', 'woman holding',
+  'man in', 'woman in', 'person in', 'people in',
+  'headshot', 'face', 'close-up of a man', 'close-up of a woman', 'close-up of person',
   // Health / other
   'surgery', 'medical', 'doctor', 'gym', 'fitness', 'sport',
 ];
 
 // Required keywords — at least one must appear in alt_description for the photo to qualify
-const REQUIRED = ['electric', 'electrician', 'wire', 'wiring', 'cable', 'panel', 'outlet', 'switch', 'circuit', 'power', 'voltage', 'conduit', 'breaker', 'construction', 'worker', 'tools', 'building', 'installation', 'repair', 'maintenance', 'industrial', 'infrastructure'];
+const REQUIRED = ['electric', 'electrician', 'wire', 'wiring', 'cable', 'panel', 'outlet', 'switch', 'circuit', 'power', 'voltage', 'conduit', 'breaker', 'construction', 'tools', 'installation', 'repair', 'maintenance', 'industrial', 'infrastructure'];
 
 // FR → EN word-for-word translation map (sorted longest-first for greedy matching)
 const FR_EN_MAP: [RegExp, string][] = [
@@ -160,11 +166,29 @@ export async function fetchImage(title: string, category: string): Promise<Image
       return !blacklisted && relevant;
     };
 
-    const unused = results.filter((photo) => !usedIds.has(photo.id) && isGoodPhoto(photo));
-    const anyGood = results.filter(isGoodPhoto);
+    let unused = results.filter((photo) => !usedIds.has(photo.id) && isGoodPhoto(photo));
 
-    const pool = unused.length > 0 ? unused : anyGood.length > 0 ? anyGood : results;
-    const photo = pool[Math.floor(Math.random() * pool.length)];
+    // If strict filter killed everything, retry on a different page with a broader query
+    if (unused.length === 0) {
+      const fallbackPage = Math.floor(Math.random() * 8) + 1;
+      const broadQuery = encodeURIComponent(CATEGORY_CONTEXT[category] ?? CATEGORY_CONTEXT.default);
+      const res2 = await fetch(
+        `https://api.unsplash.com/search/photos?query=${broadQuery}&per_page=30&page=${fallbackPage}&orientation=landscape&order_by=relevant`,
+        { headers: { Authorization: `Client-ID ${accessKey}` } }
+      );
+      if (res2.ok) {
+        const data2 = await res2.json();
+        const results2: { id: string; urls: { raw: string }; alt_description: string }[] = data2.results ?? [];
+        unused = results2.filter((photo) => !usedIds.has(photo.id) && isGoodPhoto(photo));
+      }
+    }
+
+    // Last resort: unused but no quality filter — still never reuse a photo
+    if (unused.length === 0) {
+      unused = results.filter((photo) => !usedIds.has(photo.id));
+    }
+
+    const photo = unused[Math.floor(Math.random() * unused.length)];
     if (!photo) throw new Error('No results');
 
     return {
