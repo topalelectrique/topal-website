@@ -9,18 +9,21 @@ to Facebook and Google Business Profile. Zero manual work after setup.
 |---|---|
 | Database | Supabase (PostgreSQL) |
 | Scheduler | Render Cron Jobs |
-| Content generation | Claude API (Anthropic) |
-| Images | Unsplash API |
+| Content generation | Claude Sonnet 4.6 (Anthropic) |
+| Images | Unsplash API (UNSPLASH_ACCESS_KEY set on Render web service) |
 | Facebook posts | Meta Graph API |
 | GBP posts | Google Business Profile API (OAuth2) |
 | Blog pages | Next.js ISR (revalidatePath on publish) |
 
 ## Cron schedule
-- Monday 08:00 → `type: evergreen` (keyword from queue)
-- Wednesday 08:00 → `type: news` (scraped from RSS)
-- Friday 08:00 → `type: topal` (branded, direct CTA)
+- Monday 12:00 UTC (8am EDT) → `type: evergreen` (keyword from queue)
+- Wednesday 12:00 UTC (8am EDT) → `type: topal` (branded, direct CTA)
+- Friday 12:00 UTC (8am EDT) → `type: topal` (branded, direct CTA)
 
+One Render Cron Job service, schedule `0 12 * * 1,3,5`, no body type — `getTypeFromDay()` in `route.ts` picks the type automatically.
 Render Cron hits: `POST /api/pipeline/run` with header `x-pipeline-secret: $PIPELINE_SECRET`
+
+Note: `maxDuration` is set to 300s — Sonnet generation takes ~2.5 min for FR+EN sequentially.
 
 ## RSS sources to scrape
 - APCHQ feed

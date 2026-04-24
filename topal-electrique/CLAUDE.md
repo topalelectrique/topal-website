@@ -124,16 +124,28 @@ and their fixes — all already implemented, listed here so they stay fixed:
 | meta_title over 60 chars | Claude doesn't always respect character limits | Hard clamp in `generator.ts` after parsing |
 | meta_description over 160 chars | Same | Hard clamp in `generator.ts` after parsing |
 | Wrong pair_id links FR article to EN article with wrong-locale slug | Old pipeline bug | Fixed in Supabase with SQL — pair_ids now link correct FR↔EN slug pairs |
+| Duplicate images across articles | Fallback URLs reused when Unsplash key missing | `imager.ts` deduplicates by Unsplash photo ID; `UNSPLASH_ACCESS_KEY` set on Render web service |
+| EN article image has French alt text | `image.alt` shared across both locales | `publisher.ts` now sets `image_alt: frArticle.title` for FR and `image_alt: enArticle.title` for EN |
+| Irrelevant photos (iPhones, food…) | Unsplash search too generic | `imager.ts` has `BLACKLIST` + `REQUIRED` keyword filters on `alt_description` |
+| Article date shows next UTC day | `new Date()` runs in UTC on Render; after 8pm EDT = next day UTC | `generator.ts` converts to `America/Toronto` timezone before formatting date |
+| `cmeq.org/en/` outbound link 404s | CMEQ is French-only | Generator prompt now explicitly forbids linking to `cmeq.org/en/` |
+| EN articles contain FR internal links | `findInternalLinks` injected FR links into EN content | Fixed in `route.ts`; existing articles need SQL cleanup (see memory: internal links cleanup) |
 
 **When adding new redirect entries to `middleware.ts`:**
-Always add both the locale-prefixed version (`/fr/conseils/[slug]`) AND the non-prefixed
-version (`/conseils/[slug]`) to avoid 307→301 chains.
+Always add both the locale-prefixed version (`/fr/conseils/[slug]`), the non-prefixed
+version (`/conseils/[slug]`), AND the `/blog/[slug]` version to avoid 307→301 chains.
 
 **After every pipeline run, verify in Supabase:**
 - FR articles have French slugs (no accents in slugs, but French words)
 - EN articles have English slugs (no French words)
 - Each pair_id links exactly one FR article and one EN article
 - Internal links in article content use `/fr/conseils/` and `/en/blog/` prefixes (check with `SELECT slug FROM articles WHERE content LIKE '%href="/conseils/%'`)
+- No duplicate `image_url` values across different pair_ids (same image within a pair is correct)
+
+**Utility scripts in `scripts/`:**
+- `fix-duplicate-images.mjs` — find and replace duplicate photos across different articles (skips FR/EN pairs)
+- `sync-pair-images.mjs` — re-align EN article image to match its FR pair
+- `rematch-article-images.mjs` — re-fetch subject-matched photos for all articles from Unsplash
 
 ---
 
