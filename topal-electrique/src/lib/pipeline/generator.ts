@@ -179,17 +179,15 @@ Structure OBLIGATOIRE du champ "content":
 4. Une section H2 "Questions fréquentes" avec 4-5 questions/réponses en <details><summary>Question</summary><p>Réponse</p></details>
 5. Conclusion avec appel à l'action
 
-Retourne UNIQUEMENT un objet JSON valide avec cette structure exacte (pas de markdown, pas de texte avant ou après):
-{
-  "title": "Titre principal H1 (60-70 caractères)",
-  "meta_title": "Meta title SEO (55-60 caractères, inclure Montréal ou Québec)",
-  "meta_description": "Meta description (150-160 caractères, inclure un CTA)",
-  "slug": "slug-url-en-francais-sans-accents",
-  "excerpt": "Résumé de 2-3 phrases (150-200 caractères)",
-  "content": "Contenu HTML complet (1500-2000 mots) avec balises <h2>, <h3>, <p>, <ul>, <li>, <strong>, <aside>, <details>, <summary>. Minimum 5 sections H2.",
-  "category": "residential|commercial|regulations|advice|trends",
-  "reading_time": 8
-}`
+Remplis les champs de l'outil avec:
+- title: Titre principal H1 (60-70 caractères)
+- meta_title: Meta title SEO (55-60 caractères, inclure Montréal ou Québec)
+- meta_description: Meta description (150-160 caractères, inclure un CTA)
+- slug: slug-url-en-francais-sans-accents
+- excerpt: Résumé de 2-3 phrases (150-200 caractères)
+- content: Contenu HTML complet (1500-2000 mots) avec balises <h2>, <h3>, <p>, <ul>, <li>, <strong>, <aside>, <details>, <summary>. Minimum 5 sections H2.
+- category: residential | commercial | regulations | advice | trends
+- reading_time: durée de lecture estimée en minutes (nombre entier)`
       : `Today is ${currentDate}. Write a complete SEO article in Canadian English on the topic: "${keyword}". Write entirely in English regardless of the topic keyword language.${newsContext_}${linkContext}
 
 Include 2-3 outbound links to authoritative sources (use <a href="URL" target="_blank" rel="noopener noreferrer">anchor text</a> tags) from: rbq.gouv.qc.ca, cmeq.org, hydroquebec.com, nrcan.gc.ca. Add these links only when referencing a regulation, standard, or official program. IMPORTANT: CMEQ only has a French website — always link to https://www.cmeq.org/ never https://www.cmeq.org/en/ which does not exist.
@@ -202,64 +200,78 @@ MANDATORY content structure in the "content" field:
 4. A "Frequently Asked Questions" H2 section with 4-5 Q&As using <details><summary>Question</summary><p>Answer</p></details>
 5. Conclusion with call to action
 
-Return ONLY a valid JSON object with this exact structure (no markdown, no text before or after):
-{
-  "title": "Main H1 title (60-70 characters)",
-  "meta_title": "SEO meta title (55-60 characters, include Montreal or Quebec)",
-  "meta_description": "Meta description (150-160 characters, include a CTA)",
-  "slug": "english-only-url-slug-no-accents-no-french-words",
-  "excerpt": "2-3 sentence summary (150-200 characters)",
-  "content": "Full HTML content (1500-2000 words) with <h2>, <h3>, <p>, <ul>, <li>, <strong>, <aside>, <details>, <summary> tags. Minimum 5 H2 sections.",
-  "category": "residential|commercial|regulations|advice|trends",
-  "reading_time": 8
-}`;
+Fill in the tool fields with:
+- title: Main H1 title (60-70 characters)
+- meta_title: SEO meta title (55-60 characters, include Montreal or Quebec)
+- meta_description: Meta description (150-160 characters, include a CTA)
+- slug: english-only-url-slug-no-accents-no-french-words
+- excerpt: 2-3 sentence summary (150-200 characters)
+- content: Full HTML content (1500-2000 words) with <h2>, <h3>, <p>, <ul>, <li>, <strong>, <aside>, <details>, <summary> tags. Minimum 5 H2 sections.
+- category: residential | commercial | regulations | advice | trends
+- reading_time: estimated reading time in minutes (integer)`;
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
+  const articleTool = {
+    name: 'generate_article',
+    description: 'Generate a structured SEO article',
+    input_schema: {
+      type: 'object',
+      properties: {
+        title:            { type: 'string' },
+        meta_title:       { type: 'string' },
+        meta_description: { type: 'string' },
+        slug:             { type: 'string' },
+        excerpt:          { type: 'string' },
+        content:          { type: 'string' },
+        category:         { type: 'string', enum: ['residential', 'commercial', 'regulations', 'advice', 'trends'] },
+        reading_time:     { type: 'number' },
+      },
+      required: ['title', 'meta_title', 'meta_description', 'slug', 'excerpt', 'content', 'category', 'reading_time'],
     },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 6000,
-      system: SYSTEM_PROMPTS[articleType][locale],
-      messages: [{ role: 'user', content: userPrompt }],
-    }),
-  });
+  };
 
-  if (!response.ok) {
-    throw new Error(`Claude API error: ${response.status}`);
+  let lastError: Error = new Error('Claude API failed after retries');
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    if (attempt > 1) await new Promise((r) => setTimeout(r, attempt * 2000));
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 6000,
+        system: SYSTEM_PROMPTS[articleType][locale],
+        messages: [{ role: 'user', content: userPrompt }],
+        tools: [articleTool],
+        tool_choice: { type: 'tool', name: 'generate_article' },
+      }),
+    });
+
+    if (!response.ok) {
+      lastError = new Error(`Claude API error: ${response.status}`);
+      continue;
+    }
+
+    const data = await response.json();
+    const toolUseBlock = data.content?.find((b: { type: string }) => b.type === 'tool_use');
+    if (!toolUseBlock?.input) {
+      lastError = new Error('Claude did not return a tool_use block');
+      continue;
+    }
+
+    const parsed = toolUseBlock.input as GeneratedArticle;
+
+    parsed.slug = sanitizeSlug(parsed.slug);
+    if (!VALID_CATEGORIES.has(parsed.category)) parsed.category = 'advice';
+    if (parsed.meta_title && parsed.meta_title.length > 60)
+      parsed.meta_title = parsed.meta_title.slice(0, 57).trimEnd() + '…';
+    if (parsed.meta_description && parsed.meta_description.length > 160)
+      parsed.meta_description = parsed.meta_description.slice(0, 157).trimEnd() + '…';
+
+    return parsed;
   }
-
-  const data = await response.json();
-  const text = data.content?.[0]?.text ?? '';
-
-  let parsed: GeneratedArticle;
-  try {
-    parsed = JSON.parse(text) as GeneratedArticle;
-  } catch {
-    const match = text.match(/\{[\s\S]*\}/);
-    if (match) parsed = JSON.parse(match[0]) as GeneratedArticle;
-    else throw new Error('Failed to parse Claude response as JSON');
-  }
-
-  // Sanitize slug — strip accents, special chars, ensure lowercase hyphenated
-  parsed.slug = sanitizeSlug(parsed.slug);
-
-  // Validate category — fall back to 'advice' if Claude returned something unexpected
-  if (!VALID_CATEGORIES.has(parsed.category)) {
-    parsed.category = 'advice';
-  }
-
-  // Hard clamp meta fields to Ahrefs-safe lengths
-  if (parsed.meta_title && parsed.meta_title.length > 60) {
-    parsed.meta_title = parsed.meta_title.slice(0, 57).trimEnd() + '…';
-  }
-  if (parsed.meta_description && parsed.meta_description.length > 160) {
-    parsed.meta_description = parsed.meta_description.slice(0, 157).trimEnd() + '…';
-  }
-
-  return parsed;
+  throw lastError;
 }
