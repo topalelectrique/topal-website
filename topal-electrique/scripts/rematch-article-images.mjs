@@ -25,11 +25,13 @@ const BLACKLIST = [
   'surgery', 'medical', 'doctor', 'gym', 'fitness', 'sport',
 ];
 
-const REQUIRED = ['electric', 'electrician', 'wire', 'wiring', 'cable', 'panel', 'outlet', 'switch', 'circuit', 'power', 'voltage', 'conduit', 'breaker', 'construction', 'worker', 'tools', 'building', 'installation', 'repair', 'maintenance', 'industrial', 'infrastructure'];
+const REQUIRED = ['electric', 'electrician', 'wire', 'wiring', 'cable', 'panel', 'outlet', 'switch', 'circuit', 'power', 'voltage', 'conduit', 'breaker', 'construction', 'tools', 'building', 'installation', 'repair', 'maintenance', 'industrial', 'infrastructure', 'meter', 'box', 'wall'];
 
 const isGoodPhoto = (photo) => {
   const alt = photo.alt_description?.toLowerCase() ?? '';
-  return !BLACKLIST.some(w => alt.includes(w)) && REQUIRED.some(w => alt.includes(w));
+  if (!alt) return true; // null alt is neutral — Unsplash often omits it on valid photos
+  if (BLACKLIST.some(w => alt.includes(w))) return false;
+  return REQUIRED.some(w => alt.includes(w));
 };
 
 const CATEGORY_CONTEXT = {
