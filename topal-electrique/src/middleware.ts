@@ -23,13 +23,11 @@ const STATIC_REDIRECTS: [string, string][] = [
 // Each entry: [wrong URL (404), correct URL (301 target)]
 const ARTICLE_REDIRECTS: [string, string][] = [
   // French slugs that ended up under /en/blog/
-  ['/en/blog/devis-electricien-gratuit-montreal',             '/fr/conseils/devis-electricien-gratuit-montreal'],
   ['/en/blog/maitre-electricien-certifie-rbq-montreal-topal', '/fr/conseils/maitre-electricien-certifie-rbq-montreal-topal'],
   ['/en/blog/electricien-grand-montreal-rive-sud-service-rapide', '/fr/conseils/electricien-grand-montreal-rive-sud-service-rapide'],
   ['/en/blog/electricien-urgence-24h-montreal',               '/fr/conseils/electricien-urgence-24h-montreal'],
   ['/en/blog/remplacement-panneau-electrique-montreal',       '/fr/conseils/remplacement-panneau-electrique-montreal'],
   // English slugs that ended up under /fr/conseils/
-  ['/fr/conseils/free-electrical-quote-montreal-no-commitment',  '/en/blog/free-electrical-quote-montreal-no-commitment'],
   ['/fr/conseils/electrician-south-shore-montreal-fast-service', '/en/blog/electrician-south-shore-montreal-fast-service'],
   ['/fr/conseils/certified-rbq-master-electrician-montreal',     '/en/blog/certified-rbq-master-electrician-montreal'],
   ['/fr/conseils/electrical-panel-replacement-montreal',         '/en/blog/electrical-panel-replacement-montreal'],
@@ -38,17 +36,23 @@ const ARTICLE_REDIRECTS: [string, string][] = [
   ['/conseils/complete-home-electrical-renovation-montreal',     '/en/blog/complete-home-electrical-renovation-montreal'],
   ['/blog/complete-home-electrical-renovation-montreal',         '/en/blog/complete-home-electrical-renovation-montreal'],
   // Non-locale-prefixed EN slugs under /conseils/
-  ['/conseils/free-electrical-quote-montreal-no-commitment',  '/en/blog/free-electrical-quote-montreal-no-commitment'],
   ['/conseils/electrician-south-shore-montreal-fast-service', '/en/blog/electrician-south-shore-montreal-fast-service'],
   ['/conseils/certified-rbq-master-electrician-montreal',     '/en/blog/certified-rbq-master-electrician-montreal'],
   ['/conseils/electrical-panel-replacement-montreal',         '/en/blog/electrical-panel-replacement-montreal'],
   ['/conseils/emergency-electrician-24h-montreal-topal',      '/en/blog/emergency-electrician-24h-montreal-topal'],
   // Non-locale-prefixed FR slugs under /conseils/
-  ['/conseils/devis-electricien-gratuit-montreal',                    '/fr/conseils/devis-electricien-gratuit-montreal'],
   ['/conseils/maitre-electricien-certifie-rbq-montreal-topal',        '/fr/conseils/maitre-electricien-certifie-rbq-montreal-topal'],
   ['/conseils/electricien-grand-montreal-rive-sud-service-rapide',    '/fr/conseils/electricien-grand-montreal-rive-sud-service-rapide'],
   ['/conseils/remplacement-panneau-electrique-montreal',              '/fr/conseils/remplacement-panneau-electrique-montreal'],
   ['/conseils/electricien-urgence-24h-montreal',                      '/fr/conseils/electricien-urgence-24h-montreal'],
+  // Deleted "free quote" article — all known URL variants → /contact
+  ['/fr/conseils/devis-electricien-gratuit-montreal',                '/fr/contact'],
+  ['/conseils/devis-electricien-gratuit-montreal',                   '/fr/contact'],
+  ['/en/blog/devis-electricien-gratuit-montreal',                    '/fr/contact'],
+  ['/en/blog/free-electrical-quote-montreal-no-commitment',          '/en/contact'],
+  ['/fr/conseils/free-electrical-quote-montreal-no-commitment',      '/en/contact'],
+  ['/conseils/free-electrical-quote-montreal-no-commitment',         '/en/contact'],
+  ['/blog/free-electrical-quote-montreal-no-commitment',             '/en/contact'],
 ];
 
 export default function middleware(request: NextRequest) {

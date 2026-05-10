@@ -164,8 +164,8 @@ export default function Hero() {
           {/* Trust micro-signals */}
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-gray-500">
             {(locale === 'fr'
-              ? ['Sans engagement', 'Certifié RBQ · CMEQ', 'Réponse en < 2 h']
-              : ['No commitment', 'RBQ · CMEQ Certified', 'Response in < 2h']
+              ? ['Service personnalisé', 'Certifié RBQ · CMEQ', 'Réponse en < 2 h']
+              : ['Personalized service', 'RBQ · CMEQ Certified', 'Response in < 2h']
             ).map((item, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 <span className="h-1 w-1 rounded-full bg-orange-500/50" />
