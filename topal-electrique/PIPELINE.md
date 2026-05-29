@@ -1,8 +1,9 @@
 # Topal Électrique — Automated SEO Pipeline
 
 ## Goal
-Publish 2–3 SEO articles per week to `/fr/conseils` automatically, then cross-post summaries
-to Facebook and Google Business Profile. Zero manual work after setup.
+Publish one SEO article per week to `/fr/conseils` automatically, then cross-post a summary
+to Facebook. Slower cadence prioritizes quality and avoids burning the keyword queue while
+the site's off-page signal is still being built (reviews, citations, referrals).
 
 ## Stack
 | Layer | Tool |
@@ -17,10 +18,12 @@ to Facebook and Google Business Profile. Zero manual work after setup.
 
 ## Cron schedule
 - Monday 12:00 UTC (8am EDT) → `type: evergreen` (keyword from queue)
-- Wednesday 12:00 UTC (8am EDT) → `type: topal` (branded, direct CTA)
-- Friday 12:00 UTC (8am EDT) → `type: topal` (branded, direct CTA)
 
-One Render Cron Job service, schedule `0 12 * * 1,3,5`, no body type — `getTypeFromDay()` in `route.ts` picks the type automatically.
+One Render Cron Job service, schedule `0 12 * * 1` (Mondays only). `getTypeFromDay()` in
+`route.ts` returns `evergreen` for Monday and `topal` otherwise, so the Monday-only schedule
+yields evergreen articles. To temporarily push a `topal` or `news` article, hit the endpoint
+manually with `{"type": "topal"}` or `{"type": "news"}` in the body.
+
 Render Cron hits: `POST /api/pipeline/run` with header `x-pipeline-secret: $PIPELINE_SECRET`
 
 Note: `maxDuration` is set to 300s — Sonnet generation takes ~2.5 min for FR+EN sequentially.
