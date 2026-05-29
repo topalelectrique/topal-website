@@ -179,7 +179,7 @@ export default async function ArticlePage({
     },
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: ['.ai-overview', 'article h1', '.article-excerpt'],
+      cssSelector: ['.article-intro', '.ai-overview', 'article h1', '.article-excerpt'],
     },
   };
 

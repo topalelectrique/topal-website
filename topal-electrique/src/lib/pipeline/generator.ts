@@ -25,7 +25,15 @@ Ton style :
 - Opinions et recommandations gagnées par l'expérience, pas par la théorie.
 - Si tu mentionnes un prix, utilise une fourchette large (ex: 500$ à 2000$). Jamais de chiffre précis inventé (genre 847$) qui sonne faussement crédible.
 - Tu t'adresses au lecteur avec "vous" (jamais "tu").
-- Tu écris en français québécois naturel.
+- Tu écris en français québécois naturel, jamais en français européen.
+
+Vocabulaire québécois obligatoire :
+- "panneau électrique" (jamais "tableau électrique" qui est européen).
+- "disjoncteur" pour les modernes, "fusible" seulement pour les anciens panneaux à fusibles.
+- "soumission" (jamais "devis").
+- "prise" ou "prise de courant" (jamais "fiche" pour parler de l'outlet mural).
+- "fournaise" en QC plutôt que "chaudière" pour le chauffage central.
+- "filage" = action de tirer des fils dans un conduit. "Câblage" = installation de câbles. "Câble" = ensemble de fils dans une gaine. Un câble est composé de fils. Dans une construction neuve, on câble. Ne mélange pas ces termes.
 
 À bannir absolument :
 - Les tirets longs (— et –). Utilise des virgules, des points, des deux-points ou des parenthèses à la place.
@@ -73,7 +81,13 @@ Ton style :
 - Phrases variées en longueur, pas toutes la même structure.
 - Tu cites les sources directement, mais seulement ce que tu peux confirmer. Si tu n'es pas certain d'un numéro d'article, d'une date d'entrée en vigueur ou d'un montant exact, reste général ("le Code de construction du Québec exige...") plutôt qu'inventer un détail précis. Citer faux est pire que rester vague : ça nuit à la crédibilité du site.
 - Tu t'adresses au lecteur avec "vous".
-- Tu écris en français québécois.
+- Tu écris en français québécois, jamais en français européen.
+
+Vocabulaire québécois obligatoire :
+- "panneau électrique" (jamais "tableau électrique").
+- "soumission" (jamais "devis").
+- "fournaise" plutôt que "chaudière" pour le chauffage central.
+- "filage" = action de tirer des fils dans un conduit. "Câblage" = installation de câbles. Un câble est composé de fils.
 
 À bannir :
 - Les tirets longs (— et –). Utilise des virgules, des points ou des deux-points.
@@ -118,7 +132,14 @@ Ton style :
 - Tu utilises "nous" pour parler de Topal et "vous" pour le lecteur.
 - Phrases courtes quand tu veux frapper, plus longues quand tu expliques.
 - Si tu mentionnes un prix, utilise une fourchette large, jamais un chiffre précis inventé.
-- Tu écris en français québécois.
+- Tu écris en français québécois, jamais en français européen.
+
+Vocabulaire québécois obligatoire :
+- "panneau électrique" (jamais "tableau électrique").
+- "soumission" (jamais "devis").
+- "disjoncteur" pour les modernes, "fusible" seulement pour les anciens panneaux à fusibles.
+- "fournaise" plutôt que "chaudière" pour le chauffage central.
+- "filage" = action de tirer des fils dans un conduit. "Câblage" = installation de câbles. Un câble est composé de fils. On câble une construction neuve.
 
 À bannir absolument :
 - Les tirets longs (— et –). Utilise des virgules, des points ou des deux-points.
@@ -163,6 +184,14 @@ function sanitizeSlug(raw: string): string {
     .replace(/^-|-$/g, '');           // trim leading/trailing hyphens
 }
 
+// Compute reading time from actual content rather than trusting the model's guess.
+// 200 wpm is a standard rate for informational/technical reading.
+function computeReadingTime(html: string): number {
+  const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const wordCount = text ? text.split(' ').length : 0;
+  return Math.max(1, Math.round(wordCount / 200));
+}
+
 export async function generateArticle(
   keyword: string,
   articleType: ArticleType,
@@ -200,14 +229,13 @@ export async function generateArticle(
 
 Inclus 2-3 liens sortants vers des sources autoritaires pertinentes parmi celles-ci (utilise des balises <a href="URL" target="_blank" rel="noopener noreferrer">texte ancre</a>) : rbq.gouv.qc.ca, cmeq.org, hydroquebec.com, nrcan.gc.ca, publications.gc.ca. Ajoute ces liens uniquement lorsque tu mentionnes une réglementation, une norme ou un programme officiel.
 
+NE PAS écrire de liens vers /fr/glossaire ou /en/glossary. Les termes du glossaire sont liés automatiquement par le système après génération : mentionne-les en texte simple sans <a>, le post-traitement crée les ancres directes vers chaque terme.
 
 Structure OBLIGATOIRE du champ "content":
-1. Un bloc résumé GEO au tout début (avant tout autre contenu) sous cette forme exacte:
-   <aside class="ai-overview"><strong>En bref</strong><ul><li>Point clé 1</li><li>Point clé 2</li><li>Point clé 3</li><li>Point clé 4</li></ul></aside>
-2. Introduction (1 paragraphe accrocheur)
-3. Minimum 5 sections H2 avec contenu détaillé
-4. Une section H2 "Questions fréquentes" avec 4-5 questions/réponses en <details><summary>Question</summary><p>Réponse</p></details>
-5. Conclusion avec appel à l'action
+1. Premier paragraphe : réponds directement et clairement à la question sous-jacente de l'article, en 1 à 3 phrases. Wrap-le dans <p class="article-intro">...</p>. Cette ouverture doit pouvoir être citée telle quelle par un moteur de recherche ou un assistant IA. Pas de "Dans cet article nous verrons...", pas d'ouverture météo, pas de teaser. La réponse, direct.
+2. Reste du contenu : structure libre adaptée au sujet (3 à 7 sections H2 selon ce que le sujet exige, sous-sections H3 quand pertinent). Évite la structure templated identique d'un article à l'autre.
+3. Une section "Questions fréquentes" UNIQUEMENT si le sujet s'y prête vraiment (3-5 vraies questions courantes en <details><summary>Question</summary><p>Réponse</p></details>). Pas obligatoire si le sujet n'a pas de Q&R naturelles.
+4. Conclusion brève avec un appel à l'action naturel. Pas de H2 "Conclusion".
 
 Remplis les champs de l'outil avec:
 - title: Titre principal H1 (60-70 caractères)
@@ -215,20 +243,20 @@ Remplis les champs de l'outil avec:
 - meta_description: Meta description (150-160 caractères, inclure un CTA)
 - slug: slug-url-en-francais-sans-accents
 - excerpt: Résumé de 2-3 phrases (150-200 caractères)
-- content: Contenu HTML complet (1500-2000 mots) avec balises <h2>, <h3>, <p>, <ul>, <li>, <strong>, <aside>, <details>, <summary>. Minimum 5 sections H2.
+- content: Contenu HTML complet (longueur adaptée au sujet, généralement entre 800 et 2200 mots) avec balises <p class="article-intro">, <h2>, <h3>, <p>, <ul>, <li>, <strong>, <details>, <summary>.
 - category: residential | commercial | regulations | advice | trends
-- reading_time: durée de lecture estimée en minutes (nombre entier)`
+- reading_time: mets n'importe quel entier raisonnable (1-15) — il sera recalculé automatiquement depuis le contenu réel`
       : `Today is ${currentDate}. Write a complete SEO article in Canadian English on the topic: "${keyword}". Write entirely in English regardless of the topic keyword language.${newsContext_}${linkContext}
 
 Include 2-3 outbound links to authoritative sources (use <a href="URL" target="_blank" rel="noopener noreferrer">anchor text</a> tags) from: rbq.gouv.qc.ca, cmeq.org, hydroquebec.com, nrcan.gc.ca. Add these links only when referencing a regulation, standard, or official program. IMPORTANT: CMEQ only has a French website, so always link to https://www.cmeq.org/ never https://www.cmeq.org/en/ which does not exist.
 
+DO NOT write links to /fr/glossaire or /en/glossary. Glossary terms are auto-linked by the system after generation: mention them in plain text without <a>, the post-processor creates direct anchors to each term card.
+
 MANDATORY content structure in the "content" field:
-1. A GEO summary block at the very top (before any other content) in this exact format:
-   <aside class="ai-overview"><strong>Quick Summary</strong><ul><li>Key point 1</li><li>Key point 2</li><li>Key point 3</li><li>Key point 4</li></ul></aside>
-2. Introduction paragraph
-3. Minimum 5 H2 sections with detailed content
-4. A "Frequently Asked Questions" H2 section with 4-5 Q&As using <details><summary>Question</summary><p>Answer</p></details>
-5. Conclusion with call to action
+1. First paragraph: directly and clearly answer the article's underlying question in 1-3 sentences. Wrap it in <p class="article-intro">...</p>. This opening must be quotable as-is by a search engine or AI assistant. No "In this article we'll explore...", no weather opener, no teaser. The answer, direct.
+2. Rest of content: free structure adapted to the topic (3 to 7 H2 sections depending on what the topic actually requires, H3 subsections when relevant). Avoid the same templated structure every article.
+3. A "Frequently Asked Questions" section ONLY if the topic actually warrants it (3-5 genuine common questions in <details><summary>Question</summary><p>Answer</p></details>). Not mandatory if the topic has no natural Q&As.
+4. Brief conclusion with a natural call to action. No H2 titled "Conclusion".
 
 Fill in the tool fields with:
 - title: Main H1 title (60-70 characters)
@@ -236,9 +264,9 @@ Fill in the tool fields with:
 - meta_description: Meta description (150-160 characters, include a CTA)
 - slug: english-only-url-slug-no-accents-no-french-words
 - excerpt: 2-3 sentence summary (150-200 characters)
-- content: Full HTML content (1500-2000 words) with <h2>, <h3>, <p>, <ul>, <li>, <strong>, <aside>, <details>, <summary> tags. Minimum 5 H2 sections.
+- content: Full HTML content (length adapted to topic, generally 800-2200 words) with <p class="article-intro">, <h2>, <h3>, <p>, <ul>, <li>, <strong>, <details>, <summary> tags.
 - category: residential | commercial | regulations | advice | trends
-- reading_time: estimated reading time in minutes (integer)`;
+- reading_time: put any reasonable integer (1-15), it will be recomputed automatically from the actual content`;
 
   const articleTool = {
     name: 'generate_article',
@@ -300,6 +328,8 @@ Fill in the tool fields with:
       parsed.meta_title = parsed.meta_title.slice(0, 57).trimEnd() + '…';
     if (parsed.meta_description && parsed.meta_description.length > 160)
       parsed.meta_description = parsed.meta_description.slice(0, 157).trimEnd() + '…';
+    // Override Claude's guessed reading time with one computed from the actual content.
+    parsed.reading_time = computeReadingTime(parsed.content);
 
     return parsed;
   }

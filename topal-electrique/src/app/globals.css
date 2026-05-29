@@ -294,7 +294,18 @@ html.lenis {
 .prose-article a.glossary-link { text-decoration-style: dotted; text-decoration-color: rgba(249,115,22,0.6); }
 .prose-article a.glossary-link:hover { text-decoration-style: solid; }
 
-/* AI Overview / GEO summary block */
+/* Article intro paragraph — direct-answer lead, slightly emphasized for readers and LLM extraction */
+.prose-article p.article-intro {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: #e5e7eb;
+  font-weight: 500;
+  margin-bottom: 1.75rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(249,115,22,0.4);
+}
+
+/* AI Overview / GEO summary block (legacy — older articles only; new articles use .article-intro) */
 .prose-article aside.ai-overview {
   background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(249,115,22,0.04) 100%);
   border: 1px solid rgba(249,115,22,0.25);
