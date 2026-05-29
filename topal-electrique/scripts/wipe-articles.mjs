@@ -53,7 +53,17 @@ if (!confirmed) {
   process.exit(0);
 }
 
-console.log('\nDeleting all articles...');
+console.log('\nNullifying article_id references in pipeline_runs (preserves run history)...');
+const { error: fkErr } = await supabase
+  .from('pipeline_runs')
+  .update({ article_id: null })
+  .not('article_id', 'is', null);
+if (fkErr) {
+  console.error('FK nullify failed:', fkErr.message);
+  process.exit(1);
+}
+
+console.log('Deleting all articles...');
 const { error: delErr } = await supabase.from('articles').delete().neq('id', 0);
 if (delErr) {
   console.error('Delete failed:', delErr.message);
