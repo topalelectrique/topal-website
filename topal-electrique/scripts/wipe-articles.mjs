@@ -36,14 +36,18 @@ if (countErr) {
   process.exit(1);
 }
 
-console.log(`Found ${articles.length} articles in Supabase.`);
-articles.slice(0, 10).forEach((a) => {
-  console.log(`  ${a.locale} /${a.slug}  (${a.published_at.slice(0, 10)})`);
-});
-if (articles.length > 10) console.log(`  ...and ${articles.length - 10} more`);
+const BASE = 'https://topalelectrique.ca';
+const urlFor = (a) => a.locale === 'fr'
+  ? `${BASE}/fr/conseils/${a.slug}`
+  : `${BASE}/en/blog/${a.slug}`;
+
+console.log(`Found ${articles.length} articles in Supabase.\n`);
+console.log('Full URLs (copy these into Google Search Console → Removals before confirming):\n');
+articles.forEach((a) => console.log(urlFor(a)));
 
 if (!confirmed) {
-  console.log('\nDRY RUN. Pass --confirm to actually delete.');
+  console.log(`\n${articles.length} URLs listed above.`);
+  console.log('DRY RUN. Pass --confirm to actually delete.');
   console.log('Optional: --reset-keywords to also clear used_at on the keywords table');
   console.log('so the pipeline re-picks them on the next cron run.');
   process.exit(0);
